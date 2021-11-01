@@ -8,8 +8,18 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def even_odd(A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+    """
+    The additional space complexity is clearly O(1) - a couple of variables that hold indices, and a
+    temporary variable for performing the swap. We do a constant amount of processing per entry, so
+    the time complexity is O(n).
+    """
+    next_even, next_odd = 0, len(A) - 1
+    while next_even < next_odd:
+        if A[next_even] % 2 == 0:
+            next_even += 1
+        else:
+            A[next_even], A[next_odd] = A[next_odd], A[next_even]
+            next_odd -= 1
 
 
 @enable_executor_hook
