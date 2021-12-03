@@ -2,8 +2,12 @@ from test_framework import generic_test
 
 
 def is_palindromic(s: str) -> bool:
-    # TODO - you fill in here.
-    return True
+    """
+    #6.0
+    The time complexity is O(n) and the space complexity is O(1), where n is the length of the string.
+    """
+    # Note that s[~i] for i in [0, len(s) - 1] is s[-(i + 1)].
+    return all(s[i] == s[~i] for i in range(len(s) // 2))
 
 
 if __name__ == '__main__':
