@@ -6,8 +6,34 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def replace_and_remove(size: int, s: List[str]) -> int:
-    # TODO - you fill in here.
-    return 0
+    """
+    The forward and backward iterations each take O(n) time, so the total time complexity is O(n).
+    No additional space is allocated.
+    """
+    # Forward iteration: remove 'b's and count the number of 'a's.
+    a_count, write_index = 0, 0
+    for i in range(size):
+        if s[i] != 'b':
+            s[write_index] = s[i]
+            write_index += 1
+            if s[i] == 'a':
+                a_count += 1
+
+    # Backward iteration: replace 'a's with 'dd's starting from the end.
+    new_size = write_index + a_count
+    read_index = write_index - 1
+    write_index = new_size - 1
+
+    while read_index >= 0:
+        if s[read_index] == 'a':
+            s[write_index - 1:write_index + 1] = 'dd'
+            write_index -= 2
+        else:
+            s[write_index] = s[read_index]
+            write_index -= 1
+        read_index -= 1
+
+    return new_size
 
 
 @enable_executor_hook
