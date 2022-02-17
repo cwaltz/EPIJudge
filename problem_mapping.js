@@ -698,7 +698,7 @@ problem_mapping = {
                 "total": 501
             },
             "Python: sorted_lists_merge.py": {
-                "passed": 0,
+                "passed": 501,
                 "total": 501
             }
         },
@@ -712,7 +712,7 @@ problem_mapping = {
                 "total": 210
             },
             "Python: reverse_sublist.py": {
-                "passed": 0,
+                "passed": 210,
                 "total": 210
             }
         },
@@ -726,7 +726,7 @@ problem_mapping = {
                 "total": 102
             },
             "Python: is_list_cyclic.py": {
-                "passed": 0,
+                "passed": 102,
                 "total": 102
             }
         },

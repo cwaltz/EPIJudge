@@ -7,9 +7,25 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def has_cycle(head: ListNode) -> Optional[ListNode]:
-    # TODO - you fill in here.
-    return None
+def has_cycle(head: Optional[ListNode]) -> Optional[ListNode]:
+    slow = fast = head
+    while fast and fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            # A cycle is present
+            break
+
+    if not (fast and fast.next and fast.next.next):
+        # There is no cycle
+        return None
+
+    fast = head
+    while slow is not fast:
+        slow = slow.next
+        fast = fast.next
+
+    return slow
 
 
 @enable_executor_hook
