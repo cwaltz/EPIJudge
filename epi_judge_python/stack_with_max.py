@@ -27,12 +27,12 @@ class Stack:
 
     def max(self) -> int:
         if self.empty():
-            raise IndexError('max(): empty stack')
+            raise IndexError('max(): max from an empty stack')
         return self._cached_max_with_count[-1].max
 
     def pop(self) -> int:
         if self.empty():
-            raise IndexError('pop(): empty stack')
+            raise IndexError('pop(): pop from an empty stack')
         popped = self._elements.pop()
         current_max = self._cached_max_with_count[-1].max
         if popped == current_max:
@@ -73,13 +73,13 @@ class StackV1:
     def max(self) -> int:
 
         if self.empty():
-            raise IndexError('max(): stack is empty')
+            raise IndexError('max(): max from an empty stack')
         return self._elements[-1].max
 
     def pop(self) -> int:
 
         if self.empty():
-            raise IndexError('pop(): stack is empty')
+            raise IndexError('pop(): pop from an empty stack')
         return self._elements.pop().element
 
     def push(self, x: int) -> None:
