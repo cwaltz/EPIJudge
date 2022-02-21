@@ -4,6 +4,10 @@ from test_framework import generic_test
 
 
 def evaluate(expression: str) -> int:
+    """
+    Since we perform O(1) computation per character of the string, the time complexity is O(n),
+    where n is the length of the string.
+    """
 
     intermediate_results: List[int] = []
     DELIMITER = ','
