@@ -10,8 +10,34 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return None
+    """
+    The time and space complexity are that of computing the depth, namely O(h) and O(1), respectively.
+    """
+    
+    def get_depth(node: BinaryTreeNode) -> int:
+        depth = -1
+        while node:
+            node = node.parent
+            depth += 1
+        return depth
+
+    depth0, depth1 = get_depth(node0), get_depth(node1)
+    # Make node0 as the deeper node in order to simplify the code.
+    if depth0 < depth1:
+        node0, node1 = node1, node0
+
+    # Ascend from the deeper node.
+    depth_diff = abs(depth0 - depth1)
+    while depth_diff:
+        node0 = node0.parent
+        depth_diff -= 1
+
+    # Now ascend both nodes until we reach the LCA.
+    while node0 is not node1:
+        node0 = node0.parent
+        node1 = node1.parent
+
+    return node0
 
 
 @enable_executor_hook
