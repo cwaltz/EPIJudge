@@ -7,6 +7,10 @@ from test_framework import generic_test
 
 def sort_approximately_sorted_array(sequence: Iterator[int],
                                     k: int) -> List[int]:
+    """
+    Time complexity = O(n log k)
+    Space complexity = O(k)
+    """
 
     min_heap: List[int] = []
     # Adds the first k elements into min_heap. Stop if there are fewer than k
@@ -21,9 +25,11 @@ def sort_approximately_sorted_array(sequence: Iterator[int],
         result.append(smallest)
 
     # sequence is exhausted, iteratively extracts the remaining elements.
-    while min_heap:
-        smallest = heapq.heappop(min_heap)
-        result.append(smallest)
+    # while min_heap:
+    #     smallest = heapq.heappop(min_heap)
+    #     result.append(smallest)
+    # The above while loop can be replaced by following faster substitute
+    result.extend(heapq.nsmallest(k, min_heap))
 
     return result
 

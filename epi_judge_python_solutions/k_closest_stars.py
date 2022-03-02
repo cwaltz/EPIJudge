@@ -29,6 +29,10 @@ class Star:
 
 
 def find_closest_k_stars(stars: Iterator[Star], k: int) -> List[Star]:
+    """
+    Time complexity = O(n log k)
+    Space complexity = O(k)
+    """
 
     # max_heap to store the closest k stars seen so far.
     max_heap: List[Tuple[float, Star]] = []
