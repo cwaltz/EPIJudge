@@ -5,6 +5,10 @@ from test_framework import generic_test
 
 
 def find_nearest_repetition(paragraph: List[str]) -> int:
+    """
+    The time complexity is O(n), since we perform a constant amount of work per entry.
+    The space complexity is O(d), where d is the number of distinct entries in the array.
+    """
 
     word_to_latest_index: Dict[str, int] = {}
     nearest_repeated_distance = float('inf')

@@ -5,6 +5,10 @@ from test_framework.test_failure import TestFailure
 
 
 class LruCache:
+    """
+    The time complexity for each lookup is O(1) for the hash table lookup and O(1) for updating the queue,
+    i.e., O(1) overall.
+    """
     def __init__(self, capacity: int) -> None:
 
         self._isbn_price_table: collections.OrderedDict[

@@ -5,6 +5,14 @@ from test_framework import generic_test, test_utils
 
 
 def find_anagrams(dictionary: List[str]) -> List[List[str]]:
+    """
+    Time complexity  = O(nm log m) where n is the number of strings and m is the maximum string length.
+    Space complexity = O(nm)
+
+    The computation consists of n calls to sort and n insertions into the hash table. Sorting all the keys has time
+    complexity O(nm log m). The insertions add a time complexity of O(nm), yielding O(nm log m) time complexity in
+    total.
+    """
 
     sorted_string_to_anagrams: DefaultDict[
         str, List[str]] = collections.defaultdict(list)
