@@ -5,8 +5,19 @@ from test_framework import generic_test
 
 def merge_two_sorted_arrays(A: List[int], m: int, B: List[int],
                             n: int) -> None:
-    # TODO - you fill in here.
-    return
+
+    i, j, write_idx = m - 1, n - 1, m + n - 1
+    while i >= 0 and j >= 0:
+        if A[i] < B[j]:
+            A[write_idx] = B[j]
+            j -= 1
+        else:  # B[j] <= A[i]
+            A[write_idx] = A[i]
+            i -= 1
+        write_idx -= 1
+    while j >= 0:
+        A[write_idx] = B[j]
+        j, write_idx = j - 1, write_idx - 1
 
 
 def merge_two_sorted_arrays_wrapper(A, m, B, n):

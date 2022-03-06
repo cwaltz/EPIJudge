@@ -5,6 +5,10 @@ from test_framework import generic_test
 
 def merge_two_sorted_arrays(A: List[int], m: int, B: List[int],
                             n: int) -> None:
+    """
+    Time complexity  = O(m + n), where m and n are the number of entries initially in the first and second arrays.
+    Space complexity = O(1)
+    """
 
     a, b, write_idx = m - 1, n - 1, m + n - 1
     while a >= 0 and b >= 0:
