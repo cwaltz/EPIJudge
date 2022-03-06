@@ -5,6 +5,10 @@ from test_framework import generic_test
 
 
 def smallest_nonconstructible_value(A: List[int]) -> int:
+    """
+    Time complexity  = O(n log n), where n is the length of the array
+    Space complexity = O(1)
+    """
 
     max_constructible_value = 0
     for a in sorted(A):
