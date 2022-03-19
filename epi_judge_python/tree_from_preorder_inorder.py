@@ -7,9 +7,9 @@ from test_framework import generic_test
 def binary_tree_from_preorder_inorder(preorder: List[int],
                                       inorder: List[int]) -> BinaryTreeNode:
     """
-    The time complexity is O(n)-building the hash table takes O(n) time and the recursive reconstruction spends O(1)
-    time per node. The space complexity is O(n + h) = O(n)-the size of the hash table plus the maximum depth of the
-    function call stack.
+    Time complexity = O(n),
+    building the hash table takes O(n) time and the recursive reconstruction spends O(1) time per node
+    Space complexity = O(n + h) = O(n)-the size of the hash table plus the maximum depth of the function call stack
     """
 
     key_to_inorder_idx = {key: index for index, key in enumerate(inorder)}
