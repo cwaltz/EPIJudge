@@ -11,8 +11,13 @@ RED, WHITE, BLUE = range(3)
 def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
     """
     #5.1
-    Each iteration decreases the size of unclassified by 1, and the time spent within each iteration is O(1), implying
-    the time complexity is O(n). The space complexity is clearly O(1).
+
+    Time complexity  = O(n)
+    Space complexity = O(1)
+
+    Test PASSED (204/204) [   8 ms]
+    Average running time:   56 us
+    Median running time:     7 us
     """
     pivot = A[pivot_index]
     # Keep the following invariants during partitioning:
