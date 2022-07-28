@@ -2,7 +2,14 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
 
-def int_to_string(x: int) -> str:
+"""
+Test PASSED (15002/15002) [   5 us]
+Average running time:    4 us
+Median running time:     4 us
+"""
+
+
+def int_to_string_(x: int) -> str:
 
     is_negative = False
     if x < 0:
@@ -15,10 +22,11 @@ def int_to_string(x: int) -> str:
         if x == 0:
             break
 
+    # Adds the negative sign back if is_negative
     return ('-' if is_negative else '') + ''.join(reversed(result))
 
 
-def string_to_int(s: str) -> int:
+def string_to_int_(s: str) -> int:
 
     multiplier = 1
     start_index = 0
@@ -29,10 +37,24 @@ def string_to_int(s: str) -> int:
 
     result = 0
     for i in range(start_index, len(s)):
-        result *= 10
-        result += int(s[i])
+        result = result * 10 + ord(s[i]) - ord('0')
 
     return result * multiplier
+
+
+"""
+Test PASSED (15002/15002) [   1 us]
+Average running time:    1 us
+Median running time:     1 us
+"""
+
+
+def int_to_string(x: int) -> str:
+    return str(x)
+
+
+def string_to_int(s: str) -> int:
+    return int(s)
 
 
 def wrapper(x, s):

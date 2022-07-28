@@ -4,6 +4,13 @@ import string
 from test_framework import generic_test
 
 
+"""
+Test PASSED (20001/20001) [   6 us]
+Average running time:    6 us
+Median running time:     5 us
+"""
+
+
 def convert_base(num_as_string: str, b1: int, b2: int) -> str:
     def construct_from_base(num_as_int, base):
         return ('' if num_as_int == 0 else

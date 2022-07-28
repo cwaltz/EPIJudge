@@ -4,6 +4,12 @@ import string
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
+"""
+Test PASSED (15002/15002) [   6 us]
+Average running time:    4 us
+Median running time:     5 us
+"""
+
 
 def int_to_string(x: int) -> str:
 
