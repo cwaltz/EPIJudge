@@ -4,7 +4,13 @@ from test_framework import generic_test
 def is_palindromic(s: str) -> bool:
     """
     #6.0
-    The time complexity is O(n) and the space complexity is O(1), where n is the length of the string.
+
+    Time complexity = O(n), where n is the length of the string.
+    Space complexity = O(1)
+
+    Test PASSED (10000/10000) [   1 us]
+    Average running time:    1 us
+    Median running time:     1 us
     """
     # Note that s[~i] for i in [0, len(s) - 1] is s[-(i + 1)].
     return all(s[i] == s[~i] for i in range(len(s) // 2))

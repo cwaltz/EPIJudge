@@ -12,9 +12,9 @@ def is_valid_sudoku(partial_assignment: List[List[int]]) -> bool:
     Space complexity = O(n), for the bit array used to check the constraints.
     n = 9 in this case.
 
-    Test PASSED (745/745) [  58 us]
-    Average running time:   43 us
-    Median running time:    58 us
+    Test PASSED (745/745) [  53 us]
+    Average running time:   37 us
+    Median running time:    53 us
     """
     def validate_row(i: int) -> bool:
         seen = [False for _ in range(10)]

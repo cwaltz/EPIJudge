@@ -7,7 +7,11 @@ from test_framework import generic_test
 
 # Check if a partially filled matrix has any conflicts.
 def is_valid_sudoku(partial_assignment: List[List[int]]) -> bool:
-
+    """
+    Test PASSED (745/745) [  67 us]
+    Average running time:   47 us
+    Median running time:    66 us
+    """
     # Return True if subarray
     # partial_assignment[start_row:end_row][start_col:end_col] contains any
     # duplicates in {1, 2, ..., len(partial_assignment)}; otherwise return
@@ -35,6 +39,11 @@ def is_valid_sudoku(partial_assignment: List[List[int]]) -> bool:
 
 # Pythonic solution that exploits the power of list comprehension.
 def is_valid_sudoku_pythonic(partial_assignment):
+    """
+    Test PASSED (745/745) [  40 us]
+    Average running time:   34 us
+    Median running time:    40 us
+    """
     region_size = int(math.sqrt(len(partial_assignment)))
     return max(collections.Counter(
         k for i, row in enumerate(partial_assignment)
