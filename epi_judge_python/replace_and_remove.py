@@ -7,8 +7,14 @@ from test_framework.test_utils import enable_executor_hook
 
 def replace_and_remove(size: int, s: List[str]) -> int:
     """
-    The forward and backward iterations each take O(n) time, so the total time complexity is O(n).
-    No additional space is allocated.
+    #6.4
+
+    Time complexity = O(n), where n is the length of the string.
+    Space complexity = O(1)
+
+    Test PASSED (501/501) [  13 ms]
+    Average running time:   35 us
+    Median running time:     4 us
     """
     # Forward iteration: remove 'b's and count the number of 'a's.
     a_count, write_index = 0, 0

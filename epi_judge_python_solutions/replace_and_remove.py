@@ -4,6 +4,12 @@ from typing import List
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+"""
+Test PASSED (501/501) [  14 ms]
+Average running time:   37 us
+Median running time:     5 us
+"""
+
 
 def replace_and_remove(size: int, s: List[str]) -> int:
 

@@ -3,6 +3,14 @@ import string
 
 
 """
+#6.2
+
+Time complexity = O(n(1 + log_b2 b1)), where n is the length of s.
+The reasoning is as follows. First, we perform n multiply-and-adds to get x from s. Then we perform log_b2 x modulus and
+division operations to get the result. The value x is upper-bounded by b1 ** n, and log_b2 (b1 ** n) = n log_b2 b1.
+
+Space complexity = O(1)
+
 Test PASSED (20001/20001) [   6 us]
 Average running time:    4 us
 Median running time:     4 us

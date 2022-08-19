@@ -3,13 +3,18 @@ from test_framework.test_failure import TestFailure
 
 
 """
+#6.1
+
+Time complexity = O(n), where n is the length of the string.
+Space complexity = O(1)
+
 Test PASSED (15002/15002) [   5 us]
 Average running time:    4 us
 Median running time:     4 us
 """
 
 
-def int_to_string_(x: int) -> str:
+def int_to_string(x: int) -> str:
 
     is_negative = False
     if x < 0:
@@ -26,7 +31,7 @@ def int_to_string_(x: int) -> str:
     return ('-' if is_negative else '') + ''.join(reversed(result))
 
 
-def string_to_int_(s: str) -> int:
+def string_to_int(s: str) -> int:
 
     multiplier = 1
     start_index = 0
@@ -49,11 +54,11 @@ Median running time:     1 us
 """
 
 
-def int_to_string(x: int) -> str:
+def int_to_string_1(x: int) -> str:
     return str(x)
 
 
-def string_to_int(s: str) -> int:
+def string_to_int_1(s: str) -> int:
     return int(s)
 
 
