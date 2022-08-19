@@ -2,7 +2,11 @@ from test_framework import generic_test
 
 
 def is_palindrome(s: str) -> bool:
-
+    """
+    Test PASSED (305/305) [  56 ms]
+    Average running time:  185 us
+    Median running time:     1 us
+    """
     # i moves forward, and j moves backward.
     i, j = 0, len(s) - 1
     while i < j:
