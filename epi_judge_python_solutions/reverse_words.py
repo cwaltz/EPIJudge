@@ -7,6 +7,11 @@ from test_framework.test_utils import enable_executor_hook
 # Assume s is a list of strings, each of which is of length 1, e.g.,
 # ['r', 'a', 'm', ' ', 'i', 's', ' ', 'c', 'o', 's', 't', 'l', 'y'].
 def reverse_words(s):
+    """
+    Test PASSED (103/103) [ 149 ms]
+    Average running time:    1 ms
+    Median running time:     5 us
+    """
     def reverse_range(s, start, finish):
         while start < finish:
             s[start], s[finish] = s[finish], s[start]
