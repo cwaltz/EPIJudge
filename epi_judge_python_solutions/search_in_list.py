@@ -3,7 +3,11 @@ from test_framework import generic_test
 
 
 def search_list(L: ListNode, key: int) -> ListNode:
-
+    """
+    Test PASSED (505/505) [  21 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
     while L and L.data != key:
         L = L.next
     # If key was not present in the list, L will have become null.

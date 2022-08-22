@@ -7,6 +7,16 @@ from test_framework.test_utils import enable_executor_hook
 
 # Insert new_node after node.
 def insert_after(node: ListNode, new_node: ListNode) -> None:
+    """
+    #7.0
+
+    Time complexity = O(1)
+    Space complexity = O(1)
+
+    Test PASSED (504/504) [  <1 us]
+    Average running time:   <1 us
+    Median running time:    <1 us
+    """
     new_node.next = node.next
     node.next = new_node
 

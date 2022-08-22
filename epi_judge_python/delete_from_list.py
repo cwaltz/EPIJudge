@@ -7,6 +7,16 @@ from test_framework.test_utils import enable_executor_hook
 
 # Delete the node past this one. Assume node is not a tail.
 def delete_after(node: ListNode) -> None:
+    """
+    #7.0
+
+    Time complexity = O(1)
+    Space complexity = O(1)
+
+    Test PASSED (457/457) [   1 us]
+    Average running time:   <1 us
+    Median running time:    <1 us
+    """
     node.next = node.next.next
 
 

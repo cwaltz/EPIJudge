@@ -9,6 +9,11 @@ from test_framework.test_utils import enable_executor_hook
 # ['r', 'a', 'm', ' ', 'i', 's', ' ', 'c', 'o', 's', 't', 'l', 'y'].
 def reverse_words(s: List[str]):
     """
+    #6.6
+
+    Time complexity = O(n), where n is the length of the string.
+    Space complexity = O(1)
+
     Test PASSED (103/103) [  54 ms]
     Average running time:  530 us
     Median running time:     2 us
@@ -38,11 +43,6 @@ def reverse_words(s: List[str]):
 # ['r', 'a', 'm', ' ', 'i', 's', ' ', 'c', 'o', 's', 't', 'l', 'y'].
 def reverse_words_1(s: List[str]):
     """
-    #6.5
-
-    Time complexity = O(n), where n is the length of the string.
-    Space complexity = O(1)
-
     Test PASSED (103/103) [ 115 ms]
     Average running time:    1 ms
     Median running time:     4 us
