@@ -6,7 +6,16 @@ from test_framework import generic_test
 
 def merge_two_sorted_lists(L1: Optional[ListNode],
                            L2: Optional[ListNode]) -> Optional[ListNode]:
+    """
+    #7.1
 
+    Time complexity = O(n + m), where n and m are the lengths of each of the two input lists.
+    Space complexity = O(1)
+
+    Test PASSED (501/501) [   3 ms]
+    Average running time:   13 us
+    Median running time:     5 us
+    """
     # Creates a placeholder for the result.
     dummy_head = tail = ListNode()
 
