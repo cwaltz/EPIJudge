@@ -6,7 +6,11 @@ from test_framework import generic_test
 
 def reverse_sublist(L: ListNode, start: int,
                     finish: int) -> Optional[ListNode]:
-
+    """
+    Test PASSED (210/210) [   2 ms]
+    Average running time:   17 us
+    Median running time:     2 us
+    """
     dummy_head = sublist_head = ListNode(0, L)
     for _ in range(1, start):
         sublist_head = sublist_head.next
