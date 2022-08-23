@@ -8,6 +8,11 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def has_cycle(head: ListNode) -> Optional[ListNode]:
+    """
+    Test PASSED (102/102) [   7 ms]
+    Average running time:  104 us
+    Median running time:     5 us
+    """
     def cycle_len(end):
         start, step = end, 0
         while True:
