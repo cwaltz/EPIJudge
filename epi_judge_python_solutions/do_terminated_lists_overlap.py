@@ -7,6 +7,11 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def overlapping_no_cycle_lists(l0: ListNode, l1: ListNode) -> ListNode:
+    """
+    Test PASSED (106/106) [  15 ms]
+    Average running time:  246 us
+    Median running time:     6 us
+    """
     def length(L):
         length = 0
         while L:
