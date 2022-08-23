@@ -19,32 +19,25 @@ def has_cycle(head: Optional[ListNode]) -> Optional[ListNode]:
     them to overlap once the slower one enters the cycle.
 
     Test PASSED (102/102) [   7 ms]
-    Average running time:  116 us
+    Average running time:  117 us
     Median running time:     6 us
     """
     if not head:
         return head
-    slow = fast = head
+    fast = slow = head
     while fast.next and fast.next.next:
-        slow = slow.next
-        fast = fast.next.next
-        if slow is fast:
-            # A cycle is present
-            break
-
-    if slow is not fast:
-        # There is no cycle
-        return None
-
-    fast = head
-    while slow is not fast:
-        slow = slow.next
-        fast = fast.next
-
-    return slow
+        slow, fast = slow.next, fast.next.next
+        if slow is fast:  # There is a cycle.
+            # Tries to find the start of the cycle.
+            slow = head
+            # Both pointers advance at the same time.
+            while slow is not fast:
+                slow, fast = slow.next, fast.next
+            return slow  # slow is the start of cycle.
+    return None  # No cycle.
 
 
-def has_cycle_1(head: ListNode) -> Optional[ListNode]:
+def has_cycle_faster(head: ListNode) -> Optional[ListNode]:
     """
     Test PASSED (102/102) [   7 ms]
     Average running time:  104 us
