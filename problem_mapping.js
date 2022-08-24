@@ -882,7 +882,7 @@ problem_mapping = {
                 "total": 101
             },
             "Python: stack_with_max.py": {
-                "passed": 1,
+                "passed": 101,
                 "total": 101
             }
         },
