@@ -9,7 +9,7 @@ def remove_kth_last(L: ListNode, k: int) -> Optional[ListNode]:
     """
     #7.7
 
-    Time complexity = O(n), where n is the total number of nodes.
+    Time complexity = O(n), where n is the length of the list.
     Space complexity = O(1)
 
     Test PASSED (306/306) [   2 ms]

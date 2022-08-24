@@ -1,4 +1,3 @@
-import collections
 from typing import List
 
 from test_framework import generic_test
@@ -7,10 +6,16 @@ from test_framework.test_failure import TestFailure
 
 class Stack:
     """
-    The worst-case additional space complexity is O(n), which occurs when each key pushed is greater
-    than all keys in the primary stack. However, when the number of distinct keys is small, or the
-    maximum changes infrequently, the additional space complexity is less, O(1) in the best-case. The
-    time complexity for each specified method is still O(1).
+    #8.1
+
+    Time complexity = O(1) for each specified method.
+    Space complexity = O(n) in the worst-case, which occurs when each key pushed is greater than all keys in the primary
+    stack. However, when the number of distinct keys is small, or the maximum changes infrequently, the additional space
+    complexity is less, O(1) in the best-case.
+
+    Test PASSED (101/101) [  11 ms]
+    Average running time:  156 us
+    Median running time:    21 us
     """
 
     class MaxWithCount:
@@ -51,42 +56,6 @@ class Stack:
                 self._cached_max_with_count.append(self.MaxWithCount(x, 1))
             elif x == current_max:
                 self._cached_max_with_count[-1].count += 1
-
-
-class StackV1:
-    """
-    Each of the specified methods has time complexity O(1).
-    The additional space complexity is O(n), regardless of the stored keys.
-    """
-
-    ElementWithCachedMax = collections.namedtuple('ElementWithCachedMax',
-                                                  ('element', 'max'))
-
-    def __init__(self) -> None:
-
-        self._elements: List[StackV1.ElementWithCachedMax] = []
-
-    def empty(self) -> bool:
-
-        return len(self._elements) == 0
-
-    def max(self) -> int:
-
-        if self.empty():
-            raise IndexError('max(): max from an empty stack')
-        return self._elements[-1].max
-
-    def pop(self) -> int:
-
-        if self.empty():
-            raise IndexError('pop(): pop from an empty stack')
-        return self._elements.pop().element
-
-    def push(self, x: int) -> None:
-
-        self._elements.append(
-            self.ElementWithCachedMax(
-                x, x if self.empty() else max(x, self.max())))
 
 
 def stack_tester(ops):

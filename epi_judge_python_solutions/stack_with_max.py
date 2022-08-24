@@ -6,7 +6,14 @@ from test_framework.test_failure import TestFailure
 
 
 class Stack:
+    """
+    Each of the specified methods has time complexity O(1).
+    The additional space complexity is O(n), regardless of the stored keys.
 
+    Test PASSED (101/101) [  12 ms]
+    Average running time:  178 us
+    Median running time:    22 us
+    """
     ElementWithCachedMax = collections.namedtuple('ElementWithCachedMax',
                                                   ('element', 'max'))
 
