@@ -1,9 +1,51 @@
+from typing import List
+
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
 
-class Queue:
+class Queue1:
+    """
+    #8.7
 
+    Test PASSED (65/65) [   7 ms]
+    Average running time:  171 us
+    Median running time:    27 us
+    """
+    def __init__(self, capacity: int) -> None:
+        self._capacity = capacity
+        self._queue: List[int] = [0] * self._capacity  # [0 for _ in range(self._capacity)]
+        self._size = 0
+        self._head = 0
+        self._tail = 0
+
+    def enqueue(self, x: int) -> None:
+        if self._size == self._capacity:  # queue is full. resize.
+            self._queue = self._queue[self._head:] + self._queue[:self._head]  # rotate
+            self._head = 0
+            self._tail = self._size
+            self._queue += [0] * self._capacity
+            self._capacity *= 2
+        self._queue[self._tail] = x
+        self._tail = (self._tail + 1) % self._capacity
+        self._size += 1
+
+    def dequeue(self) -> int:
+        popped = self._queue[self._head]
+        self._head = (self._head + 1) % self._capacity
+        self._size -= 1
+        return popped
+
+    def size(self) -> int:
+        return self._size
+
+
+class Queue:
+    """
+    Test PASSED (65/65) [   8 ms]
+    Average running time:  190 us
+    Median running time:    30 us
+    """
     SCALE_FACTOR = 2
 
     def __init__(self, capacity: int) -> None:

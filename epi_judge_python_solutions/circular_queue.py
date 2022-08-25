@@ -3,7 +3,11 @@ from test_framework.test_failure import TestFailure
 
 
 class Queue:
-
+    """
+    Test PASSED (65/65) [   8 ms]
+    Average running time:  183 us
+    Median running time:    30 us
+    """
     SCALE_FACTOR = 2
 
     def __init__(self, capacity: int) -> None:
