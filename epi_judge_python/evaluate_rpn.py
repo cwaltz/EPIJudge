@@ -5,10 +5,14 @@ from test_framework import generic_test
 
 def evaluate(expression: str) -> int:
     """
-    Since we perform O(1) computation per character of the string, the time complexity is O(n),
-    where n is the length of the string.
-    """
+    Time complexity = O(n), where n is the length of the string. We perform O(1) computation per character of the
+    string.
+    Space complexity = O(n)
 
+    Test PASSED (108/108) [   5 us]
+    Average running time:  552 us
+    Median running time:     2 us
+    """
     intermediate_results: List[int] = []
     DELIMITER = ','
     OPERATORS = {

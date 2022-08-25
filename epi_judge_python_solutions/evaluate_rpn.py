@@ -4,7 +4,11 @@ from test_framework import generic_test
 
 
 def evaluate(expression: str) -> int:
-
+    """
+    Test PASSED (108/108) [   5 us]
+    Average running time:  561 us
+    Median running time:     2 us
+    """
     intermediate_results: List[int] = []
     delimiter = ','
     operators = {

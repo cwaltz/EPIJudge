@@ -896,7 +896,7 @@ problem_mapping = {
                 "total": 108
             },
             "Python: evaluate_rpn.py": {
-                "passed": 0,
+                "passed": 108,
                 "total": 108
             }
         },
@@ -952,7 +952,7 @@ problem_mapping = {
                 "total": 3852
             },
             "Python: tree_level_order.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },

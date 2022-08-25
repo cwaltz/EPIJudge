@@ -1,3 +1,4 @@
+import collections
 from typing import List
 
 from binary_tree_node import BinaryTreeNode
@@ -6,8 +7,37 @@ from test_framework import generic_test
 
 def binary_tree_depth_order(tree: BinaryTreeNode) -> List[List[int]]:
     """
-    Since each node is enqueued and dequeued exactly once, the time complexity is O(n).
-    The space complexity is O(m), where m is the maximum number of nodes at any single depth.
+    #8.6
+
+    Time complexity = O(n), since each node is enqueued and dequeued exactly once.
+    Space complexity = O(m), where m is the maximum number of nodes at any single depth.
+
+    Test PASSED (3852/3852) [  <1 us]
+    Average running time:   10 us
+    Median running time:     3 us
+    """
+    result: List[List[int]] = []
+    if not tree:
+        return result
+
+    level = [tree]
+    while level:
+        result.append([node.data for node in level])
+        next_level = []
+        for node in level:
+            if node.left:
+                next_level.append(node.left)
+            if node.right:
+                next_level.append(node.right)
+        level = next_level
+    return result
+
+
+def binary_tree_depth_order_1(tree: BinaryTreeNode) -> List[List[int]]:
+    """
+    Test PASSED (3852/3852) [  <1 us]
+    Average running time:   12 us
+    Median running time:     3 us
     """
     result: List[List[int]] = []
     if not tree:
@@ -25,21 +55,28 @@ def binary_tree_depth_order(tree: BinaryTreeNode) -> List[List[int]]:
     return result
 
 
-def binary_tree_depth_order_v1(tree: BinaryTreeNode) -> List[List[int]]:
-    result: List[List[int]] = []
+def binary_tree_depth_order_2(tree: BinaryTreeNode) -> List[List[int]]:
+    """
+    Test PASSED (3852/3852) [  <1 us]
+    Average running time:   13 us
+    Median running time:     3 us
+    """
     if not tree:
-        return result
-
-    level = [tree]
-    while level:
-        result.append([node.data for node in level])
-        next_level = []
-        for node in level:
+        return []
+    curr_level = collections.deque([tree])
+    result = []
+    while curr_level:
+        nodes = []
+        next_level = collections.deque()
+        while curr_level:
+            node = curr_level.popleft()
             if node.left:
                 next_level.append(node.left)
             if node.right:
                 next_level.append(node.right)
-        level = next_level
+            nodes.append(node.data)
+        result.append(nodes)
+        curr_level = next_level
     return result
 
 
