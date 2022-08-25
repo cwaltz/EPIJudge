@@ -4,9 +4,12 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
 
-class Queue1:
+class Queue:
     """
     #8.7
+
+    The time complexity of dequeue is O(1), and the amortized time complexity of enqueue is O(1).
+    Space complexity = O(1) except the storage required to store the elements.
 
     Test PASSED (65/65) [   7 ms]
     Average running time:  171 us
@@ -40,7 +43,7 @@ class Queue1:
         return self._size
 
 
-class Queue:
+class Queue1:
     """
     Test PASSED (65/65) [   8 ms]
     Average running time:  190 us
