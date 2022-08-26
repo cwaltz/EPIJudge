@@ -8,26 +8,26 @@ from test_framework import generic_test
 
 def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
     """
-    The program implements a postorder traversal with some calls possibly being eliminated because
-    of early termination. Specifically, if any left subtree is not height-balanced we do not need to visit
-    the corresponding right subtree. The function call stack corresponds to a sequence of calls from the
-    root through the unique path to the current node, and the stack height is therefore bounded by the
-    height of the tree, leading to an O(h) space bound. The time complexity is the same as that for a
-    postorder traversal, namely O(n).
+    #9.1
 
-    Time complexity  = O(n)
-    Space complexity = O(h)
+    Time complexity  = O(n), where n is the number of nodes of the tree.
+    Space complexity = O(h), where h is the height of the tree.
 
-    Slower than is_balanced_binary_tree_v1() below!
-    Average running time:   93 us
-    Median running time:    64 us
+    The program implements a postorder traversal with some calls possibly being eliminated because of early termination.
+    Specifically, if any left subtree is not height-balanced we do not need to visit the corresponding right subtree.
+    The function call stack corresponds to a sequence of calls from the root through the unique path to the current
+    node, and the stack height is therefore bounded by the height of the tree, leading to an O(h) space bound.
+    The time complexity is the same as that for a postorder traversal, namely O(n).
+
+    Test PASSED (3852/3852) [  38 us]
+    Average running time:   66 us
+    Median running time:    43 us
     """
-
     BalancedStatusWithHeight = collections.namedtuple(
         'BalancedStatusWithHeight', ('balanced', 'height'))
 
-    # First value of the return value indicates if tree is balanced, and if
-    # balanced the second value of the return value is the height of tree.
+    # First value of the return value indicates if tree is balanced,
+    # and if balanced the second value of the return value is the height of tree.
     def check_balanced(node: BinaryTreeNode) -> BalancedStatusWithHeight:
         if not node:
             return BalancedStatusWithHeight(balanced=True, height=-1)
@@ -47,15 +47,16 @@ def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
     return check_balanced(tree).balanced
 
 
-def is_balanced_binary_tree_v1(tree: BinaryTreeNode) -> bool:
+def is_balanced_binary_tree_faster(tree: BinaryTreeNode) -> bool:
     """
     Faster solution without a namedtuple!
-    Average running time:   12 us
-    Median running time:     4 us
-    """
 
-    # First value of the return value indicates if tree is balanced, and if
-    # balanced the second value of the return value is the height of tree.
+    Test PASSED (3852/3852) [   1 us]
+    Average running time:   11 us
+    Median running time:     5 us
+    """
+    # First value of the return value indicates if tree is balanced,
+    # and if balanced the second value of the return value is the height of tree.
     def is_subtree_height_balanced(node: BinaryTreeNode) -> Tuple[bool, int]:
         if not node:
             return True, -1

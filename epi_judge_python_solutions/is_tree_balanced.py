@@ -5,7 +5,11 @@ from test_framework import generic_test
 
 
 def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
-
+    """
+    Test PASSED (3852/3852) [  38 us]
+    Average running time:   66 us
+    Median running time:    43 us
+    """
     BalancedStatusWithHeight = collections.namedtuple(
         'BalancedStatusWithHeight', ('balanced', 'height'))
 
