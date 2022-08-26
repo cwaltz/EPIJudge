@@ -4,10 +4,15 @@ from test_framework import generic_test
 
 def is_symmetric(tree: BinaryTreeNode) -> bool:
     """
-    The time complexity and space complexity are O(n) and O(h), respectively,
-    where n is the number of nodes in the tree and h is the height of the tree.
-    """
+    #9.2
 
+    Time complexity = O(n), where n is the number of nodes in the tree.
+    Space complexity = O(h), where h is the height of the tree.
+
+    Test PASSED (3852/3852) [  <1 us]
+    Average running time:    1 us
+    Median running time:    <1 us
+    """
     def are_subtrees_symmetric(subtree_0: BinaryTreeNode, subtree_1: BinaryTreeNode) -> bool:
 
         if not subtree_0 and not subtree_1:

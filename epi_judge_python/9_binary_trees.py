@@ -1,6 +1,11 @@
 from binary_tree_node import BinaryTreeNode
 
 """
+#9.0
+
+Time complexity = O(n), where n is the number of nodes in the tree.
+Space complexity = O(h), where h is the height of the tree.
+
 Binary trees boot camp
 
 A good way to get up to speed with binary trees is to implement the three basic traversals - inorder, preorder,

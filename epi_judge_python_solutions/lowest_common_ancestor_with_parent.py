@@ -10,6 +10,11 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
+    """
+    Test PASSED (948/948) [   2 us]
+    Average running time:    3 us
+    Median running time:     2 us
+    """
     def get_depth(node):
         depth = 0
         while node.parent:

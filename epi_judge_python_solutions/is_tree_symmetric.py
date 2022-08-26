@@ -3,6 +3,11 @@ from test_framework import generic_test
 
 
 def is_symmetric(tree: BinaryTreeNode) -> bool:
+    """
+    Test PASSED (3852/3852) [  <1 us]
+    Average running time:    1 us
+    Median running time:    <1 us
+    """
     def check_symmetric(subtree_0, subtree_1):
         if not subtree_0 and not subtree_1:
             return True
