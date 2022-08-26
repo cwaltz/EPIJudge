@@ -7,37 +7,43 @@ from test_framework import generic_test
 def binary_tree_from_preorder_inorder(preorder: List[int],
                                       inorder: List[int]) -> BinaryTreeNode:
     """
-    Time complexity = O(n),
-    building the hash table takes O(n) time and the recursive reconstruction spends O(1) time per node
-    Space complexity = O(n + h) = O(n)-the size of the hash table plus the maximum depth of the function call stack
+    #9.11
+
+    Time complexity = O(n)
+    Building the hash table takes O(n) time and the recursive reconstruction spends O(1) time per node.
+    Space complexity = O(n + h)
+    = the size of the hash table O(n) + the maximum depth of the function call stack O(h)
+
+    Test PASSED (3852/3852) [   1 us]
+    Average running time:   53 us
+    Median running time:     6 us
     """
+    node_to_inorder_idx = {data: i for i, data in enumerate(inorder)}
 
-    key_to_inorder_idx = {key: index for index, key in enumerate(inorder)}
+    # Builds the subtree with preorder[preorder_start:preorder_end] and
+    # inorder[inorder_start:inorder_end].
+    def binary_tree_from_preorder_inorder_helper(preorder_start: int, preorder_end: int, inorder_start: int,
+                                                 inorder_end: int) -> Optional[BinaryTreeNode]:
+        if preorder_end <= preorder_start or inorder_end <= inorder_start:
+            return None
 
-    # Builds the subtree with preorder[pre_start:pre_end] and
-    # inorder[in_start:in_end].
-    def subtree_from_preorder_inorder(pre_start: int, pre_end: int,
-                                      in_start: int, in_end: int) -> Optional[BinaryTreeNode]:
-        if pre_start < pre_end and in_start < in_end:
-            root_in_idx = key_to_inorder_idx[preorder[pre_start]]
-            left_subtree_size = root_in_idx - in_start
-            return BinaryTreeNode(
-                preorder[pre_start],
-                # Recursively builds the left subtree.
-                subtree_from_preorder_inorder(
-                    pre_start + 1, pre_start + 1 + left_subtree_size,
-                    in_start, root_in_idx),
-                # Recursively builds the right subtree.
-                subtree_from_preorder_inorder(
-                    pre_start + 1 + left_subtree_size, pre_end,
-                    root_in_idx + 1, in_end)
-            )
-        return None
+        root_inorder_idx = node_to_inorder_idx[preorder[preorder_start]]
+        left_subtree_size = root_inorder_idx - inorder_start
+        return BinaryTreeNode(
+            preorder[preorder_start],
+            # Recursively builds the left subtree.
+            binary_tree_from_preorder_inorder_helper(
+                preorder_start + 1, preorder_start + 1 + left_subtree_size,
+                inorder_start, root_inorder_idx),
+            # Recursively builds the right subtree.
+            binary_tree_from_preorder_inorder_helper(
+                preorder_start + 1 + left_subtree_size, preorder_end,
+                root_inorder_idx + 1, inorder_end))
 
-    return subtree_from_preorder_inorder(pre_start=0,
-                                         pre_end=len(preorder),
-                                         in_start=0,
-                                         in_end=len(inorder))
+    return binary_tree_from_preorder_inorder_helper(preorder_start=0,
+                                                    preorder_end=len(preorder),
+                                                    inorder_start=0,
+                                                    inorder_end=len(inorder))
 
 
 if __name__ == '__main__':

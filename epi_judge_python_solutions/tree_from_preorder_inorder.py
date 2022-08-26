@@ -6,7 +6,11 @@ from test_framework import generic_test
 
 def binary_tree_from_preorder_inorder(preorder: List[int],
                                       inorder: List[int]) -> BinaryTreeNode:
-
+    """
+    Test PASSED (3852/3852) [   1 us]
+    Average running time:   53 us
+    Median running time:     6 us
+    """
     node_to_inorder_idx = {data: i for i, data in enumerate(inorder)}
 
     # Builds the subtree with preorder[preorder_start:preorder_end] and
