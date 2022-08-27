@@ -5,8 +5,10 @@ import itertools
 
 def top_k(k: int, strings: List[str]) -> List[str]:
     """
+    #10.00
+
     Each string is processed in O(log k) time, which is the time to add and to remove the minimum element from the heap.
-    Therefore, if there are n strings in the input, the time complexity to process all of them is O(nlogk).
+    Therefore, if there are n strings in the input, the time complexity to process all of them is O(n log k).
     We could improve best-case time complexity by first comparing the new string's length with the length of the string
     at the top of the heap (getting this string takes O(1) time) and skipping the insert if the new string is too short
     to be in the set.
