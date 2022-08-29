@@ -10,11 +10,14 @@ def sort_approximately_sorted_array(sequence: Iterator[int],
     """
     Time complexity = O(n log k)
     Space complexity = O(k)
+
+    Test PASSED (101/101) [   6 ms]
+    Average running time:   75 us
+    Median running time:     5 us
     """
 
     min_heap: List[int] = []
-    # Adds the first k elements into min_heap. Stop if there are fewer than k
-    # elements.
+    # Adds the first k elements into min_heap. Stop if there are fewer than k elements.
     for x in itertools.islice(sequence, k):
         heapq.heappush(min_heap, x)
 
