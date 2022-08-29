@@ -6,11 +6,10 @@ from test_framework import generic_test
 
 def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
     """
-    Test PASSED (152/152) [  54 ms]
-    Average running time:  699 us
-    Median running time:   221 us
+    Test PASSED (152/152) [  39 ms]
+    Average running time:  587 us
+    Median running time:   207 us
     """
-
     min_heap: List[Tuple[int, int]] = []
     # Builds a list of iterators for each array in sorted_arrays.
     sorted_arrays_iters = [iter(x) for x in sorted_arrays]
@@ -35,9 +34,9 @@ def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
 # Pythonic solution, uses the heapq.merge() method which takes multiple inputs.
 def merge_sorted_arrays_pythonic(sorted_arrays):
     """
-    Test PASSED (152/152) [  77 ms]
-    Average running time:  757 us
-    Median running time:   164 us
+    Test PASSED (152/152) [  50 ms]
+    Average running time:  554 us
+    Median running time:   145 us
     """
     return list(heapq.merge(*sorted_arrays))
 
