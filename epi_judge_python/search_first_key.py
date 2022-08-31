@@ -5,12 +5,33 @@ from test_framework import generic_test
 
 def search_first_of_k(A: List[int], k: int) -> int:
     """
+    #11.1
+
     Time complexity  = O(log n)
     Space complexity = O(1)
 
-    Test PASSED (314/314) [  12 us]
-    Average running time:    2 us
-    Median running time:     2 us
+    Test PASSED (314/314) [   9 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
+    result = -1
+    left, right = 0, len(A) - 1
+    while left <= right:
+        mid = left + ((right - left) >> 1)
+        if A[mid] < k:
+            left = mid + 1
+        else:  # k <= A[mid]
+            right = mid - 1
+            if A[mid] == k:
+                result = mid
+    return result
+
+
+def search_first_of_k_1(A: List[int], k: int) -> int:
+    """
+    Test PASSED (314/314) [  10 us]
+    Average running time:    1 us
+    Median running time:     1 us
     """
 
     left, right, result = 0, len(A) - 1, -1

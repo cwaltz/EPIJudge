@@ -5,7 +5,11 @@ from test_framework import generic_test
 
 
 def search_first_of_k(A: List[int], k: int) -> int:
-
+    """
+    Test PASSED (314/314) [  11 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
     left, right, result = 0, len(A) - 1, -1
     # A[left:right + 1] is the candidate set.
     while left <= right:
