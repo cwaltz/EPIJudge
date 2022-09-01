@@ -26,6 +26,11 @@ def search_first_of_k(A: List[int], k: int) -> int:
 
 # Pythonic solution
 def search_first_of_k_pythonic(A, k):
+    """
+    Test PASSED (314/314) [   3 us]
+    Average running time:    1 us
+    Median running time:    <1 us
+    """
     i = bisect.bisect_left(A, k)
     return i if i < len(A) and A[i] == k else -1
 

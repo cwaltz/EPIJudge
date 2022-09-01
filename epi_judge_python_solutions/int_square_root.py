@@ -2,10 +2,14 @@ from test_framework import generic_test
 
 
 def square_root(k: int) -> int:
-
+    """
+    Test PASSED (2000/2000) [   4 us]
+    Average running time:    3 us
+    Median running time:     3 us
+    """
     left, right = 0, k
-    # Candidate interval [left, right] where everything before left has square
-    # <= k, everything after right has square > k.
+    # Candidate interval [left, right] where everything before left has square <= k,
+    # everything after right has square > k.
     while left <= right:
         mid = (left + right) // 2
         mid_squared = mid * mid

@@ -1,6 +1,18 @@
+import bisect
 from typing import List
 
 from test_framework import generic_test
+
+
+# Pythonic solution
+def search_first_of_k_pythonic(A, k):
+    """
+    Test PASSED (314/314) [   3 us]
+    Average running time:    1 us
+    Median running time:    <1 us
+    """
+    i = bisect.bisect_left(A, k)
+    return i if i < len(A) and A[i] == k else -1
 
 
 def search_first_of_k(A: List[int], k: int) -> int:
@@ -33,7 +45,6 @@ def search_first_of_k_1(A: List[int], k: int) -> int:
     Average running time:    1 us
     Median running time:     1 us
     """
-
     left, right, result = 0, len(A) - 1, -1
     # A[left:right + 1] is the candidate set.
     while left <= right:
