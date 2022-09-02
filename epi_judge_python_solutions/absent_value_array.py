@@ -6,7 +6,11 @@ from test_framework.test_failure import TestFailure
 
 
 def find_missing_element(stream: Iterator[int]) -> int:
-
+    """
+    Test PASSED (100/100) [ 657 us]
+    Average running time:  670 us
+    Median running time:   668 us
+    """
     num_bucket = 1 << 16
     counter = [0] * num_bucket
     stream, stream_copy = itertools.tee(stream)
@@ -19,8 +23,7 @@ def find_missing_element(stream: Iterator[int]) -> int:
     candidate_bucket = next(i for i, c in enumerate(counter)
                             if c < bucket_capacity)
 
-    # Finds all IP addresses in the stream whose first 16 bits are equal to
-    # candidate_bucket.
+    # Finds all IP addresses in the stream whose first 16 bits are equal to candidate_bucket.
     candidates = [0] * bucket_capacity
     for x in stream_copy:
         upper_part_x = x >> 16

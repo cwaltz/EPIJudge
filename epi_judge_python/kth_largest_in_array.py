@@ -11,6 +11,8 @@ from test_framework import generic_test
 # find_kth_largest(3, A) returns 1, and find_kth_largest(4, A) returns -1.
 def find_kth_largest(k: int, A: List[int]) -> int:
     """
+    #11.8
+
     Time complexity  = O(n) on average. O(n ** 2) in the worst case.
     Space complexity = O(1)
 

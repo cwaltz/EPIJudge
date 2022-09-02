@@ -1420,7 +1420,7 @@ problem_mapping = {
                 "total": 100
             },
             "Python: absent_value_array.py": {
-                "passed": 0,
+                "passed": 100,
                 "total": 100
             }
         },
@@ -1450,7 +1450,7 @@ problem_mapping = {
                 "total": 9
             },
             "Python: anagrams.py": {
-                "passed": 0,
+                "passed": 9,
                 "total": 9
             }
         },
