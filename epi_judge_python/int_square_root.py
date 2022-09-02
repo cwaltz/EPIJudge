@@ -27,6 +27,26 @@ def square_root(k: int) -> int:
     return left - 1
 
 
+def square_root_simpler(k: int) -> int:
+    """
+    Test PASSED (2000/2000) [   7 us]
+    Average running time:    4 us
+    Median running time:     4 us
+    """
+    left, right, result = 0, k, 0
+    while left <= right:
+        mid = left + ((right - left) >> 1)
+        mid_squared = mid * mid
+        if mid_squared == k:
+            return mid
+        elif mid_squared < k:
+            result = mid
+            left = mid + 1
+        else:  # k < mid_squared
+            right = mid - 1
+    return result
+
+
 def square_root_pythonic(k: int) -> int:
     """
     Test PASSED (2000/2000) [  <1 us]

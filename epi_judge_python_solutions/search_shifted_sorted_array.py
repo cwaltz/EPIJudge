@@ -4,7 +4,11 @@ from test_framework import generic_test
 
 
 def search_smallest(A: List[int]) -> int:
-
+    """
+    Test PASSED (307/307) [   4 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
     left, right = 0, len(A) - 1
     while left < right:
         mid = (left + right) // 2
