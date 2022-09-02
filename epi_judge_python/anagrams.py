@@ -6,7 +6,7 @@ from test_framework import generic_test, test_utils
 
 def find_anagrams(dictionary: List[str]) -> List[List[str]]:
     """
-    #12.0
+    #12.0(a)
 
     Time complexity = O(nm log m), where n is the number of strings and m is the maximum string length.
     Space complexity = O(nm)

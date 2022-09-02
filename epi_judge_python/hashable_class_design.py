@@ -1,5 +1,5 @@
 """
-#12.0
+#12.0(b)
 
 Consider a class that represents contacts. For simplicity, assume each contact is a string. Suppose
 it is a hard requirement that the individual contacts are to be stored in a list, and it's possible that
