@@ -4,17 +4,46 @@ from test_framework import generic_test
 
 def is_letter_constructible_from_magazine(letter_text: str,
                                           magazine_text: str) -> bool:
-    if not letter_text:
-        return True
-    letter_frequency = collections.Counter(letter_text)
+    """
+    #12.2
+
+    Time complexity  = O(m + n), where m and n are the number of characters in the letter and magazine, respectively.
+    Space complexity = O(L), where L is the number of distinct characters appearing in the letter.
+                     = the size of the hash table constructed in the pass over the letter.
+
+    Test PASSED (212/212) [  15 ms]
+    Average running time:  107 us
+    Median running time:    19 us
+    """
+    # Compute the frequencies for all chars in letter_text.
+    char_frequency_for_letter = collections.Counter(letter_text)
+
+    # Checks if characters in magazine_text can cover characters in char_frequency_for_letter.
     for c in magazine_text:
-        if c in letter_frequency:
-            letter_frequency[c] -= 1
-            if letter_frequency[c] == 0:
-                del letter_frequency[c]
-                if not letter_frequency:
+        if c in char_frequency_for_letter:
+            char_frequency_for_letter[c] -= 1
+            if char_frequency_for_letter[c] == 0:
+                del char_frequency_for_letter[c]
+                if not char_frequency_for_letter:
+                    # All characters for letter_text are matched.
                     return True
-    return False
+
+    # Empty char_frequency_for_letter means every char in letter_text can be
+    # covered by a character in magazine_text.
+    return not char_frequency_for_letter
+
+
+# Pythonic solution that exploits collections.Counter.
+# Note that the subtraction only keeps keys with positive counts.
+def is_letter_constructible_from_magazine_pythonic(letter_text: str,
+                                                   magazine_text: str) -> bool:
+    """
+    Test PASSED (212/212) [  26 ms]
+    Average running time:  151 us
+    Median running time:    16 us
+    """
+    return (not collections.Counter(letter_text) -
+            collections.Counter(magazine_text))
 
 
 if __name__ == '__main__':

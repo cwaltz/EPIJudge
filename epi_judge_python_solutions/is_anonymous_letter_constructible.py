@@ -6,9 +6,9 @@ from test_framework import generic_test
 def is_letter_constructible_from_magazine(letter_text: str,
                                           magazine_text: str) -> bool:
     """
-    The time complexity is O(m + n) where m and n are the number of characters in the letter and magazine, respectively.
-    The space complexity is the size of the hash table constructed in the pass over the letter, i.e., O(L), where L is
-    the number of distinct characters appearing in the letter.
+    Test PASSED (212/212) [  16 ms]
+    Average running time:  114 us
+    Median running time:    23 us
     """
 
     # Compute the frequencies for all chars in letter_text.

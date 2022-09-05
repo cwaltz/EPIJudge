@@ -8,6 +8,10 @@ class LruCache:
     """
     The time complexity for each lookup is O(1) for the hash table lookup and O(1) for updating the queue,
     i.e., O(1) overall.
+
+    Test PASSED (101/101) [   6 ms]
+    Average running time:   93 us
+    Median running time:    26 us
     """
     def __init__(self, capacity: int) -> None:
 
