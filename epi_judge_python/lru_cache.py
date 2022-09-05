@@ -5,7 +5,18 @@ from test_framework.test_failure import TestFailure
 
 
 class LruCache:
+    """
+    #12.3
 
+    Time complexity = O(1) for each operation
+    Space complexity = O(n)
+    The time complexity for each lookup is O(1) for the hash table lookup and O(1) for updating the queue,
+    i.e., O(1) overall.
+
+    Test PASSED (101/101) [   6 ms]
+    Average running time:   93 us
+    Median running time:    26 us
+    """
     def __init__(self, capacity: int) -> None:
 
         self._isbn_price_table: collections.OrderedDict[
@@ -22,9 +33,11 @@ class LruCache:
 
     def insert(self, isbn: int, price: int) -> None:
 
+        # We add the value for key only if key is not present - we don't update
+        # existing values.
         if isbn in self._isbn_price_table:
             price = self._isbn_price_table.pop(isbn)
-        elif self._capacity <= len(self._isbn_price_table):
+        elif len(self._isbn_price_table) == self._capacity:
             self._isbn_price_table.popitem(last=False)
         self._isbn_price_table[isbn] = price
 
