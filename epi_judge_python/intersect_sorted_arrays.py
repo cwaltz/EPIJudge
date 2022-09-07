@@ -6,15 +6,18 @@ from test_framework import generic_test
 
 def intersect_two_sorted_arrays(A: List[int], B: List[int]) -> List[int]:
     """
+    #13.1
+
     Time complexity = O(m + n) where m = len(A) and n = len(B)
     Space complexity = O(1)
 
-    Test PASSED (202/202) [  15 ms]
-    Average running time:   86 us
-    Median running time:     6 us
+    Test PASSED (202/202) [   8 ms]
+    Average running time:   50 us
+    Median running time:     3 us
     """
     i, j, result = 0, 0, []
-    while i < len(A) and j < len(B):
+    len_a, len_b = len(A), len(B)
+    while i < len_a and j < len_b:  # Faster than using len(A) & len(B) instead of len_a & len_b
         if A[i] == B[j]:
             if i == 0 or A[i] != A[i - 1]:
                 result.append(A[i])
@@ -26,16 +29,15 @@ def intersect_two_sorted_arrays(A: List[int], B: List[int]) -> List[int]:
     return result
 
 
-def intersect_two_sorted_arrays_v1(A: List[int], B: List[int]) -> List[int]:
+def intersect_two_sorted_arrays_using_binary_search(A: List[int], B: List[int]) -> List[int]:
     """
     Time complexity = O(m log n) where m = length of smaller array and n = length of larger array
     Space complexity = O(1)
 
-    Test PASSED (202/202) [  14 ms]
-    Average running time:   83 us
-    Median running time:     6 us
+    Test PASSED (202/202) [  15 ms]
+    Average running time:   85 us
+    Median running time:     5 us
     """
-
     def is_present(nums: List[int], a: int) -> bool:
         i = bisect.bisect_left(nums, a)
         return i < len(nums) and a == nums[i]
@@ -46,16 +48,15 @@ def intersect_two_sorted_arrays_v1(A: List[int], B: List[int]) -> List[int]:
         return [b for j, b in enumerate(B) if (j == 0 or b != B[j - 1]) and is_present(A, b)]
 
 
-def intersect_two_sorted_arrays_v0(A: List[int], B: List[int]) -> List[int]:
+def intersect_two_sorted_arrays_pythonic(A: List[int], B: List[int]) -> List[int]:
     """
     Time complexity = O(m * n) where m = len(A) and n = len(B)
     Space complexity = O(1)
 
-    Test PASSED (202/202) [   4  s]
-    Average running time:   23 ms
-    Median running time:     4 us
+    Test PASSED (202/202) [   5  s]
+    Average running time:   28 ms
+    Median running time:     3 us
     """
-
     return [a for i, a in enumerate(A) if (i == 0 or a != A[i - 1]) and a in B]
 
 

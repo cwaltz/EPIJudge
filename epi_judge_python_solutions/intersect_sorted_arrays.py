@@ -4,7 +4,11 @@ from test_framework import generic_test
 
 
 def intersect_two_sorted_arrays(A: List[int], B: List[int]) -> List[int]:
-
+    """
+    Test PASSED (202/202) [   5  s]
+    Average running time:   28 ms
+    Median running time:     3 us
+    """
     return [a for i, a in enumerate(A) if (i == 0 or a != A[i - 1]) and a in B]
 
 

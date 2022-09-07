@@ -1,4 +1,7 @@
 from typing import List
+"""
+#13.0
+"""
 
 
 class Student:
@@ -33,11 +36,6 @@ print_students(students_sort_by_name)
 students.sort(key=lambda student: student.grade_point_average)
 print('\nstudents sorted by gpa:')
 print_students(students)
-
-
-def print_list(nums: List[int]) -> None:
-    for n in nums:
-        print(n)
 
 
 print('\n\nKnow your sorting libraries')

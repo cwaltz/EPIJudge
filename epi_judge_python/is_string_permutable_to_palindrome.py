@@ -3,7 +3,7 @@ import collections
 from test_framework import generic_test
 
 
-def can_form_palindrome(s: str) -> bool:
+def can_form_palindrome_pythonic(s: str) -> bool:
     """
     #12.1
 
@@ -19,7 +19,7 @@ def can_form_palindrome(s: str) -> bool:
     return sum(v % 2 for v in collections.Counter(s).values()) <= 1
 
 
-def can_form_palindrome_1(s: str) -> bool:
+def can_form_palindrome(s: str) -> bool:
     """
     Test PASSED (305/305) [  21 ms]
     Average running time:   72 us
