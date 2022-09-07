@@ -5,12 +5,22 @@ from test_framework import generic_test
 
 
 def find_nearest_repetition(paragraph: List[str]) -> int:
+    """
+    #12.5
 
+    Time complexity = O(n), where n is the array length.
+    Space complexity = O(d), where d is the number of distinct entries in the array.
+
+    Test PASSED (505/505) [   5 us]
+    Average running time:   18 us
+    Median running time:    10 us
+    """
     last_index_of_word: Dict[str, int] = {}
     minimum_distance = float('inf')
     for index, word in enumerate(paragraph):
         if word in last_index_of_word:
-            minimum_distance = min(minimum_distance, index - last_index_of_word[word])
+            if index - last_index_of_word[word] < minimum_distance:
+                minimum_distance = index - last_index_of_word[word]
         last_index_of_word[word] = index
     return typing.cast(int, minimum_distance) if minimum_distance != float('inf') else -1
 
