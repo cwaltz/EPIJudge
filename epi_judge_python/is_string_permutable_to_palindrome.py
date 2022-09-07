@@ -1,20 +1,38 @@
+import collections
+
 from test_framework import generic_test
 
 
 def can_form_palindrome(s: str) -> bool:
     """
-    Test PASSED (305/305) [  29 ms]
-    Average running time:   97 us
-    Median running time:     2 us
-    """
+    #12.1
 
-    odd_count = set()
-    for c in s:
-        if c in odd_count:
-            odd_count.remove(c)
-        else:
-            odd_count.add(c)
-    return len(odd_count) < 2
+    Time complexity = O(n), where n is the length of the string.
+    Space complexity = O(c), where c is the number of distinct characters appearing in the string.
+
+    Test PASSED (305/305) [  21 ms]
+    Average running time:   73 us
+    Median running time:     3 us
+    """
+    # A string can be permuted to form a palindrome if and only if the number
+    # of chars whose frequencies are odd is at most 1.
+    return sum(v % 2 for v in collections.Counter(s).values()) <= 1
+
+
+def can_form_palindrome_1(s: str) -> bool:
+    """
+    Test PASSED (305/305) [  21 ms]
+    Average running time:   72 us
+    Median running time:     3 us
+    """
+    letter_frequency: collections.Counter[str, int] = collections.Counter(s)
+    odd_frequency = False
+    for value in letter_frequency.values():
+        if value % 2 == 1:
+            if odd_frequency:
+                return False
+            odd_frequency = True
+    return True
 
 
 if __name__ == '__main__':
