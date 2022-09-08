@@ -10,7 +10,11 @@ Event = collections.namedtuple('Event', ('start', 'finish'))
 
 
 def find_max_simultaneous_events(A: List[Event]) -> int:
-
+    """
+    Test PASSED (97/97) [  45 ms]
+    Average running time:  539 us
+    Median running time:    50 us
+    """
     # Endpoint is a tuple (start_time, 0) or (end_time, 1) so that if times
     # are equal, start_time comes first
     Endpoint = collections.namedtuple('Endpoint', ('time', 'is_start'))
