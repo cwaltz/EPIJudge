@@ -5,7 +5,11 @@ from test_framework import generic_test
 
 
 def search_bst(tree: BstNode, key: int) -> Optional[BstNode]:
-
+    """
+    Test PASSED (955/955) [  <1 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
     return (tree if not tree or tree.data == key else search_bst(
         tree.left, key) if key < tree.data else search_bst(tree.right, key))
 

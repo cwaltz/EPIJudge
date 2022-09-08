@@ -1790,7 +1790,7 @@ problem_mapping = {
                 "total": 955
             },
             "Python: search_in_bst.py": {
-                "passed": 0,
+                "passed": 955,
                 "total": 955
             }
         },

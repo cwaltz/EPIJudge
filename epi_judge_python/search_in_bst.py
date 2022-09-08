@@ -4,41 +4,39 @@ from bst_node import BstNode
 from test_framework import generic_test
 
 
-def search_bst_recursive(tree: BstNode, key: int) -> Optional[BstNode]:
-    """
-    Recursive version
-
-    Time complexity  = O(h), where h is the height of the tree
-    Space complexity = O(h)
-
-    Test PASSED (955/955) [  <1 us]
-    Average running time:    2 us
-    Median running time:     2 us
-    """
-    return (tree
-            if not tree or tree.data == key else search_bst(tree.left, key)
-            if key < tree.data else search_bst(tree.right, key))
-
-
 def search_bst(tree: BstNode, key: int) -> Optional[BstNode]:
     """
+    #14.0
+
     Iterative version
 
-    Time complexity  = O(h), where h is the height of the tree
+    Time complexity = O(h), where h is the height of the tree
     Space complexity = O(1)
 
-    Test PASSED (955/955) [   1 us]
-    Average running time:    2 us
+    Test PASSED (955/955) [  <1 us]
+    Average running time:    1 us
     Median running time:     1 us
     """
     while tree:
         if tree.data == key:
-            break
-        elif key < tree.data:
-            tree = tree.left
-        else:  # tree.data < key
-            tree = tree.right
-    return tree
+            return tree
+        tree = tree.left if key < tree.data else tree.right
+    return None
+
+
+def search_bst_recursive(tree: BstNode, key: int) -> Optional[BstNode]:
+    """
+    Recursive version
+
+    Time complexity = O(h), where h is the height of the tree
+    Space complexity = O(h)
+
+    Test PASSED (955/955) [  <1 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
+    return (tree if not tree or tree.data == key else search_bst(
+        tree.left, key) if key < tree.data else search_bst(tree.right, key))
 
 
 def search_bst_wrapper(tree, key):
