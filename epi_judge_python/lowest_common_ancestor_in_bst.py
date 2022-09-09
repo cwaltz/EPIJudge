@@ -8,24 +8,26 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-# Input nodes are nonempty and the key at s is less than or equal to that at b.
+# Input nodes are nonempty and s.data <= b.data.
 def find_lca(tree: BstNode, s: BstNode, b: BstNode) -> Optional[BstNode]:
     """
-    Time complexity  = O(h)
+    #14.4
+
+    Time complexity = O(h), where h is the height of the tree.
     Space complexity = O(1)
 
-    Test PASSED (951/951) [   1 us]
-    Average running time:    1 us
-    Median running time:     1 us
+    Test PASSED (951/951) [  <1 us]
+    Average running time:   <1 us
+    Median running time:    <1 us
     """
-
-    while True:
-        if tree is s or tree is b or s.data < tree.data < b.data:
-            break
-        if b.data < tree.data:
-            tree = tree.left
-        elif tree.data < s.data:
-            tree = tree.right
+    # while not (s.data <= tree.data <= b.data):  # Current line also works in place of next line.
+    while tree.data < s.data or b.data < tree.data:
+        # Keep searching since tree is outside [s, b].
+        while tree.data < s.data:
+            tree = tree.right  # LCA must be in tree's right child.
+        while b.data < tree.data:
+            tree = tree.left  # LCA must be in tree's left child.
+    # Now, s.data <= tree.data <= b.data.
     return tree
 
 
