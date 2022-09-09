@@ -6,14 +6,10 @@ from test_framework import generic_test
 
 def find_first_greater_than_k(tree: BstNode, k: int) -> Optional[BstNode]:
     """
-    Time complexity = O(h), where h is the height of the tree
-    Space complexity = O(1)
-
     Test PASSED (949/949) [  <1 us]
     Average running time:    1 us
     Median running time:     1 us
     """
-
     subtree, first_so_far = tree, None
     while subtree:
         if subtree.data > k:

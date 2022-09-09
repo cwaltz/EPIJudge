@@ -5,7 +5,8 @@ import bintrees
 
 from test_framework import generic_test
 
-# These numbers have very interesting property, and people called it ugly numbers. It is also called quadratic integer rings.
+# These numbers have very interesting property, and people called it ugly numbers.
+# It is also called quadratic integer rings.
 
 
 class Number:
@@ -21,7 +22,11 @@ class Number:
 
 
 def generate_first_k_a_b_sqrt2(k: int) -> List[float]:
-
+    """
+    Test PASSED (13/13) [ 272 ms]
+    Average running time:   22 ms
+    Median running time:    96 us
+    """
     # Initial for 0 + 0 * sqrt(2).
     candidates = bintrees.RBTree([(Number(0, 0), None)])
 

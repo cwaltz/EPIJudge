@@ -4,16 +4,15 @@ from test_framework import generic_test
 
 def is_binary_tree_bst(tree: BinaryTreeNode) -> bool:
     """
-    Time complexity  = O(n), where n is the number of nodes
+    Time complexity = O(n), where n is the number of nodes
     Space complexity = O(h), where h is the height of the tree
 
     DFS approach
 
-    Test PASSED (3139/3139) [   2 us]
-    Average running time:    2 us
-    Median running time:     2 us
+    Test PASSED (3139/3139) [  <1 us]
+    Average running time:    1 us
+    Median running time:     1 us
     """
-
     def are_keys_in_range(tree,
                           low_range=float('-inf'),
                           high_range=float('inf')):
@@ -29,14 +28,11 @@ def is_binary_tree_bst(tree: BinaryTreeNode) -> bool:
 
 def is_binary_tree_bst_alternative(tree):
     """
-    Time complexity  = O(n), where n is the number of nodes
-    Space complexity = O(h), where h is the height of the tree
-
     DFS approach
 
-    Test PASSED (3139/3139) [   1 us]
+    Test PASSED (3139/3139) [  <1 us]
     Average running time:    2 us
-    Median running time:     2 us
+    Median running time:     1 us
     """
     def inorder_traversal(tree):
         if not tree:

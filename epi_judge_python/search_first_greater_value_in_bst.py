@@ -6,14 +6,15 @@ from test_framework import generic_test
 
 def find_first_greater_than_k(tree: BstNode, k: int) -> Optional[BstNode]:
     """
-    Time complexity = O(h), where h is the height of the tree
+    #14.2
+
+    Time complexity = O(h), where h is the height of the tree.
     Space complexity = O(1)
 
     Test PASSED (949/949) [  <1 us]
     Average running time:    1 us
     Median running time:     1 us
     """
-
     subtree, first_so_far = tree, None
     while subtree:
         if k < subtree.data:
@@ -21,26 +22,6 @@ def find_first_greater_than_k(tree: BstNode, k: int) -> Optional[BstNode]:
         else:  # Root and all keys in left subtree are <= k, so skip them.
             subtree = subtree.right
     return first_so_far
-
-
-def find_first_greater_than_k_v1(tree: BstNode, k: int) -> Optional[BstNode]:
-    """
-    Test PASSED (949/949) [   1 us]
-    Average running time:   31 us
-    Median running time:     6 us
-    """
-    def inorder_traversal(node: BstNode) -> None:
-        if node:
-            if not inorder and node.left:
-                inorder_traversal(node.left)
-            if not inorder and node.data > k:
-                inorder.append(node)
-            if not inorder and node.right:
-                inorder_traversal(node.right)
-
-    inorder = []
-    inorder_traversal(tree)
-    return inorder[0] if inorder else None
 
 
 def find_first_greater_than_k_wrapper(tree, k):
