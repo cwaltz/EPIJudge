@@ -10,12 +10,9 @@ NUM_PEGS = 3
 
 def compute_tower_hanoi(num_rings: int) -> List[List[int]]:
     """
-    Time complexity = O(2 ** n), where n is the number of rings
-    Space complexity = O(2 ** n) = O(2 ** n) to store the result + O(n) on function call stack
-
-    Test PASSED (10/10) [ 572 us]
-    Average running time:  122 us
-    Median running time:    33 us
+    Test PASSED (10/10) [ 491 us]
+    Average running time:  110 us
+    Median running time:    26 us
     """
     def compute_tower_hanoi_steps(num_rings_to_move, from_peg, to_peg,
                                   use_peg):

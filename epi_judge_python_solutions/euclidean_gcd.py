@@ -3,7 +3,8 @@ from test_framework import generic_test
 
 def gcd(x: int, y: int) -> int:
     """
-    Time complexity  = O(log max(x, y)) = O(n), where n is the number of bits needed to represent the inputs.
+    Time complexity = O(log max(x, y))
+                    = O(n), where n is the number of bits needed to represent the inputs.
     Space complexity = O(n)
 
     Since with each recursive step one of the arguments is at least halved, it means that the time complexity is
@@ -14,7 +15,6 @@ def gcd(x: int, y: int) -> int:
     Average running time:    1 us
     Median running time:     1 us
     """
-
     return x if y == 0 else gcd(y, x % y)
 
 
