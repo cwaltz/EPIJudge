@@ -4,8 +4,37 @@ from test_framework import generic_test
 
 
 def n_queens(n: int) -> List[List[int]]:
-    # TODO - you fill in here.
-    return []
+    """
+    #15.2
+
+    Time complexity = O(n! / (c ** n)), where n is the number of queens.
+    Space complexity = ?  # TODO
+
+    The time complexity is lower bounded by the number of non-attacking placements.
+    No exact form is known for this quantity as a function of n,
+    but it is conjectured to tend to n! / (c ** n), where c ~ 2.54, which is super-exponential.
+
+    Test PASSED (10/10) [ 373 ms]
+    Average running time:   46 ms
+    Median running time:   511 us
+    """
+    def solve_n_queens(row):
+        if row == n:
+            # All queens are legally placed.
+            result.append(col_placement.copy())
+            return
+        for col in range(n):
+            # Test if a newly placed queen will conflict any earlier queens placed before.
+            if all(
+                    abs(c - col) not in (0, row - i)
+                    for i, c in enumerate(col_placement[:row])):
+                col_placement[row] = col
+                solve_n_queens(row + 1)
+
+    result: List[List[int]] = []
+    col_placement = [0] * n
+    solve_n_queens(0)
+    return result
 
 
 def comp(a, b):

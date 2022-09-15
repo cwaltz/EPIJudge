@@ -4,14 +4,18 @@ from test_framework import generic_test
 
 
 def n_queens(n: int) -> List[List[int]]:
+    """
+    Test PASSED (10/10) [ 373 ms]
+    Average running time:   46 ms
+    Median running time:   513 us
+    """
     def solve_n_queens(row):
         if row == n:
             # All queens are legally placed.
             result.append(col_placement.copy())
             return
         for col in range(n):
-            # Test if a newly placed queen will conflict any earlier queens
-            # placed before.
+            # Test if a newly placed queen will conflict any earlier queens placed before.
             if all(
                     abs(c - col) not in (0, row - i)
                     for i, c in enumerate(col_placement[:row])):
