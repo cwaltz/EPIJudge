@@ -4,7 +4,11 @@ from test_framework import generic_test, test_utils
 
 
 def generate_power_set(input_set: List[int]) -> List[List[int]]:
-
+    """
+    Test PASSED (15/15) [   8 ms]
+    Average running time:    1 ms
+    Median running time:    56 us
+    """
     # Generate all subsets whose intersection with input_set[0], ...,
     # input_set[to_be_selected - 1] is exactly selected_so_far.
     def directed_power_set(to_be_selected, selected_so_far):

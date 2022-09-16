@@ -1,16 +1,73 @@
-from typing import List
+import functools
 
 from test_framework import generic_test
 
 
+@functools.lru_cache(None)  # maxsize is set to None, the LRU feature is disabled & the cache can grow without bound.
 def fibonacci(n: int) -> int:
-    if n < 2:
+    """
+    #16.0
+
+    Time complexity = O(n)
+    Space complexity = O(n) due to caching.
+
+    Test PASSED (46/46) [  <1 us]
+    Average running time:   <1 us
+    Median running time:    <1 us
+    """
+    if n <= 1:
         return n
-    fib: List[int] = [0] * (n + 1)
-    fib[0], fib[1] = 0, 1
-    for i in range(2, n + 1):
-        fib[i] = fib[i - 1] + fib[i - 2]
-    return fib[n]
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+def fibonacci_constant_space(n: int) -> int:
+    """
+    Time complexity = O(n)
+    Space complexity = O(1)
+
+    Test PASSED (46/46) [   2 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
+    if n <= 1:
+        return n
+    f_minus_2, f_minus_1 = 0, 1
+    for _ in range(1, n):  # Loop runs (n - 1) times.
+        f = f_minus_2 + f_minus_1
+        f_minus_2, f_minus_1 = f_minus_1, f
+    return f_minus_1
+
+
+def fibonacci_2(n: int, cache={}) -> int:
+    """
+    Time complexity = O(n)
+    Space complexity = O(n) due to caching.
+
+    Test PASSED (46/46) [   1 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
+    if n <= 1:
+        return n
+    if n not in cache:
+        cache[n] = fibonacci_2(n - 1) + fibonacci_2(n - 2)
+    return cache[n]
+
+
+def fibonacci_3(n: int, cache={}) -> int:
+    """
+    Time complexity = O(n)
+    Space complexity = O(n) due to caching.
+
+    Test PASSED (46/46) [   1 us]
+    Average running time:    1 us
+    Median running time:     1 us
+    """
+    if n <= 1:
+        return n
+    if n not in cache:
+        cache[n] = fibonacci_3(n - 1, cache) + fibonacci_3(n - 2, cache)
+    return cache[n]
 
 
 if __name__ == '__main__':
