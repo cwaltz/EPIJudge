@@ -2142,7 +2142,7 @@ problem_mapping = {
                 "total": 46
             },
             "Python: max_sum_subarray.py": {
-                "passed": 0,
+                "passed": 1001,
                 "total": 1001
             }
         },

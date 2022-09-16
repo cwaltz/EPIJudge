@@ -4,7 +4,11 @@ from test_framework import generic_test
 
 
 def find_maximum_subarray(A: List[int]) -> int:
-
+    """
+    Test PASSED (1001/1001) [   3 ms]
+    Average running time:   27 us
+    Median running time:     9 us
+    """
     max_seen = max_end = 0
     for a in A:
         max_end = max(a, a + max_end)
