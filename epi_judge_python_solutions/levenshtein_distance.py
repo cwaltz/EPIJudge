@@ -4,6 +4,11 @@ from test_framework import generic_test
 
 
 def levenshtein_distance(A: str, B: str) -> int:
+    """
+    Test PASSED (100/100) [   3 ms]
+    Average running time:  979 us
+    Median running time:   463 us
+    """
     @functools.lru_cache(None)
     def compute_distance_between_prefixes(A_idx, B_idx):
         if A_idx < 0:
@@ -16,8 +21,7 @@ def levenshtein_distance(A: str, B: str) -> int:
         if A[A_idx] == B[B_idx]:
             return compute_distance_between_prefixes(A_idx - 1, B_idx - 1)
 
-        substitute_last = compute_distance_between_prefixes(
-            A_idx - 1, B_idx - 1)
+        substitute_last = compute_distance_between_prefixes(A_idx - 1, B_idx - 1)
         add_last = compute_distance_between_prefixes(A_idx, B_idx - 1)
         delete_last = compute_distance_between_prefixes(A_idx - 1, B_idx)
         return 1 + min(substitute_last, add_last, delete_last)

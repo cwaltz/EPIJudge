@@ -5,7 +5,11 @@ from test_framework import generic_test
 
 def num_combinations_for_final_score(final_score: int,
                                      individual_play_scores: List[int]) -> int:
-
+    """
+    Test PASSED (1003/1003) [  27 us]
+    Average running time:  942 us
+    Median running time:   646 us
+    """
     # One way to reach 0.
     num_combinations_for_score = [[1] + [0] * final_score
                                   for _ in individual_play_scores]
