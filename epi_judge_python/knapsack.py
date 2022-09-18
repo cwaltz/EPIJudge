@@ -9,8 +9,47 @@ Item = collections.namedtuple('Item', ('weight', 'value'))
 
 
 def optimum_subject_to_capacity(items: List[Item], capacity: int) -> int:
-    # TODO - you fill in here.
-    return 0
+    """
+    #16.6
+
+    Time complexity = O(n * w), where n is the number of items and w is capacity.
+    Space complexity = O(w)
+
+    Test PASSED (100/100) [ 366 ms]
+    Average running time:   76 ms
+    Median running time:    46 ms
+    """
+    results = [0] * (capacity + 1)
+    for _, item in enumerate(items):
+        for j in range(capacity, item.weight - 1, -1):
+            if results[j] < results[j - item.weight] + item.value:
+                results[j] = results[j - item.weight] + item.value
+    return results[-1]
+
+
+def optimum_subject_to_capacity_with_cache(items: List[Item], capacity: int) -> int:
+    """
+    Test PASSED (100/100) [ 666 ms]
+    Average running time:  211 ms
+    Median running time:   144 ms
+    """
+    # Returns the optimum value when we choose from items[:k + 1] and have a
+    # capacity of available_capacity.
+    @functools.lru_cache(None)
+    def optimum_subject_to_item_and_capacity(k, available_capacity):
+        if k < 0:
+            # No items can be chosen.
+            return 0
+
+        without_curr_item = optimum_subject_to_item_and_capacity(
+            k - 1, available_capacity)
+        with_curr_item = (0 if available_capacity < items[k].weight else
+                          (items[k].value +
+                           optimum_subject_to_item_and_capacity(
+                               k - 1, available_capacity - items[k].weight)))
+        return max(without_curr_item, with_curr_item)
+
+    return optimum_subject_to_item_and_capacity(len(items) - 1, capacity)
 
 
 @enable_executor_hook

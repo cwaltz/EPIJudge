@@ -9,7 +9,11 @@ Item = collections.namedtuple('Item', ('weight', 'value'))
 
 
 def optimum_subject_to_capacity(items: List[Item], capacity: int) -> int:
-
+    """
+    Test PASSED (100/100) [ 666 ms]
+    Average running time:  211 ms
+    Median running time:   144 ms
+    """
     # Returns the optimum value when we choose from items[:k + 1] and have a
     # capacity of available_capacity.
     @functools.lru_cache(None)
