@@ -2,9 +2,13 @@ from typing import List
 
 from test_framework import generic_test
 
-# git push test commit - to be removed
-def has_two_sum(A: List[int], t: int) -> bool:
 
+def has_two_sum(A: List[int], t: int) -> bool:
+    """
+    Test PASSED (1005/1005) [   4 ms]
+    Average running time:   75 us
+    Median running time:    11 us
+    """
     i, j = 0, len(A) - 1
 
     while i <= j:
