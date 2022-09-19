@@ -7,7 +7,7 @@ def has_two_sum(nums: List[int], target: int) -> bool:
     """
     #17.0
 
-    Time complexity = O(n), where n is the size of nums.
+    Time complexity = O(n), where n is the length of the array.
     Space complexity = O(1)
 
     Test PASSED (1005/1005) [   4 ms]
