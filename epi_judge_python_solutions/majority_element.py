@@ -4,7 +4,11 @@ from test_framework import generic_test
 
 
 def majority_search(stream: Iterator[str]) -> str:
-
+    """
+    Test PASSED (201/201) [   6 ms]
+    Average running time:   45 us
+    Median running time:     5 us
+    """
     candidate_count = 0
     for it in stream:
         if candidate_count == 0:
