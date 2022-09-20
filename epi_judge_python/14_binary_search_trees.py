@@ -1,14 +1,15 @@
-import bintrees
-import sortedcontainers
-
 """
 #14.0
 
 Binary Search Trees boot camp
 """
+import bintrees
+import sortedcontainers
 
-t = bintrees.RBTree([(5, 'Alfa'), (2, 'Bravo'), (7, 'Charlie'), (3, 'Delta'), (6, 'Echo')])
-# t1 = sortedcontainers.SortedList([(5, 'Alfa'), (2, 'Bravo'), (7, 'Charlie'), (3, 'Delta'), (6, 'Echo')])
+t = bintrees.RBTree([(5, 'Alfa'), (2, 'Bravo'), (7, 'Charlie'), (3, 'Delta'),
+                     (6, 'Echo')])
+# t1 = sortedcontainers.SortedList([(5, 'Alfa'), (2, 'Bravo'), (7,
+# 'Charlie'), (3, 'Delta'), (6, 'Echo')])
 
 print(t[2])  # 'Bravo'
 
