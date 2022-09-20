@@ -13,15 +13,18 @@ def find_kth_largest(k: int, A: List[int]) -> int:
     """
     #11.8
 
-    Time complexity  = O(n) on average. O(n ** 2) in the worst case.
+    Time complexity = O(n) on average. O(n ** 2) in the worst case.
     Space complexity = O(1)
 
-    Since we expect to reduce the number of elements to process by roughly half, the average time complexity T(n)
-    satisfies T(n) = O(n) + T(n/2). This solves to T(n) = O(n).The space complexity is O(1). The worst-case time
-    complexity is O(n ** 2), which occurs when the randomly selected pivot is the smallest or largest element in the
-    current sub-array. The probability of the worst-case reduces exponentially with the length of the input array, and
-    the worst-case is a nonissue in practice. For this reason, the 'randomize' selection algorithm is sometimes said to
-    have almost certain O(n) time complexity.
+    Since we expect to reduce the number of elements to process by roughly
+    half, the average time complexity T(n) satisfies T(n) = O(n) + T(n/2).
+    This solves to T(n) = O(n).The space complexity is O(1). The worst-case
+    time complexity is O(n ** 2), which occurs when the randomly selected
+    pivot is the smallest or largest element in the current sub-array. The
+    probability of the worst-case reduces exponentially with the length of
+    the input array, and the worst-case is a nonissue in practice. For this
+    reason, the 'randomize' selection algorithm is sometimes said to have
+    almost certain O(n) time complexity.
 
     Test PASSED (503/503) [  14 ms]
     Average running time:   90 us
@@ -111,7 +114,7 @@ def find_kth_smallest(k, A):
 
 def find_kth_largest_pythonic(k: int, A: List[int]) -> int:
     """
-    Time complexity  = O(n log n)
+    Time complexity = O(n log n)
     Space complexity = O(n)
 
     Test PASSED (503/503) [   9 ms]
@@ -123,7 +126,7 @@ def find_kth_largest_pythonic(k: int, A: List[int]) -> int:
 
 def find_kth_smallest_pythonic(k: int, A: List[int]) -> int:
     """
-    Time complexity  = O(n log n)
+    Time complexity = O(n log n)
     Space complexity = O(n)
     """
     return heapq.nsmallest(k, A)[k - 1]
