@@ -12,7 +12,11 @@ MPG = 20
 # gallons[i] is the amount of gas in city i, and distances[i] is the
 # distance city i to the next city.
 def find_ample_city(gallons: List[int], distances: List[int]) -> int:
-
+    """
+    Test PASSED (202/202) [   1 ms]
+    Average running time:   70 us
+    Median running time:    45 us
+    """
     remaining_gallons = 0
     CityAndRemainingGas = collections.namedtuple('CityAndRemainingGas',
                                                  ('city', 'remaining_gallons'))

@@ -35,6 +35,9 @@ def has_three_sum(nums: List[int], target: int) -> bool:
 
 def has_three_sum_shorter(A: List[int], t: int) -> bool:
     """
+    Time complexity = O(n ** 2), where n is the length of the array.
+    Space complexity = O(1)
+
     Test PASSED (1008/1008) [   3  s]
     Average running time:    4 ms
     Median running time:    11 us
