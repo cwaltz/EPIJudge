@@ -26,6 +26,10 @@ MatchResult = collections.namedtuple('MatchResult', ('winning_team',
 
 
 def can_team_a_beat_team_b(matches, team_a, team_b):
+    """
+    Time complexity = O(E), where E is the number of outcomes (= matches).
+    Space complexity = O(E)
+    """
     def build_graph():
         graph = collections.defaultdict(set)
         for match in matches:
