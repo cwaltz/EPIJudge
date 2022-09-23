@@ -16,6 +16,8 @@ def find_kth_largest(k: int, A: List[int]) -> int:
     Time complexity = O(n) on average. O(n ** 2) in the worst case.
     Space complexity = O(1)
 
+    All elements are distinct.
+
     Since we expect to reduce the number of elements to process by roughly
     half, the average time complexity T(n) satisfies T(n) = O(n) + T(n/2).
     This solves to T(n) = O(n).The space complexity is O(1). The worst-case
@@ -26,8 +28,8 @@ def find_kth_largest(k: int, A: List[int]) -> int:
     reason, the 'randomize' selection algorithm is sometimes said to have
     almost certain O(n) time complexity.
 
-    Test PASSED (503/503) [  14 ms]
-    Average running time:   90 us
+    Test PASSED (503/503) [  11 ms]
+    Average running time:   91 us
     Median running time:    16 us
     """
 

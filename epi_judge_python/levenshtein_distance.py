@@ -11,8 +11,8 @@ def levenshtein_distance(a: str, b: str) -> int:
     Space complexity = O(min(len_a, len_b))
 
     Test PASSED (100/100) [   1 ms]
-    Average running time:  617 us
-    Median running time:   325 us
+    Average running time:  614 us
+    Median running time:   321 us
     """
     # Let b be the smaller string of the two input strings.
     if len(a) < len(b):
@@ -72,6 +72,7 @@ def levenshtein_distance_using_cache(A: str, B: str) -> int:
     Average running time:  979 us
     Median running time:   463 us
     """
+
     @functools.lru_cache(None)
     def compute_distance_between_prefixes(A_idx, B_idx):
         if A_idx < 0:
@@ -84,7 +85,8 @@ def levenshtein_distance_using_cache(A: str, B: str) -> int:
         if A[A_idx] == B[B_idx]:
             return compute_distance_between_prefixes(A_idx - 1, B_idx - 1)
 
-        substitute_last = compute_distance_between_prefixes(A_idx - 1, B_idx - 1)
+        substitute_last = compute_distance_between_prefixes(A_idx - 1,
+                                                            B_idx - 1)
         add_last = compute_distance_between_prefixes(A_idx, B_idx - 1)
         delete_last = compute_distance_between_prefixes(A_idx - 1, B_idx)
         return 1 + min(substitute_last, add_last, delete_last)
@@ -101,6 +103,7 @@ def levenshtein_distance_2(a: str, b: str) -> int:
     Average running time:    1 ms
     Median running time:   381 us
     """
+
     def compute_distance_between_prefixes(a_idx, b_idx):
         if a_idx < 0:
             # A is empty so add all of B's characters.
@@ -113,9 +116,11 @@ def levenshtein_distance_2(a: str, b: str) -> int:
                 distance_between_prefixes[a_idx][b_idx] = (
                     compute_distance_between_prefixes(a_idx - 1, b_idx - 1))
             else:
-                substitute_last = compute_distance_between_prefixes(a_idx - 1, b_idx - 1)
+                substitute_last = compute_distance_between_prefixes(a_idx - 1,
+                                                                    b_idx - 1)
                 add_last = compute_distance_between_prefixes(a_idx - 1, b_idx)
-                delete_last = compute_distance_between_prefixes(a_idx, b_idx - 1)
+                delete_last = compute_distance_between_prefixes(a_idx,
+                                                                b_idx - 1)
                 distance_between_prefixes[a_idx][b_idx] = (
                         1 + min(substitute_last, add_last, delete_last))
         return distance_between_prefixes[a_idx][b_idx]

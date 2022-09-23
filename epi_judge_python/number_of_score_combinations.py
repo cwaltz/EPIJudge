@@ -8,7 +8,8 @@ def num_combinations_for_final_score(final_score: int,
     """
     #16.1
 
-    Time complexity = O(s * n), where s is final score and n is the number of individual play scores.
+    Time complexity = O(s * n), where s is final score and n is the number of
+    individual play scores.
     Space complexity = O(s)
 
     Test PASSED (1003/1003) [   3 us]
@@ -22,10 +23,11 @@ def num_combinations_for_final_score(final_score: int,
     return combinations[final_score]
 
 
-def num_combinations_for_final_score_1(final_score: int,
-                                       individual_play_scores: List[int]) -> int:
+def num_combinations_for_final_score_(final_score: int,
+                                      individual_play_scores: List[int]) -> int:
     """
-    Time complexity = O(s * n), where s is final score (= cols) & n is the number of individual play scores (= rows).
+    Time complexity = O(s * n), where s is final score (= cols) & n is the
+    number of individual play scores (= rows).
     Space complexity = O(s * n)
 
     Test PASSED (1003/1003) [  27 us]
