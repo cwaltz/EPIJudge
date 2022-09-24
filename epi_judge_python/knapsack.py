@@ -12,7 +12,7 @@ def optimum_subject_to_capacity(items: List[Item], capacity: int) -> int:
     """
     #16.6
 
-    Time complexity = O(n * w), where n is the number of items and w is capacity.
+    Time complexity = O(n * w), where n is the number of items & w is capacity.
     Space complexity = O(w)
 
     Test PASSED (100/100) [ 366 ms]
