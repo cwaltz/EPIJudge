@@ -8,7 +8,11 @@ from test_framework import generic_test
 
 
 def transform_string(D: Set[str], s: str, t: str) -> int:
-
+    """
+    Test PASSED (48/48) [  97 us]
+    Average running time:   49 ms
+    Median running time:     9 ms
+    """
     StringWithDistance = collections.namedtuple(
         'StringWithDistance', ('candidate_string', 'distance'))
     q = collections.deque([StringWithDistance(s, 0)])
@@ -34,7 +38,7 @@ def transform_string_pythonic(D, s, t):
     if s == t:
         return 0
     length = 1
-    running = set([s])
+    running = {s}
     while running:
         running = D & set(cand[:i] + c + cand[i + 1:] for cand in running
                           for i in range(len(cand))
@@ -43,7 +47,7 @@ def transform_string_pythonic(D, s, t):
             return length
         length += 1
         D -= running
-    return 0
+    return -1
 
 
 if __name__ == '__main__':

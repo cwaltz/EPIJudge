@@ -14,7 +14,11 @@ Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
 def search_maze(maze: List[List[int]], s: Coordinate,
                 e: Coordinate) -> List[Coordinate]:
-
+    """
+    Test PASSED (101/101) [   2 us]
+    Average running time:   74 us
+    Median running time:    32 us
+    """
     # Perform DFS to find a feasible path.
     def search_maze_helper(cur):
         # Checks cur is within maze and is a white pixel.
