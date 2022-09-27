@@ -5,7 +5,11 @@ from test_framework import generic_test
 
 
 def flip_color(x: int, y: int, image: List[List[bool]]) -> None:
-
+    """
+    Test PASSED (50/50) [   3 us]
+    Average running time:   25 us
+    Median running time:    11 us
+    """
     color = image[x][y]
     q = collections.deque([(x, y)])
     image[x][y] = not image[x][y]  # Flips.
