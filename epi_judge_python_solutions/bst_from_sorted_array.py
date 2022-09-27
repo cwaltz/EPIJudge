@@ -10,6 +10,11 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def build_min_height_bst_from_sorted_array(A: List[int]) -> Optional[BstNode]:
+    """
+    Test PASSED (87/87) [   6 us]
+    Average running time:   22 us
+    Median running time:    11 us
+    """
     def build_min_height_bst_from_sorted_subarray(start, end):
         if start >= end:
             return None

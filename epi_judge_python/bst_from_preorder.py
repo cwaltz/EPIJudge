@@ -4,8 +4,8 @@ from bst_node import BstNode
 from test_framework import generic_test
 
 
-def rebuild_bst_from_preorder(preorder_sequence: List[int]
-                              ) -> Optional[BstNode]:
+def rebuild_bst_from_preorder(preorder_sequence: List[int]) -> Optional[
+    BstNode]:
     """
     #14.5
 
@@ -17,31 +17,38 @@ def rebuild_bst_from_preorder(preorder_sequence: List[int]
     = size of the inorder sequence O(n) + size of the hash table O(n) + maximum
     depth of function call stack O(h)
 
-    Test PASSED (950/950) [   2 us]
-    Average running time:  305 us
+    Test PASSED (950/950) [  <1 us]
+    Average running time:  300 us
     Median running time:    41 us
     """
 
-    def rebuild_bst_helper(pre_start: int, pre_end: int, in_start: int,
-                           in_end: int) -> Optional[BstNode]:
-        if pre_start < pre_end and in_start < in_end:
-            root_in_idx = inorder_idx[preorder_sequence[pre_start]]
-            left_subtree_size = root_in_idx - in_start
-            # right_subtree_size = in_end - root_in_idx
-            return BstNode(
-                preorder_sequence[pre_start],
-                rebuild_bst_helper(pre_start + 1, pre_start + 1 +
-                                   left_subtree_size, in_start, root_in_idx),
-                rebuild_bst_helper(pre_start + 1 + left_subtree_size, pre_end,
-                                   root_in_idx + 1, in_end)
-            )
-        else:
+    def rebuild_tree_from_preorder_inorder_traversals(pre_start, pre_end,
+                                                      in_start, in_end):
+        if pre_end <= pre_start or in_end <= in_start:
             return None
+        root_inorder_idx = inorder_idx[preorder_sequence[pre_start]]
+        left_subtree_size = root_inorder_idx - in_start
+        return BstNode(
+            preorder_sequence[pre_start],
+            rebuild_tree_from_preorder_inorder_traversals(
+                pre_start + 1, pre_start + 1 + left_subtree_size, in_start,
+                root_inorder_idx),
+            rebuild_tree_from_preorder_inorder_traversals(
+                pre_start + 1 + left_subtree_size, pre_end,
+                root_inorder_idx + 1, in_end)
+        )
 
+    if len(preorder_sequence) == 0:
+        return None
     inorder_sequence: List[int] = sorted(preorder_sequence)
-    inorder_idx: Dict[int, int] = {v: i for i, v in enumerate(inorder_sequence)}
-    return rebuild_bst_helper(0, len(preorder_sequence), 0,
-                              len(inorder_sequence))
+    inorder_idx: Dict[int, int] = {value: index for index, value in
+                                   enumerate(inorder_sequence)}
+    return rebuild_tree_from_preorder_inorder_traversals(pre_start=0,
+                                                         pre_end=len(
+                                                             preorder_sequence),
+                                                         in_start=0,
+                                                         in_end=len(
+                                                             inorder_sequence))
 
 
 def rebuild_bst_from_preorder_linear_time(preorder_sequence: List[int]) -> \

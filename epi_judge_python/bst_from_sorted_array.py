@@ -9,9 +9,34 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def build_min_height_bst_from_sorted_array(A: List[int]) -> Optional[BstNode]:
-    # TODO - you fill in here.
-    return None
+def build_min_height_bst_from_sorted_array(nums: List[int]) -> Optional[BstNode]:
+    """
+    #14.8
+
+    Time complexity = O(n)
+    Space complexity = O(log n) on function call stack.
+
+    The time complexity T(n) satisfies the recurrence T(n) = 2T(n/2) + O(1),
+    which solves to T(n) = O(n). Another explanation for the time complexity
+    is that we make exactly n calls to the recursive function and spend O(1)
+    within each call.
+
+    Test PASSED (87/87) [   7 us]
+    Average running time:   24 us
+    Median running time:    12 us
+    """
+
+    def build_min_height_bst_from_sorted_subarray(start, end):
+        if end <= start:
+            return None
+        mid = start + ((end - start) >> 1)
+        return BstNode(
+            nums[mid],
+            build_min_height_bst_from_sorted_subarray(start, mid),
+            build_min_height_bst_from_sorted_subarray(mid + 1, end)
+        )
+
+    return build_min_height_bst_from_sorted_subarray(0, len(nums))
 
 
 @enable_executor_hook
