@@ -10,9 +10,10 @@ def binary_tree_from_preorder_inorder(preorder: List[int],
     #9.11
 
     Time complexity = O(n)
-    Building the hash table takes O(n) time and the recursive reconstruction spends O(1) time per node.
-    Space complexity = O(n + h)
-    = the size of the hash table O(n) + the maximum depth of the function call stack O(h)
+    Building the hash table takes O(n) time and the recursive reconstruction
+    spends O(1) time per node.
+    Space complexity = O(n) = the size of the hash table O(n) + the maximum
+    depth of the function call stack O(h)
 
     Test PASSED (3852/3852) [   1 us]
     Average running time:   53 us
@@ -22,8 +23,9 @@ def binary_tree_from_preorder_inorder(preorder: List[int],
 
     # Builds the subtree with preorder[preorder_start:preorder_end] and
     # inorder[inorder_start:inorder_end].
-    def binary_tree_from_preorder_inorder_helper(preorder_start: int, preorder_end: int, inorder_start: int,
-                                                 inorder_end: int) -> Optional[BinaryTreeNode]:
+    def binary_tree_from_preorder_inorder_helper(
+            preorder_start: int, preorder_end: int, inorder_start: int,
+            inorder_end: int) -> Optional[BinaryTreeNode]:
         if preorder_end <= preorder_start or inorder_end <= inorder_start:
             return None
 
