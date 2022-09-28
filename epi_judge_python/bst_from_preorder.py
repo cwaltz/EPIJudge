@@ -4,11 +4,44 @@ from bst_node import BstNode
 from test_framework import generic_test
 
 
-def rebuild_bst_from_preorder(preorder_sequence: List[int]) -> Optional[
-    BstNode]:
+def rebuild_bst_from_preorder(preorder_sequence: List[int]) ->\
+        Optional[BstNode]:
     """
     #14.5
 
+    Time complexity = O(n), since it performs a constant amount of work per node
+    Space complexity = O(h) = O(log n) on function call stack
+
+    Linear time solution! :D
+
+    Test PASSED (950/950) [   1 us]
+    Average running time:  286 us
+    Median running time:    39 us
+    """
+
+    def rebuild_bst_from_preorder_on_value_range(lower_bound, upper_bound):
+        if root_idx[0] == len(preorder_sequence):
+            return None
+
+        root = preorder_sequence[root_idx[0]]
+        if not lower_bound <= root <= upper_bound:
+            return None
+        root_idx[0] += 1
+        # Note that rebuild_bst_from_preorder_on_value_range updates root_idx[0]
+        # So the order of following two calls are critical.
+        left_subtree = rebuild_bst_from_preorder_on_value_range(lower_bound,
+                                                                root)
+        right_subtree = rebuild_bst_from_preorder_on_value_range(root,
+                                                                 upper_bound)
+        return BstNode(root, left_subtree, right_subtree)
+
+    root_idx = [0]  # Tracks current subtree.
+    return rebuild_bst_from_preorder_on_value_range(float('-inf'), float('inf'))
+
+
+def rebuild_bst_from_preorder_(preorder_sequence: List[int]) ->\
+        Optional[BstNode]:
+    """
     Time complexity = O(n log n) = O(n log n) + O(n) + O(n)
     Building the inorder sequence takes O(n log n) time due to sorting, building
     the hash table takes O(n) time and the recursive reconstruction spends O(1)
@@ -49,37 +82,6 @@ def rebuild_bst_from_preorder(preorder_sequence: List[int]) -> Optional[
                                                          in_start=0,
                                                          in_end=len(
                                                              inorder_sequence))
-
-
-def rebuild_bst_from_preorder_linear_time(preorder_sequence: List[int]) -> \
-        Optional[BstNode]:
-    """
-    Time complexity = O(n), since it performs a constant amount of work per node
-
-    Test PASSED (950/950) [   1 us]
-    Average running time:  286 us
-    Median running time:    39 us
-    """
-
-    # TODO: Yet to be understood!
-    def rebuild_bst_from_preorder_on_value_range(lower_bound, upper_bound):
-        if root_idx[0] == len(preorder_sequence):
-            return None
-
-        root = preorder_sequence[root_idx[0]]
-        if not lower_bound <= root <= upper_bound:
-            return None
-        root_idx[0] += 1
-        # Note that rebuild_bst_from_preorder_on_value_range updates root_idx[0]
-        # So the order of following two calls are critical.
-        left_subtree = rebuild_bst_from_preorder_on_value_range(lower_bound,
-                                                                root)
-        right_subtree = rebuild_bst_from_preorder_on_value_range(root,
-                                                                 upper_bound)
-        return BstNode(root, left_subtree, right_subtree)
-
-    root_idx = [0]  # Tracks current subtree.
-    return rebuild_bst_from_preorder_on_value_range(float('-inf'), float('inf'))
 
 
 def rebuild_bst_from_preorder_slow(preorder_sequence: List[int]

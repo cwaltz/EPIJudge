@@ -8,6 +8,11 @@ from test_framework import generic_test
 
 def find_closest_elements_in_sorted_arrays(sorted_arrays: List[List[int]]
                                            ) -> int:
+    """
+    Test PASSED (51/51) [ 125 ms]
+    Average running time:    4 ms
+    Median running time:     1 ms
+    """
 
     # Stores array iterators in each entry.
     iters = bintrees.RBTree()
@@ -21,7 +26,8 @@ def find_closest_elements_in_sorted_arrays(sorted_arrays: List[List[int]]
     while True:
         min_value, min_idx = iters.min_key()
         max_value = iters.max_key()[0]
-        min_distance_so_far = min(max_value - min_value, min_distance_so_far)
+        if max_value - min_value < min_distance_so_far:
+            min_distance_so_far = max_value - min_value
         it = iters.pop_min()[1]
         next_min = next(it, None)
         # Return if some array has no remaining elements.
