@@ -9,8 +9,8 @@ def binary_tree_depth_order(tree: BinaryTreeNode) -> List[List[int]]:
     """
     #8.6
 
-    Time complexity = O(n), since each node is enqueued and dequeued exactly once.
-    Space complexity = O(m), where m is the maximum number of nodes at any single depth.
+    Time complexity = O(n), since each node is enqueued & dequeued exactly once.
+    Space complexity = O(m), where m = max number of nodes at any single depth.
 
     Test PASSED (3852/3852) [  <1 us]
     Average running time:   10 us

@@ -11,6 +11,11 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(tree: BinaryTreeNode, node0: BinaryTreeNode,
         node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
+    """
+    Test PASSED (948/948) [  48 us]
+    Average running time:  291 us
+    Median running time:    74 us
+    """
 
     Status = collections.namedtuple('Status', ('num_target_nodes', 'ancestor'))
 
