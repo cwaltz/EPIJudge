@@ -19,10 +19,10 @@ def lca(tree: BinaryTreeNode, node0: BinaryTreeNode,
     DFS, recursive.
 
     Test PASSED (948/948) [   2 us]
-    Average running time:   85 us
-    Median running time:    11 us
+    Average running time:   83 us
+    Median running time:    10 us
     """
-    if tree in (None, node0, node1):
+    if tree in [None, node0, node1]:
         return tree
     left_node = lca(tree.left, node0, node1)
     right_node = lca(tree.right, node0, node1)
