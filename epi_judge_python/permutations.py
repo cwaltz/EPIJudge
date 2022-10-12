@@ -11,17 +11,19 @@ def permutations(nums: List[int]) -> List[List[int]]:
     Time complexity = O(n * n!), where n is the length of nums.
     Space complexity = O(n * n!)
 
-    The time complexity is determined by the number of recursive calls,
-    since within each function the time spent is O(1), not including the time in the sub calls.
-    The number of function calls, C(n) satisfies the recurrence C(n) = 1 + nC(n - 1) for n >= 1, with C(0) = 1.
-    Expanding this, we see C(n) = 1 + n + n(n - 1) + n(n - 1)(n - 2) + ... + n!
+    The time complexity is determined by the number of recursive calls, since
+    within each function the time spent is O(1), not including the time in the
+    sub calls. The number of function calls, C(n) satisfies the recurrence
+    C(n) = 1 + nC(n - 1) for n >= 1, with C(0) = 1. Expanding this, we see
+    C(n) = 1 + n + n(n - 1) + n(n - 1)(n - 2) + ... + n!
     = n!(1 / n! + 1 / (n - 1)! + 1 / (n - 2)! + ... + 1 / 1!).
-    The sum (1 + 1/1! + 1/2! + ... + 1/n!) tends to Euler's number e, so C(n) tends to (e - 1)n!, i.e., O(n!).
-    The time complexity T(n) is O(n * n!), since we do O(n) computation per call outside the recursive calls.
+    The sum (1 + 1/1! + 1/2! + ... + 1/n!) tends to Euler's number e,
+    so C(n) tends to (e - 1)n!, i.e., O(n!). The time complexity T(n) is
+    O(n * n!), since we do O(n) computation per call outside the recursive calls
 
-    Test PASSED (8/8) [  35 ms]
-    Average running time:    5 ms
-    Median running time:    63 us
+    Test PASSED (8/8) [  32 ms]
+    Average running time:    4 ms
+    Median running time:    58 us
     """
     def directed_permutations(i):
         if i == len(nums) - 1:

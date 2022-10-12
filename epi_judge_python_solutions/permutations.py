@@ -5,9 +5,9 @@ from test_framework import generic_test, test_utils
 
 def permutations(A: List[int]) -> List[List[int]]:
     """
-    Test PASSED (8/8) [  35 ms]
-    Average running time:    5 ms
-    Median running time:    63 us
+    Test PASSED (8/8) [  33 ms]
+    Average running time:    4 ms
+    Median running time:    58 us
     """
     def directed_permutations(i):
         if i == len(A) - 1:
