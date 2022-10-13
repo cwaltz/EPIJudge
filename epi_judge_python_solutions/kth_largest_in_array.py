@@ -10,13 +10,16 @@ from test_framework import generic_test
 # find_kth_largest(3, A) returns 1, and find_kth_largest(4, A) returns -1.
 def find_kth_largest(k: int, A: List[int]) -> int:
     def find_kth(comp):
-        # Partition A[left:right + 1] around pivot_idx, returns the new index of the pivot, new_pivot_idx,
-        # after partition. After partitioning, A[left:new_pivot_idx] contains elements that are "greater than"
-        # the pivot, and A[new_pivot_idx + 1:right + 1] contains elements that are "less than" the pivot.
+        # Partition A[left:right + 1] around pivot_idx, returns the new index of
+        # the pivot, new_pivot_idx, after partition. After partitioning,
+        # A[left:new_pivot_idx] contains elements that are "greater than" the
+        # pivot, and A[new_pivot_idx + 1:right + 1] contains elements that are
+        # "less than" the pivot.
         #
         # Note: "greater than" and "less than" are defined by the comp object.
         #
         # Returns the new index of the pivot element after partition.
+
         def partition_around_pivot(left, right, pivot_idx):
             pivot_value = A[pivot_idx]
             new_pivot_idx = left

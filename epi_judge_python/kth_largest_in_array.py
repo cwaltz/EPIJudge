@@ -134,6 +134,28 @@ def find_kth_smallest_pythonic(k: int, A: List[int]) -> int:
     return heapq.nsmallest(k, A)[k - 1]
 
 
+def find_kth_largest_using_sort(k: int, A: List[int]) -> int:
+    """
+    Time complexity = O(n log n)
+    Space complexity = O(n)
+
+    Test PASSED (503/503) [ 213 us]
+    Average running time:   23 us
+    Median running time:     2 us
+    """
+    A.sort()
+    return A[-k]
+
+
+def find_kth_smallest_using_sort(k: int, A: List[int]) -> int:
+    """
+    Time complexity = O(n log n)
+    Space complexity = O(n)
+    """
+    A.sort()
+    return A[k - 1]
+
+
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('kth_largest_in_array.py',
