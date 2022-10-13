@@ -1,10 +1,11 @@
+import itertools
 from typing import List
 
 from next_permutation import next_permutation
 from test_framework import generic_test, test_utils
 
 
-def permutations(nums: List[int]) -> List[List[int]]:
+def permutations1(nums: List[int]) -> List[List[int]]:
     """
     #15.3
 
@@ -21,23 +22,24 @@ def permutations(nums: List[int]) -> List[List[int]]:
     so C(n) tends to (e - 1)n!, i.e., O(n!). The time complexity T(n) is
     O(n * n!), since we do O(n) computation per call outside the recursive calls
 
-    Test PASSED (8/8) [  32 ms]
+    Test PASSED (8/8) [  31 ms]
     Average running time:    4 ms
-    Median running time:    58 us
+    Median running time:    51 us
     """
     def directed_permutations(i):
-        if i == len(nums) - 1:
+        if i == n - 1:
             result.append(nums.copy())
             return
 
         # Try every possibility for nums[i].
-        for j in range(i, len(nums)):
+        for j in range(i, n):
             nums[i], nums[j] = nums[j], nums[i]
             # Generate all permutations for nums[i + 1:].
             directed_permutations(i + 1)
             nums[i], nums[j] = nums[j], nums[i]
 
     result: List[List[int]] = []
+    n = len(nums)
     directed_permutations(0)
     return result
 
@@ -59,6 +61,21 @@ def permutations_iterative(nums: List[int]) -> List[List[int]]:
         if not nums:
             break
     return result
+
+
+def permutations(nums: List[int]) -> List[List[int]]:
+    """
+    Test PASSED (8/8) [  19 ms]
+    Average running time:    2 ms
+    Median running time:    21 us
+    """
+    # return list(map(list, set(itertools.permutations(nums))))
+    """
+    Test PASSED (8/8) [  13 ms]
+    Average running time:    1 ms
+    Median running time:    14 us
+    """
+    return list(map(list, list(itertools.permutations(nums))))
 
 
 if __name__ == '__main__':
