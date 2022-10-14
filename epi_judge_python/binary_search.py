@@ -10,7 +10,7 @@ def binary_search(nums: List[int], target: int) -> int:
     """
     left, right = 0, len(nums) - 1
     while left <= right:
-        mid = left + (right - left) >> 1
+        mid = left + ((right - left) >> 1)
         if target < nums[mid]:
             right = mid - 1
         elif target == nums[mid]:
