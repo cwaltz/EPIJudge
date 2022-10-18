@@ -11,10 +11,11 @@ def levenshtein_distance(a: str, b: str) -> int:
     Space complexity = O(min(len_a, len_b))
 
     Test PASSED (100/100) [   1 ms]
-    Average running time:  614 us
-    Median running time:   321 us
+    Average running time:  599 us
+    Median running time:   311 us
     """
-    # Let b be the smaller string of the two input strings.
+    # Let b be the smaller string of the two input strings in order to simplify
+    # the implementation
     if len(a) < len(b):
         a, b = b, a
     len_a, len_b = len(a), len(b)
@@ -61,6 +62,34 @@ def levenshtein_distance_1(a: str, b: str) -> int:
             d[i][j] = d[i - 1][j - 1] if a[i] == b[j] else 1 + min(
                 d[i - 1][j - 1], d[i - 1][j], d[i][j - 1])
     return d[-1][-1]
+
+
+def levenshtein_distance_easiest_to_understand(a: str, b: str) -> int:
+    """
+    Time complexity = O(len_a * len_b)
+    Space complexity = O(len_a * len_b)
+
+    Test PASSED (100/100) [   2 ms]
+    Average running time:  699 us
+    Median running time:   369 us
+    """
+    len_a, len_b = len(a), len(b)
+    table = [[0] * (len_b + 1) for _ in range(len_a + 1)]
+
+    for i in range(len_a + 1):
+        table[i][0] = i
+    for j in range(len_b + 1):
+        table[0][j] = j
+
+    for i in range(1, len_a + 1):
+        for j in range(1, len_b + 1):
+            if a[i - 1] == b[j - 1]:
+                table[i][j] = table[i - 1][j - 1]
+            else:
+                table[i][j] = 1 + min(table[i - 1][j], table[i][j - 1],
+                                      table[i - 1][j - 1])
+
+    return table[-1][-1]
 
 
 def levenshtein_distance_using_cache(A: str, B: str) -> int:
