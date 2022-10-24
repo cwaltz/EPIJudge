@@ -10,12 +10,12 @@ class LruCache:
 
     Time complexity = O(1) for each operation
     Space complexity = O(n)
-    The time complexity for each lookup is O(1) for the hash table lookup and O(1) for updating the queue,
-    i.e., O(1) overall.
+    The time complexity for each lookup is O(1) for the hash table lookup & O(1)
+    for updating the queue, i.e., O(1) overall.
 
     Test PASSED (101/101) [   6 ms]
-    Average running time:   93 us
-    Median running time:    26 us
+    Average running time:   88 us
+    Median running time:    25 us
     """
     def __init__(self, capacity: int) -> None:
 
@@ -27,9 +27,8 @@ class LruCache:
 
         if isbn not in self._isbn_price_table:
             return -1
-        price = self._isbn_price_table.pop(isbn)
-        self._isbn_price_table[isbn] = price
-        return price
+        self._isbn_price_table.move_to_end(isbn)
+        return self._isbn_price_table[isbn]
 
     def insert(self, isbn: int, price: int) -> None:
 
