@@ -5,7 +5,11 @@ from test_framework import generic_test
 
 
 def add_two_numbers(L1: ListNode, L2: ListNode) -> Optional[ListNode]:
-
+    """
+    Test PASSED (2002/2002) [ 509 us]
+    Average running time:   58 us
+    Median running time:    23 us
+    """
     place_iter = dummy_head = ListNode()
     carry = 0
     while L1 or L2 or carry:
