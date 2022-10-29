@@ -4,7 +4,11 @@ from test_framework import generic_test
 
 
 def buy_and_sell_stock_once(prices: List[float]) -> float:
-
+    """
+    Test PASSED (402/402) [  14 ms]
+    Average running time:   94 us
+    Median running time:     9 us
+    """
     min_price_so_far, max_profit = float('inf'), 0.0
     for price in prices:
         max_profit_sell_today = price - min_price_so_far

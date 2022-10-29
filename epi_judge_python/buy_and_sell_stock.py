@@ -7,37 +7,19 @@ def buy_and_sell_stock_once(prices: List[float]) -> float:
     """
     #5.6
 
-    Time complexity = O(n), where n is the length of the array.
+    Time complexity = O(n), where n = len(prices)
     Space complexity = O(1)
 
-    Test PASSED (402/402) [   4 ms]
-    Average running time:   28 us
-    Median running time:     3 us
+    Test PASSED (402/402) [   3 ms]
+    Average running time:   17 us
+    Median running time:     2 us
     """
-    min_so_far = prices[0]
-    max_profit = 0.0
+    min_price, max_profit = prices[0], 0.0
     for price in prices:
-        if price < min_so_far:
-            min_so_far = price
-        if max_profit < price - min_so_far:
-            max_profit = price - min_so_far
-    return max_profit
-
-
-def buy_and_sell_stock_once1(prices: List[float]) -> float:
-    """
-    #5.6
-    The time complexity is O(n) and the space complexity is O(1), where n is the length of the array.
-
-    Test PASSED (402/402) [  17 ms]
-    Average running time:  113 us
-    Median running time:    11 us
-    """
-    min_price, max_profit = float('inf'), 0.0
-    for price in prices:
-        profit = price - min_price
-        max_profit = max(max_profit, profit)
-        min_price = min(min_price, price)
+        if price < min_price:
+            min_price = price
+        elif max_profit < price - min_price:
+            max_profit = price - min_price
     return max_profit
 
 
