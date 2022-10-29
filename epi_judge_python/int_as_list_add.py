@@ -29,6 +29,9 @@ def add_two_numbers(l1: ListNode, l2: ListNode) -> Optional[ListNode]:
 
 def add_two_numbers_faster(l1: ListNode, l2: ListNode) -> Optional[ListNode]:
     """
+    Time complexity = O(max(n1, n2))), n1 = len(l1), n2 = len(l2)
+    Space complexity = O(1) except for the result linked list
+
     Test PASSED (2002/2002) [ 496 us]
     Average running time:   33 us
     Median running time:    10 us
@@ -53,6 +56,9 @@ def add_two_numbers_faster(l1: ListNode, l2: ListNode) -> Optional[ListNode]:
 
 def add_two_numbers_fastest(l1: ListNode, l2: ListNode) -> Optional[ListNode]:
     """
+    Time complexity = O(max(n1, n2))), n1 = len(l1), n2 = len(l2)
+    Space complexity = O(1) except for the result linked list
+
     Test PASSED (2002/2002) [ 477 us]
     Average running time:   32 us
     Median running time:    10 us
