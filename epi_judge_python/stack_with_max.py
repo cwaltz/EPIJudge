@@ -9,9 +9,10 @@ class Stack:
     #8.1
 
     Time complexity = O(1) for each specified method.
-    Space complexity = O(n) in the worst-case, which occurs when each key pushed is greater than all keys in the primary
-    stack. However, when the number of distinct keys is small, or the maximum changes infrequently, the additional space
-    complexity is less, O(1) in the best-case.
+    Space complexity = O(n) in the worst-case, which occurs when each key pushed
+    is greater than all keys in the primary stack. However, when the number of
+    distinct keys is small, or the maximum changes infrequently, the additional
+    space complexity is less, O(1) in the best-case.
 
     Test PASSED (101/101) [  11 ms]
     Average running time:  156 us
