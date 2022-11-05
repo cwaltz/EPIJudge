@@ -2310,7 +2310,7 @@ problem_mapping = {
                 "total": 200
             },
             "Python: longest_nondecreasing_subsequence.py": {
-                "passed": 0,
+                "passed": 200,
                 "total": 200
             }
         }
