@@ -5,11 +5,13 @@ def is_palindrome(s: str) -> bool:
     """
     #6.5
 
+    Similar to Leetcode # 125. Valid Palindrome
+
     Time complexity = O(n), where n is the length of the string.
     Space complexity = O(1)
 
-    Test PASSED (305/305) [  55 ms]
-    Average running time:  184 us
+    Test PASSED (305/305) [  47 ms]
+    Average running time:  156 us
     Median running time:     1 us
     """
     # left moves forward, and right moves backward.
