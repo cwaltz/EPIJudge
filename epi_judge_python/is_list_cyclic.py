@@ -14,9 +14,10 @@ def has_cycle(head: Optional[ListNode]) -> Optional[ListNode]:
     Time complexity = O(n), where n is the total number of nodes.
     Space complexity = O(1)
 
-    Let F be the number of nodes to the start of the cycle, C the number of nodes on the cycle, and n the total number
-    of nodes. Then the time complexity is O(F) + O(C) = O(n): O(F) for both pointers to reach the cycle, and O(C) for
-    them to overlap once the slower one enters the cycle.
+    Let F be the number of nodes to the start of the cycle, C the number of
+    nodes on the cycle, and n the total number of nodes. Then the time
+    complexity is O(F) + O(C) = O(n): O(F) for both pointers to reach the cycle,
+    and O(C) for them to overlap once the slower one enters the cycle.
 
     Test PASSED (102/102) [   7 ms]
     Average running time:  117 us
@@ -104,14 +105,16 @@ def has_cycle_wrapper(executor, head, cycle_idx):
             cycle_length -= 1
             if cursor is None or cycle_length < 0:
                 raise TestFailure(
-                    'Returned node does not belong to the cycle or is not the closest node to the head'
+                    'Returned node does not belong to the cycle or is not the '
+                    'closest node to the head'
                 )
             if cursor is result:
                 break
 
     if cycle_length != 0:
         raise TestFailure(
-            'Returned node does not belong to the cycle or is not the closest node to the head'
+            'Returned node does not belong to the cycle or is not the closest '
+            'node to the head'
         )
 
 
