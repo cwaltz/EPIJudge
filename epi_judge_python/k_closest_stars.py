@@ -13,7 +13,7 @@ class Star:
 
     @property
     def distance(self) -> float:
-        return math.sqrt(self.x**2 + self.y**2 + self.z**2)
+        return math.sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2)
 
     def __lt__(self, rhs: 'Star') -> bool:
         return self.distance < rhs.distance
@@ -37,19 +37,44 @@ def find_closest_k_stars(stars: Iterator[Star], k: int) -> List[Star]:
 
     Test PASSED (51/51) [  10 ms]
     Average running time:  291 us
-    Median running time:    38 us
+    Median running time:    37 us
     """
     # max_heap to store the closest k stars seen so far.
     max_heap: List[Tuple[float, Star]] = []
     for star in stars:
-        # Add each star to the max-heap. If the max-heap size exceeds k, remove the maximum element from the max-heap.
-        # As python has only min-heap, insert tuple (negative of distance, star) to sort in reversed distance order.
+        # Add each star to the max-heap. If the max-heap size exceeds k, remove
+        # the maximum element from the max-heap. As python has only min-heap,
+        # insert tuple (negative of distance, star) to sort in reversed distance
+        # order.
         heapq.heappush(max_heap, (-star.distance, star))
         if len(max_heap) == k + 1:
             heapq.heappop(max_heap)
 
-    # Iteratively extract from the max-heap, which yields the stars sorted from furthest to closest.
+    # Iteratively extract from the max-heap, which yields the stars sorted from
+    # furthest to closest.
     return [s[1] for s in heapq.nlargest(k, max_heap)]
+
+
+def find_closest_k_stars_alternate(stars: Iterator[Star], k: int) -> List[Star]:
+    """
+    #10.4
+
+    Time complexity = O(n log k)
+    Space complexity = O(k)
+
+    Test PASSED (51/51) [  10 ms]
+    Average running time:  296 us
+    Median running time:    38 us
+    """
+    max_heap: List[Tuple[float, Star]] = []
+    for star in stars:
+        heapq.heappush(max_heap, (-star.distance, star))
+        if len(max_heap) == k + 1:
+            heapq.heappop(max_heap)
+    result = []
+    while max_heap:
+        result.append(heapq.heappop(max_heap)[1])
+    return result
 
 
 def comp(expected_output, output):

@@ -20,7 +20,7 @@ def search_smallest(A: List[int]) -> int:
     Median running time:     1 us
     """
     # All elements are distinct.
-    if len(A) == 1 or A[0] < A[-1]:
+    if A[0] <= A[-1]:  # Not rotated
         return 0
     left, right, result = 0, len(A) - 1, len(A) - 1
     while left <= right:
@@ -33,9 +33,11 @@ def search_smallest(A: List[int]) -> int:
     return result
 
 
-def search_smallest_1(A: List[int]) -> int:
+def search_smallest_faster(A: List[int]) -> int:
     """
-    Test PASSED (307/307) [   4 us]
+    # TODO: Yet to be fully understood!
+
+    Test PASSED (307/307) [   3 us]
     Average running time:    1 us
     Median running time:     1 us
     """
@@ -45,7 +47,7 @@ def search_smallest_1(A: List[int]) -> int:
         if A[mid] > A[right]:
             # Minimum must be in A[mid + 1:right + 1].
             left = mid + 1
-        else:  # A[mid] < A[right].
+        else:  # A[mid] <= A[right].
             # Minimum cannot be in A[mid + 1:right + 1] so it must be in
             # A[left:mid + 1].
             right = mid
