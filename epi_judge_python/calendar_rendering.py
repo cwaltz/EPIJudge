@@ -18,6 +18,7 @@ def find_max_simultaneous_events(events: List[Event]) -> int:
     Space complexity = O(n)
 
     Source: Official leetcode solution :)
+    Approach 1: Priority Queues
     https://leetcode.com/problems/meeting-rooms-ii/solutions/168762/meeting-rooms-ii/
 
     Similar to Leetcode # 253
