@@ -9,7 +9,7 @@ def longest_nondecreasing_subsequence_length(A: List[int]) -> int:
     Average running time:  225 us
     Median running time:    36 us
     """
-    # max_length[i] holds the length of the longest nondecreasing subsequence
+    # max_length[i] holds the length of the longest non-decreasing subsequence
     # of A[:i + 1].
     max_length = [1] * len(A)
     for i in range(1, len(A)):
