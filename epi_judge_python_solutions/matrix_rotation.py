@@ -4,7 +4,11 @@ from test_framework import generic_test
 
 
 def rotate_matrix(square_matrix: List[List[int]]) -> None:
-
+    """
+    Test PASSED (51/51) [ 245 us]
+    Average running time:   83 us
+    Median running time:    61 us
+    """
     matrix_size = len(square_matrix) - 1
     for i in range(len(square_matrix) // 2):
         for j in range(i, matrix_size - i):
