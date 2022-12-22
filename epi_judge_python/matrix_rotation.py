@@ -33,6 +33,27 @@ def rotate_matrix(square_matrix: List[List[int]]) -> None:
                                       square_matrix[i][j])
 
 
+def rotate_matrix_pythonic(matrix: List[List[int]]) -> None:
+    """
+    Test PASSED (51/51) [  24 us]
+    Average running time:   10 us
+    Median running time:     8 us
+    """
+    # matrix[::-1] flips the matrix upside down
+    # zip() transposes it
+    matrix[:] = map(list, zip(*matrix[:: -1]))
+
+
+def rotate_matrix_using_list_comprehension(matrix: List[List[int]]) -> None:
+    """
+    Test PASSED (51/51) [ 102 us]
+    Average running time:   38 us
+    Median running time:    30 us
+    """
+    # matrix[::-1] flips the matrix upside down
+    matrix[:] = [[row[i] for row in matrix[:: -1]] for i in range(len(matrix))]
+
+
 def rotate_matrix_wrapper(square_matrix):
     rotate_matrix(square_matrix)
     return square_matrix
