@@ -7,10 +7,64 @@ def matrix_in_spiral_order(matrix: List[List[int]]) -> List[int]:
     """
     #5.18
 
+    Time complexity = O(r * c), r = # of rows, c = # of columns
+    Space complexity = O(1)
+
+    This solution works for non-square as well as square matrices. Easy to
+    understand and implement.
+
+    Effectively ~ 15 lines of code! :)
+
+    Similar to Leetcode # 54. Spiral Matrix
+
+    Source: Neetcode :)
+    https://github.com/neetcode-gh/leetcode/blob/main/python/54-Spiral-Matrix.py
+
+    Test PASSED (51/51) [ 214 us]
+    Average running time:   78 us
+    Median running time:    62 us
+    """
+    if not matrix:
+        return []
+    result = []
+    top, bottom = 0, len(matrix)
+    left, right = 0, len(matrix[0])
+
+    while left < right and top < bottom:
+        # Top row
+        for col in range(left, right):
+            result.append(matrix[top][col])
+        top += 1
+
+        # Right col
+        for row in range(top, bottom):
+            result.append(matrix[row][right - 1])
+        right -= 1
+        if left >= right or top >= bottom:
+            break
+
+        # Bottom row
+        for col in range(right - 1, left - 1, -1):
+            result.append(matrix[bottom - 1][col])
+        bottom -= 1
+
+        # Left col
+        for row in range(bottom - 1, top - 1, -1):
+            result.append(matrix[row][left])
+        left += 1
+
+    return result
+
+
+def matrix_in_spiral_order_longer(matrix: List[List[int]]) -> List[int]:
+    """
+    #5.18
+
     Time complexity = O(r * c) where r and c are number of rows and columns.
     Space complexity = O(1)
 
-    This solution works for non-square as well as square matrices. Easy to understand and implement.
+    This solution works for non-square as well as square matrices. Easy to
+    understand and implement.
 
     Test PASSED (51/51) [ 237 us]
     Average running time:   87 us
@@ -64,7 +118,8 @@ def matrix_in_spiral_order_pythonic(matrix: List[List[int]]) -> List[int]:
     Average running time:  390 us
     Median running time:   162 us
     """
-    return matrix and [*matrix.pop(0)] + matrix_in_spiral_order_pythonic([*zip(*matrix)][::-1])
+    return (matrix and [*matrix.pop(0)] +
+            matrix_in_spiral_order_pythonic([*zip(*matrix)][::-1]))
 
 
 def square_matrix_in_spiral_order(square_matrix: List[List[int]]) -> List[int]:
@@ -76,27 +131,28 @@ def square_matrix_in_spiral_order(square_matrix: List[List[int]]) -> List[int]:
     Average running time:  103 us
     Median running time:    75 us
     """
-    size = len(square_matrix)
-    steps = size // 2
+    size = len(square_matrix) - 1
+    steps = len(square_matrix) // 2
     result = []
     for step in range(steps):
-        for col in range(step, size - 1 - step):  # Top row from left to right.
+        for col in range(step, size - step):  # Top row from left to right
             result.append(square_matrix[step][col])
-        for row in range(step, size - 1 - step):  # Right column from top to bottom.
+        for row in range(step, size - step):  # Right col from top to bottom
             result.append(square_matrix[row][size - 1 - step])
-        for col in range(size - 1 - step, step, -1):  # Bottom row from right to left.
+        for col in range(size - step, step, -1):  # Bottom row from right 2 left
             result.append(square_matrix[size - 1 - step][col])
-        for row in range(size - 1 - step, step, -1):  # Left column from bottom to top.
+        for row in range(size - step, step, -1):  # Left col from bottom to top
             result.append(square_matrix[row][step])
 
-    if size % 2 == 1:  # Append the center element of the odd-sized matrix.
+    if len(square_matrix) % 2 == 1:
+        # Append the center element of the odd-sized matrix
         result.append(square_matrix[steps][steps])
     return result
 
 
 def matrix_in_spiral_order_solution(square_matrix: List[List[int]]) -> List[int]:
     """
-    The time complexity is O(n ^ 2) where the size of the square matrix is n x n.
+    Time complexity = O(n ** 2) where the size of the square matrix is n x n.
 
     Test PASSED (51/51) [ 964 us]
     Average running time:  266 us
