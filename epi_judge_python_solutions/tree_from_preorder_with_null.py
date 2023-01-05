@@ -7,6 +7,11 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def reconstruct_preorder(preorder: List[int]) -> BinaryTreeNode:
+    """
+    Test PASSED (3852/3852) [  <1 us]
+    Average running time:   39 us
+    Median running time:     4 us
+    """
     def reconstruct_preorder_helper(preorder_iter):
         subtree_key = next(preorder_iter)
         if subtree_key is None:

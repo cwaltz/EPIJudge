@@ -7,8 +7,25 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def reconstruct_preorder(preorder: List[int]) -> BinaryTreeNode:
-    # TODO - you fill in here.
-    return BinaryTreeNode()
+    """
+    # 9.12
+
+    Time complexity = O(n), n = len(preorder)
+    Space complexity = O(n) on function call stack
+
+    Test PASSED (3852/3852) [   1 us]
+    Average running time:   40 us
+    Median running time:     4 us
+    """
+    def reconstruct_preorder_helper(preorder_iter):
+        subtree_key = next(preorder_iter)
+        if subtree_key is None:
+            return None
+        left_subtree = reconstruct_preorder_helper(preorder_iter)
+        right_subtree = reconstruct_preorder_helper(preorder_iter)
+        return BinaryTreeNode(subtree_key, left_subtree, right_subtree)
+
+    return reconstruct_preorder_helper(iter(preorder))
 
 
 @enable_executor_hook
