@@ -68,7 +68,9 @@ def merge_sorted_arrays_2(sorted_arrays: List[List[int]]) -> List[int]:
         result.append(popped[0])
         list_index, index_in_list = popped[1], popped[2]
         if index_in_list < len(sorted_arrays[list_index]):
-            heapq.heappush(min_heap, (sorted_arrays[list_index][index_in_list], list_index, index_in_list + 1))
+            heapq.heappush(min_heap, (
+                sorted_arrays[list_index][index_in_list], list_index,
+                index_in_list + 1))
     return result
 
 
@@ -104,17 +106,20 @@ def merge_sorted_arrays_3(sorted_arrays: List[List[int]]) -> List[int]:
     return result
 
 
-def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
 # def merge_sorted_arrays_4(sorted_arrays: List[List[int]]) -> List[int]:
+def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
     """
     Test PASSED (152/152) [  33 ms]
     Average running time:  560 us
     Median running time:   214 us
     """
-    # indices[i] gives us the index of the element in sorted_arrays[i] to be pushed next into heap
+    # indices[i] gives us the index of the element in sorted_arrays[i] to be
+    # pushed next into heap
     indices = [1] * len(sorted_arrays)
-    # min_heap stores tuples in the form (element, index of the array it belongs to)
-    min_heap = [(sorted_array[0], i) for i, sorted_array in enumerate(sorted_arrays) if sorted_array]
+    # min_heap stores tuples in the form (element, index of the array it belongs
+    # to)
+    min_heap = [(sorted_array[0], i) for i, sorted_array in
+                enumerate(sorted_arrays) if sorted_array]
     heapq.heapify(min_heap)
 
     result = []
@@ -124,7 +129,8 @@ def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
         index = smallest[1]
         if len(sorted_arrays[index]) > indices[index]:
             # sorted_arrays[index] array has unprocessed element(s).
-            heapq.heappushpop(min_heap, (sorted_arrays[index][indices[index]], index))
+            heapq.heappushpop(min_heap, (sorted_arrays[index][indices[index]],
+                                         index))
             indices[index] += 1
         else:
             # No more elements are available in sorted_arrays[index] array.

@@ -6,14 +6,10 @@ from test_framework import generic_test
 
 def online_median(sequence: Iterator[int]) -> List[float]:
     """
-    Time complexity  = O(n log n)
-    Space complexity = O(n)
-
-    Test PASSED (55/55) [  55 ms]
-    Average running time:    1 ms
-    Median running time:    11 us
+    Test PASSED (55/55) [  50 ms]
+    Average running time:  955 us
+    Median running time:    10 us
     """
-
     # min_heap stores the larger half seen so far.
     min_heap: List[int] = []
     # max_heap stores the smaller half seen so far.
