@@ -1,5 +1,5 @@
 import collections
-from typing import List
+from typing import List, Optional
 
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
@@ -11,22 +11,23 @@ class GraphVertex:
         self.edges: List['GraphVertex'] = []
 
 
-def clone_graph(graph: GraphVertex) -> GraphVertex:
-
+def clone_graph(graph: Optional[GraphVertex]) -> Optional[GraphVertex]:
+    """
+    Test PASSED (91/91) [  35 ms]
+    Average running time:  509 us
+    Median running time:    34 us
+    """
     if graph is None:
         return None
-
-    q = collections.deque([graph])
+    queue = collections.deque([graph])
     vertex_map = {graph: GraphVertex(graph.label)}
-    while q:
-        v = q.popleft()
-        for e in v.edges:
-            # Try to copy vertex e.
-            if e not in vertex_map:
-                vertex_map[e] = GraphVertex(e.label)
-                q.append(e)
-            # Copy edge.
-            vertex_map[v].edges.append(vertex_map[e])
+    while queue:
+        vertex = queue.popleft()
+        for edge in vertex.edges:
+            if edge not in vertex_map:
+                vertex_map[edge] = GraphVertex(edge.label)
+                queue.append(edge)
+            vertex_map[vertex].edges.append(vertex_map[edge])
     return vertex_map[graph]
 
 

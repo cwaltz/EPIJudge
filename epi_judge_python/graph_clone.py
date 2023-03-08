@@ -1,5 +1,5 @@
 import collections
-from typing import List
+from typing import List, Optional
 
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
@@ -11,9 +11,52 @@ class GraphVertex:
         self.edges: List['GraphVertex'] = []
 
 
-def clone_graph(graph: GraphVertex) -> GraphVertex:
-    # TODO - you fill in here.
-    return GraphVertex(0)
+def clone_graph(graph: Optional[GraphVertex]) -> Optional[GraphVertex]:
+    """
+    #18.5
+
+    DFS, Recursive
+
+    Test PASSED (91/91) [  36 ms]
+    Average running time:  522 us
+    Median running time:    35 us
+    """
+    def clone_graph_helper(node: GraphVertex) -> GraphVertex:
+        if node in visited:
+            return visited[node]
+        cloned_node = GraphVertex(node.label)
+        visited[node] = cloned_node
+        if node.edges:
+            cloned_node.edges = [
+                clone_graph_helper(edge) for edge in node.edges]
+        return cloned_node
+
+    if graph is None:
+        return None
+    visited = {}
+    return clone_graph_helper(graph)
+
+
+def clone_graph_bfs(graph: Optional[GraphVertex]) -> Optional[GraphVertex]:
+    """
+    BFS, Iterative
+
+    Test PASSED (91/91) [  35 ms]
+    Average running time:  511 us
+    Median running time:    34 us
+    """
+    if graph is None:
+        return None
+    visited = {graph: GraphVertex(graph.label)}
+    queue = collections.deque([graph])
+    while queue:
+        vertex = queue.popleft()
+        for edge in vertex.edges:
+            if edge not in visited:
+                visited[edge] = GraphVertex(edge.label)
+                queue.append(edge)
+            visited[vertex].edges.append(visited[edge])
+    return visited[graph]
 
 
 def copy_labels(edges):
