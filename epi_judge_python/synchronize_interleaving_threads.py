@@ -28,38 +28,46 @@ class OddEvenMonitor(threading.Condition):
 
     def __init__(self):
         super().__init__()
-        self.turn = self.ODD_TURN
+        self._turn = self.ODD_TURN
 
     def wait_turn(self, old_turn):
         with self:
-            while self.turn != old_turn:
+            while self._turn != old_turn:
                 self.wait()
 
     def toggle_turn(self):
         with self:
-            self.turn ^= True
+            self._turn ^= True
             self.notify()
 
 
 class OddThread(threading.Thread):
-    def __init__(self, monitor):
+    def __init__(self, monitor: OddEvenMonitor):
         super().__init__()
-        self.monitor = monitor
+        self._monitor = monitor
 
     def run(self):
-        for i in range(1, 101, 2):
-            self.monitor.wait_turn(OddEvenMonitor.ODD_TURN)
+        for i in range(1, 11, 2):
+            self._monitor.wait_turn(OddEvenMonitor.ODD_TURN)
             print(i)
-            self.monitor.toggle_turn()
+            self._monitor.toggle_turn()
 
 
 class EvenThread(threading.Thread):
-    def __init__(self, monitor):
+    def __init__(self, monitor: OddEvenMonitor):
         super().__init__()
-        self.monitor = monitor
+        self._monitor = monitor
 
     def run(self):
-        for i in range(2, 101, 2):
-            self.monitor.wait_turn(OddEvenMonitor.EVEN_TURN)
+        for i in range(2, 11, 2):
+            self._monitor.wait_turn(OddEvenMonitor.EVEN_TURN)
             print(i)
-            self.monitor.toggle_turn()
+            self._monitor.toggle_turn()
+
+
+if __name__ == '__main__':
+    odd_even_monitor = OddEvenMonitor()
+    odd_thread = OddThread(odd_even_monitor)
+    even_thread = EvenThread(odd_even_monitor)
+    odd_thread.start()
+    even_thread.start()

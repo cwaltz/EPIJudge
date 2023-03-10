@@ -36,44 +36,89 @@ As in Solution 19.3 on Page 293, we use wait-notify primitives to avoid busy
 waiting.
 """
 
-# LR and LW are class attributes in the RW class.
-# They serve as read and write locks. The integer
-# variable read_count in RW tracks the number of readers.
+# LR (read_lock) & LW (write_lock) are class attributes in the
+# RW (ReaderWriter) class.
+# They serve as read and write locks. The integer variable read_count in RW
+# tracks the number of readers.
 
 import threading
 
 
+class ReaderWriter:
+    def __init__(self, data: int = 0):
+        self.data = data
+        self.read_count = 0
+        self.read_lock = threading.Condition()
+        self.write_lock = threading.Condition()
+
+
 class Reader(threading.Thread):
 
-    def run(self, RW=None):
+    def run(self, reader_writer: ReaderWriter = None):
         while True:
-            with RW.LR:
-                RW.read_count += 1
+            with reader_writer.read_lock:
+                reader_writer.read_count += 1
 
-            print(RW.data)
-            with RW.LR:
-                RW.read_count -= 1
-                RW.LR.notify()
+            print(reader_writer.data)
+            with reader_writer.read_lock:
+                reader_writer.read_count -= 1
+                reader_writer.read_lock.notify()
             do_something_else()
 
 
 class Writer(threading.Thread):
 
-    def run(self, RW=None):
+    def run(self, reader_writer: ReaderWriter = None):
         while True:
-            with RW.LW:
+            with reader_writer.write_lock:
                 done = False
                 while not done:
-                    with RW.LR:
-                        if RW.read_count == 0:
-                            RW.data += 1
+                    with reader_writer.read_lock:
+                        if reader_writer.read_count == 0:
+                            reader_writer.data += 1
                             done = True
                         else:
                             # use wait/notify to avoid busy waiting
-                            while RW.read_count != 0:
-                                RW.LR.wait()
+                            while reader_writer.read_count != 0:
+                                reader_writer.read_lock.wait()
             do_something_else()
 
 
 def do_something_else():
     raise NotImplementedError
+
+#
+# class Reader(threading.Thread):
+#
+#     def run(self, RW=None):
+#         while True:
+#             with RW.LR:
+#                 RW.read_count += 1
+#
+#             print(RW.data)
+#             with RW.LR:
+#                 RW.read_count -= 1
+#                 RW.LR.notify()
+#             do_something_else()
+#
+#
+# class Writer(threading.Thread):
+#
+#     def run(self, RW=None):
+#         while True:
+#             with RW.LW:
+#                 done = False
+#                 while not done:
+#                     with RW.LR:
+#                         if RW.read_count == 0:
+#                             RW.data += 1
+#                             done = True
+#                         else:
+#                             # use wait/notify to avoid busy waiting
+#                             while RW.read_count != 0:
+#                                 RW.LR.wait()
+#             do_something_else()
+#
+#
+# def do_something_else():
+#     raise NotImplementedError
