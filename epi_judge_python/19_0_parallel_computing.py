@@ -1,5 +1,5 @@
 """
-#19.0
+#19.0 Parallel Computing
 
 Parallel computing boot camp
 
