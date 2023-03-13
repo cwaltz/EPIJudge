@@ -9,11 +9,11 @@ from 1 to 100 in order.
 
 Hint: The two threads need to notify each other when they are done.
 
-Solution: A brute-force solution is to use a lock which is repeatedly
-captured by the threads. A single variable, protected by the lock, indicates
-who went last. The drawback of this approach is that it employs the busy
-waiting antipattern: processor time that could be used to execute a different
-task is instead wasted on useless activity.
+Solution: A brute-force solution is to use a lock which is repeatedly captured
+by the threads. A single variable, protected by the lock, indicates who went
+last. The drawback of this approach is that it employs the busy waiting
+antipattern: processor time that could be used to execute a different task is
+instead wasted on useless activity.
 
 Below we present a solution based on the same idea, but one that avoids busy
 locking by using <what?>
