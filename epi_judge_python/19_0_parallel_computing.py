@@ -26,8 +26,19 @@ class Semaphore:
         self._taken += 1
         self._condition_variable.release()
 
+        # Alternate implementation using 'with' statement
+        # with self._condition_variable:
+        #     while self._taken == self._MAX_AVAILABLE:
+        #         self._condition_variable.wait()
+        #     self._taken += 1
+
     def release(self) -> None:
         self._condition_variable.acquire()
         self._taken -= 1
         self._condition_variable.notify()
         self._condition_variable.release()
+
+        # Alternate implementation using 'with' statement
+        # with self._condition_variable:
+        #     self._taken -= 1
+        #     self._condition_variable.notify()
