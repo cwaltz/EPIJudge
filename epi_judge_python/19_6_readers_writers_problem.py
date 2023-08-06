@@ -42,6 +42,8 @@ waiting.
 # tracks the number of readers.
 
 import threading
+from random import randint
+from time import sleep
 
 
 class ReaderWriter:
@@ -53,35 +55,47 @@ class ReaderWriter:
 
 
 class Reader(threading.Thread):
+    def __init__(self, reader_writer: ReaderWriter, identifier: int):
+        super().__init__()
+        self._reader_writer = reader_writer
+        self._id = identifier
 
-    def run(self, reader_writer: ReaderWriter = None):
-        while True:
-            with reader_writer.read_lock:
-                reader_writer.read_count += 1
+    def run(self):
+        for _ in range(3):
+            sleep(randint(1, 3))
+            with self._reader_writer.read_lock:
+                self._reader_writer.read_count += 1
 
-            print(reader_writer.data)
-            with reader_writer.read_lock:
-                reader_writer.read_count -= 1
-                reader_writer.read_lock.notify()
-            do_something_else()
+            print(f'Reader {self._id} is reading data = '
+                  f'{self._reader_writer.data}')
+            with self._reader_writer.read_lock:
+                self._reader_writer.read_count -= 1
+                self._reader_writer.read_lock.notify()
+            # do_something_else()
 
 
 class Writer(threading.Thread):
+    def __init__(self, reader_writer: ReaderWriter):
+        super().__init__()
+        self._reader_writer = reader_writer
 
-    def run(self, reader_writer: ReaderWriter = None):
-        while True:
-            with reader_writer.write_lock:
+    def run(self):
+        for _ in range(3):
+            sleep(randint(1, 3))
+            with self._reader_writer.write_lock:
                 done = False
                 while not done:
-                    with reader_writer.read_lock:
-                        if reader_writer.read_count == 0:
-                            reader_writer.data += 1
+                    with self._reader_writer.read_lock:
+                        if self._reader_writer.read_count == 0:
+                            self._reader_writer.data += 1
                             done = True
+                            print(f'Writer is writing data = '
+                                  f'{self._reader_writer.data}')
                         else:
                             # use wait/notify to avoid busy waiting
-                            while reader_writer.read_count != 0:
-                                reader_writer.read_lock.wait()
-            do_something_else()
+                            while self._reader_writer.read_count != 0:
+                                self._reader_writer.read_lock.wait()
+            # do_something_else()
 
 
 def do_something_else():
@@ -122,3 +136,17 @@ def do_something_else():
 #
 # def do_something_else():
 #     raise NotImplementedError
+
+
+def main():
+    reader_writer = ReaderWriter()
+    reader_1 = Reader(reader_writer, 1)
+    reader_2 = Reader(reader_writer, 2)
+    writer = Writer(reader_writer)
+    reader_1.start()
+    reader_2.start()
+    writer.start()
+
+
+if __name__ == '__main__':
+    main()
