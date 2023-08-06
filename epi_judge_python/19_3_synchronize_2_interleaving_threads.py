@@ -1,11 +1,11 @@
 """
 #19.3 IMPLEMENT SYNCHRONIZATION FOR TWO INTERLEAVING THREADS
 
-Thread t1 prints odd numbers from 1 to 100; Thread t2 prints even numbers
-from 1 to 100.
+Thread t1 prints odd numbers from 1 to 100;
+Thread t2 prints even numbers from 1 to 100.
 
-Write code in which the two threads, running concurrently, print the numbers
-from 1 to 100 in order.
+Write code in which the two threads, running concurrently,
+print the numbers from 1 to 100 in order.
 
 Hint: The two threads need to notify each other when they are done.
 
@@ -30,12 +30,12 @@ class OddEvenMonitor(threading.Condition):
         super().__init__()
         self._turn = self.ODD_TURN
 
-    def wait_turn(self, old_turn):
+    def wait_turn(self, desired_turn: bool) -> None:
         with self:
-            while self._turn != old_turn:
+            while self._turn != desired_turn:
                 self.wait()
 
-    def toggle_turn(self):
+    def toggle_turn(self) -> None:
         with self:
             self._turn ^= True
             self.notify()
@@ -46,7 +46,7 @@ class OddThread(threading.Thread):
         super().__init__()
         self._monitor = monitor
 
-    def run(self):
+    def run(self) -> None:
         for i in range(1, 11, 2):
             self._monitor.wait_turn(OddEvenMonitor.ODD_TURN)
             print(i)
@@ -58,7 +58,7 @@ class EvenThread(threading.Thread):
         super().__init__()
         self._monitor = monitor
 
-    def run(self):
+    def run(self) -> None:
         for i in range(2, 11, 2):
             self._monitor.wait_turn(OddEvenMonitor.EVEN_TURN)
             print(i)
