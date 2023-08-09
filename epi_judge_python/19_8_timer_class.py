@@ -39,3 +39,70 @@ Since the min-heap is shared by the update methods and the dispatch thread,
 we need to lock it. The simplest solution is to have a single lock that is
 used for all read and writes into the min-heap and the hash table.
 """
+
+from enum import Enum
+from heapq import heappush
+from time import time
+from threading import Thread
+
+NOW = time()
+
+
+class TaskStatus(Enum):
+    WAITING = 1
+    STARTED = 2
+    CANCELED = 3
+
+
+class Task(Thread):
+    def __init__(self, name: str, start_time: float):
+        super().__init__()
+        self.name = name
+        self.start_time = start_time
+        self.status = TaskStatus.WAITING
+
+    def __lt__(self, other: 'Task') -> bool:
+        return self.start_time < other.start_time
+
+    def run(self) -> None:
+        print(f'Task {self.name} with start time: {self.start_time} started '
+              f'at {time()}')
+        self.status = TaskStatus.STARTED
+
+
+class Timer:
+    def __init__(self):
+        self._min_heap = []  # Stores tasks
+        self._mapping = {}  # Stores <task name, task> items
+
+    def cancel_task(self, task_name: str):
+        if task_name not in self._mapping:
+            raise Exception(f'Task: {task_name} not found')
+        task = self._mapping[task_name]
+        if task.status == TaskStatus.STARTED:
+            print(f'Task: {task_name} has already started. Ignoring the cancel '
+                  f'request.')
+        elif task.status == TaskStatus.CANCELED:
+            print(f'Task: {task_name} has already been canceled.')
+        else:  # if task.status == TaskStatus.WAITING:
+            print(f'Canceling Task: {task_name}.')
+            task.status = TaskStatus.CANCELED
+            self._mapping[task_name] = task
+
+    def add_task(self, task: Task):
+        if task.name in self._mapping:
+            raise Exception(f'Task: {task.name} is already present.')
+        heappush(self._min_heap, task)
+        self._mapping[task.name] = task
+
+
+class Dispatcher(Thread):
+    def __init__(self, timer: Timer):
+        super().__init__()
+        self._timer = timer
+
+    def run(self) -> None:
+        pass
+
+
+# TODO: To be completed yet!
