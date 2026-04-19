@@ -1,4 +1,6 @@
 """
+#12.0
+
 A collections.Counter is used for counting the number of occurrences of keys,
 with a number of set-like operations, as illustrated below.
 """

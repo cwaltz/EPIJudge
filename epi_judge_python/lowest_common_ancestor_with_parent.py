@@ -20,6 +20,7 @@ def lca(node0: BinaryTreeNode,
     Average running time:    1 us
     Median running time:     1 us
     """
+
     def get_depth(node):
         depth = 0
         while node.parent:

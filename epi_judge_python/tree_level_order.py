@@ -13,11 +13,12 @@ def binary_tree_depth_order(tree: BinaryTreeNode) -> List[List[int]]:
     Space complexity = O(m), where m = max number of nodes at any single depth.
 
     Test PASSED (3852/3852) [  <1 us]
-    Average running time:   11 us
-    Median running time:     2 us
+    Average running time:    6 us
+    Median running time:     1 us
     """
     if not tree:
         return []
+
     result = []
     level = [tree]
     while level:
@@ -28,16 +29,18 @@ def binary_tree_depth_order(tree: BinaryTreeNode) -> List[List[int]]:
                 next_level.append(node.left)
             if node.right:
                 next_level.append(node.right)
+
         level = next_level
         result.append(values)
+
     return result
 
 
 def binary_tree_depth_order_1(tree: BinaryTreeNode) -> List[List[int]]:
     """
     Test PASSED (3852/3852) [  <1 us]
-    Average running time:   10 us
-    Median running time:     3 us
+    Average running time:    7 us
+    Median running time:     1 us
     """
     if not tree:
         return []
@@ -58,8 +61,8 @@ def binary_tree_depth_order_1(tree: BinaryTreeNode) -> List[List[int]]:
 def binary_tree_depth_order_2(tree: BinaryTreeNode) -> List[List[int]]:
     """
     Test PASSED (3852/3852) [  <1 us]
-    Average running time:   12 us
-    Median running time:     3 us
+    Average running time:   10 us
+    Median running time:     2 us
     """
     result: List[List[int]] = []
     if not tree:
@@ -77,11 +80,11 @@ def binary_tree_depth_order_2(tree: BinaryTreeNode) -> List[List[int]]:
     return result
 
 
-def binary_tree_depth_order_deque(tree: BinaryTreeNode) -> List[List[int]]:
+def binary_tree_depth_order_3(tree: BinaryTreeNode) -> List[List[int]]:
     """
     Test PASSED (3852/3852) [  <1 us]
-    Average running time:   13 us
-    Median running time:     3 us
+    Average running time:    9 us
+    Median running time:     2 us
     """
     if not tree:
         return []

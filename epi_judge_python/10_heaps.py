@@ -38,7 +38,7 @@ if __name__ == '__main__':
     output_size = int(input('How many strings do you want in the output?: '))
     # 2
     result = top_k(output_size, input_strings)
-    print(str(output_size), 'longest strings:')
+    print(f'{str(output_size)} longest strings')
     for s in result:
         print(s)
     # aniket shivtej

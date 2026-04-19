@@ -25,6 +25,22 @@ def is_palindromic_pythonic(s: str) -> bool:
     return s == s[::-1]
 
 
+def is_palindromic_1(s: str) -> bool:
+    """
+    Test PASSED (10000/10000) [  <1 us]
+    Average running time:   <1 us
+    Median running time:    <1 us
+    """
+    left, right = 0, len(s) - 1
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1
+        right -= 1
+
+    return True
+
+
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('is_string_palindromic.py',

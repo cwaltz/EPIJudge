@@ -4,19 +4,7 @@ import heapq
 from test_framework import generic_test
 
 
-# Pythonic solution, uses the heapq.merge() method which takes multiple inputs.
-# def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
-def merge_sorted_arrays_pythonic(sorted_arrays):
-    """
-    Test PASSED (152/152) [  50 ms]
-    Average running time:  554 us
-    Median running time:   145 us
-    """
-    return list(heapq.merge(*sorted_arrays))
-
-
-# def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
-def merge_sorted_arrays_1(sorted_arrays: List[List[int]]) -> List[int]:
+def merge_sorted_arrays_0(sorted_arrays: List[List[int]]) -> List[int]:
     """
     #10.1
 
@@ -25,9 +13,9 @@ def merge_sorted_arrays_1(sorted_arrays: List[List[int]]) -> List[int]:
     k is the number of input sequences
     n is the total number of trades
 
-    Test PASSED (152/152) [  39 ms]
-    Average running time:  587 us
-    Median running time:   207 us
+    Test PASSED (152/152) [  38 ms]
+    Average running time:  565 us
+    Median running time:   200 us
     """
     min_heap: List[Tuple[int, int]] = []
     # Builds a list of iterators for each array in sorted_arrays.
@@ -50,36 +38,46 @@ def merge_sorted_arrays_1(sorted_arrays: List[List[int]]) -> List[int]:
     return result
 
 
-# def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
-def merge_sorted_arrays_2(sorted_arrays: List[List[int]]) -> List[int]:
+def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
     """
-    Test PASSED (152/152) [  36 ms]
-    Average running time:  627 us
-    Median running time:   240 us
+    Test PASSED (152/152) [  32 ms]
+    Average running time:  563 us
+    Median running time:   213 us
     """
-    result: List[int] = []
-    min_heap: List[Tuple[int, int, int]] = []
-    # (value, index of the list, index of the value in the list)
-    for index, sorted_array in enumerate(sorted_arrays):
-        if sorted_array:
-            heapq.heappush(min_heap, (sorted_array[0], index, 1))
+    length = len(sorted_arrays)
+    if length == 0:
+        return []
+    elif length == 1:
+        return sorted_arrays[0]
+
+    result = []
+    min_heap = [(sorted_arrays[i][0], i, 1) for i in range(length)]
+    heapq.heapify(min_heap)
     while min_heap:
         popped = heapq.heappop(min_heap)
         result.append(popped[0])
-        list_index, index_in_list = popped[1], popped[2]
-        if index_in_list < len(sorted_arrays[list_index]):
-            heapq.heappush(min_heap, (
-                sorted_arrays[list_index][index_in_list], list_index,
-                index_in_list + 1))
+        if popped[2] < len(sorted_arrays[popped[1]]):
+            heapq.heappush(min_heap, (sorted_arrays[popped[1]][popped[2]],
+                                      popped[1], popped[2] + 1))
+
     return result
 
 
-# def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
-def merge_sorted_arrays_3(sorted_arrays: List[List[int]]) -> List[int]:
+# Pythonic solution, uses the heapq.merge() method which takes multiple inputs.
+def merge_sorted_arrays_pythonic(sorted_arrays: List[List[int]]) -> List[int]:
+    """
+    Test PASSED (152/152) [  50 ms]
+    Average running time:  554 us
+    Median running time:   145 us
+    """
+    return list(heapq.merge(*sorted_arrays))
+
+
+def merge_sorted_arrays_2(sorted_arrays: List[List[int]]) -> List[int]:
     """
     Test PASSED (152/152) [  39 ms]
-    Average running time:  531 us
-    Median running time:   177 us
+    Average running time:  516 us
+    Median running time:   166 us
     """
     min_heap: List[Tuple[int, int]] = []
     # Builds a list of iterators for each array in sorted_arrays.
@@ -103,38 +101,6 @@ def merge_sorted_arrays_3(sorted_arrays: List[List[int]]) -> List[int]:
         else:
             # Push the next element to min_heap.
             heapq.heappushpop(min_heap, (next_element, smallest_array_i))
-    return result
-
-
-# def merge_sorted_arrays_4(sorted_arrays: List[List[int]]) -> List[int]:
-def merge_sorted_arrays(sorted_arrays: List[List[int]]) -> List[int]:
-    """
-    Test PASSED (152/152) [  33 ms]
-    Average running time:  560 us
-    Median running time:   214 us
-    """
-    # indices[i] gives us the index of the element in sorted_arrays[i] to be
-    # pushed next into heap
-    indices = [1] * len(sorted_arrays)
-    # min_heap stores tuples in the form (element, index of the array it belongs
-    # to)
-    min_heap = [(sorted_array[0], i) for i, sorted_array in
-                enumerate(sorted_arrays) if sorted_array]
-    heapq.heapify(min_heap)
-
-    result = []
-    while min_heap:
-        smallest = min_heap[0]
-        result.append(smallest[0])
-        index = smallest[1]
-        if len(sorted_arrays[index]) > indices[index]:
-            # sorted_arrays[index] array has unprocessed element(s).
-            heapq.heappushpop(min_heap, (sorted_arrays[index][indices[index]],
-                                         index))
-            indices[index] += 1
-        else:
-            # No more elements are available in sorted_arrays[index] array.
-            heapq.heappop(min_heap)
     return result
 
 

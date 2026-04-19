@@ -4,12 +4,13 @@ from list_node import ListNode
 from test_framework import generic_test
 
 
-def merge_two_sorted_lists(L1: Optional[ListNode],
-                           L2: Optional[ListNode]) -> Optional[ListNode]:
+def merge_two_sorted_lists(first: Optional[ListNode],
+                           second: Optional[ListNode]) -> Optional[ListNode]:
     """
     #7.1
 
-    Time complexity = O(n + m), where n and m are the lengths of each of the two input lists.
+    Time complexity = O(n + m), where n and m are the lengths of each of the two
+        input lists.
     Space complexity = O(1)
 
     Test PASSED (501/501) [   3 ms]
@@ -19,17 +20,17 @@ def merge_two_sorted_lists(L1: Optional[ListNode],
     # Creates a placeholder for the result.
     dummy_head = tail = ListNode()
 
-    while L1 and L2:
-        if L1.data < L2.data:
-            tail.next = L1
-            L1 = L1.next
-        else:  # L2.data <= L1.data
-            tail.next = L2
-            L2 = L2.next
+    while first and second:
+        if first.data < second.data:
+            tail.next = first
+            first = first.next
+        else:  # second.data <= first.data
+            tail.next = second
+            second = second.next
         tail = tail.next
 
-    # Appends the remaining nodes of L1 or L2
-    tail.next = L1 or L2
+    # Appends the remaining nodes of first or second
+    tail.next = first or second
     return dummy_head.next
 
 

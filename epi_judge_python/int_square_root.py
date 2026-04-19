@@ -10,9 +10,9 @@ def square_root(k: int) -> int:
     Time complexity = O(log k)
     Space complexity = O(1)
 
-    Test PASSED (2000/2000) [   7 us]
-    Average running time:    4 us
-    Median running time:     4 us
+    Test PASSED (2000/2000) [   5 us]
+    Average running time:    3 us
+    Median running time:     3 us
     """
     left, right, result = 0, k, 0
     while left <= right:
@@ -30,9 +30,9 @@ def square_root(k: int) -> int:
 
 def square_root_faster(k: int) -> int:
     """
-    Test PASSED (2000/2000) [   5 us]
-    Average running time:    3 us
-    Median running time:     3 us
+    Test PASSED (2000/2000) [   4 us]
+    Average running time:    2 us
+    Median running time:     2 us
     """
     left, right = 0, k
     # Candidate interval [left, right] where everything before left has

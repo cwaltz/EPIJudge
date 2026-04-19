@@ -14,7 +14,7 @@ Median running time:     4 us
 """
 
 
-def int_to_string(x: int) -> str:
+def int_to_string_2(x: int) -> str:
 
     is_negative = False
     if x < 0:
@@ -31,7 +31,7 @@ def int_to_string(x: int) -> str:
     return ('-' if is_negative else '') + ''.join(reversed(result))
 
 
-def string_to_int(s: str) -> int:
+def string_to_int_2(s: str) -> int:
 
     multiplier = 1
     start_index = 0
@@ -60,6 +60,47 @@ def int_to_string_1(x: int) -> str:
 
 def string_to_int_1(s: str) -> int:
     return int(s)
+
+
+"""
+Test PASSED (15002/15002) [   3 us]
+Average running time:    2 us
+Median running time:     2 us
+"""
+
+
+def int_to_string(num: int) -> str:
+    if num == 0:
+        return '0'
+    result = []
+    is_negative = False
+    if num < 0:
+        num = -num
+        is_negative = True
+    ord_0 = ord('0')
+    while num > 0:
+        digit = num % 10
+        num //= 10
+        result.append(chr(digit + ord_0))
+    if is_negative:
+        result.append('-')
+    return ''.join(reversed(result))
+
+
+def string_to_int(s: str) -> int:
+    if s == '0':
+        return 0
+    start = 0
+    is_negative = False
+    if s[0] in '+-':
+        start = 1
+        if s[0] == '-':
+            is_negative = True
+    num = 0
+    ord_0 = ord('0')
+    for c in s[start:]:
+        num = num * 10 + (ord(c) - ord_0)
+    return -num if is_negative else num
 
 
 def wrapper(x, s):

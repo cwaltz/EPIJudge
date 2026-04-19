@@ -14,9 +14,9 @@ class Stack:
     distinct keys is small, or the maximum changes infrequently, the additional
     space complexity is less, O(1) in the best-case.
 
-    Test PASSED (101/101) [  11 ms]
-    Average running time:  156 us
-    Median running time:    21 us
+    Test PASSED (101/101) [   6 ms]
+    Average running time:   97 us
+    Median running time:    13 us
     """
 
     class MaxWithCount:
@@ -57,6 +57,47 @@ class Stack:
                 self._cached_max_with_count.append(self.MaxWithCount(x, 1))
             elif x == current_max:
                 self._cached_max_with_count[-1].count += 1
+
+
+class Stack1:
+    """
+    Test PASSED (101/101) [   7 ms]
+    Average running time:  101 us
+    Median running time:    13 us
+    """
+    def __init__(self) -> None:
+        self.values = []
+        self.max_with_count = []
+
+    def empty(self) -> bool:
+        return len(self.max_with_count) == 0
+
+    def push(self, value: int) -> None:
+        self.values.append(value)
+        if self.empty():
+            self.max_with_count.append([value, 1])
+        else:
+            prev_max = self.max_with_count[-1][0]
+            if value == prev_max:
+                self.max_with_count[-1][1] += 1
+            elif value > prev_max:
+                self.max_with_count.append([value, 1])
+
+    def pop(self) -> int:
+        if self.empty():
+            raise IndexError('pop(): pop from an empty stack')
+        value = self.values.pop()
+        prev_max = self.max_with_count[-1][0]
+        if prev_max == value:
+            self.max_with_count[-1][1] -= 1
+            if self.max_with_count[-1][1] == 0:
+                self.max_with_count.pop()
+        return value
+
+    def max(self) -> int:
+        if self.empty():
+            raise IndexError('max(): max from an empty stack')
+        return self.max_with_count[-1][0]
 
 
 def stack_tester(ops):

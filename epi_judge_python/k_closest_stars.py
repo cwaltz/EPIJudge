@@ -35,42 +35,38 @@ def find_closest_k_stars(stars: Iterator[Star], k: int) -> List[Star]:
     Time complexity = O(n log k)
     Space complexity = O(k)
 
-    Test PASSED (51/51) [  10 ms]
-    Average running time:  291 us
-    Median running time:    37 us
+    Test PASSED (51/51) [   8 ms]
+    Average running time:  237 us
+    Median running time:    30 us
     """
     # max_heap to store the closest k stars seen so far.
     max_heap: List[Tuple[float, Star]] = []
     for star in stars:
         # Add each star to the max-heap. If the max-heap size exceeds k, remove
-        # the maximum element from the max-heap. As python has only min-heap,
-        # insert tuple (negative of distance, star) to sort in reversed distance
-        # order.
-        heapq.heappush(max_heap, (-star.distance, star))
+        # the maximum element from the max-heap.
+        heapq.heappush_max(max_heap, (star.distance, star))
         if len(max_heap) == k + 1:
-            heapq.heappop(max_heap)
+            heapq.heappop_max(max_heap)
 
     # Iteratively extract from the max-heap, which yields the stars sorted from
     # furthest to closest.
-    return [s[1] for s in heapq.nlargest(k, max_heap)]
+    return [s[1] for s in max_heap]  # This line also works in place of the
+    # line below
+    # return [s[1] for s in heapq.nlargest(k, max_heap)]
 
 
-def find_closest_k_stars_alternate(stars: Iterator[Star], k: int) -> List[Star]:
+def find_closest_k_stars_1(stars: Iterator[Star], k: int) -> List[Star]:
     """
-    #10.4
-
-    Time complexity = O(n log k)
-    Space complexity = O(k)
-
-    Test PASSED (51/51) [  10 ms]
-    Average running time:  296 us
-    Median running time:    38 us
+    Test PASSED (51/51) [   8 ms]
+    Average running time:  245 us
+    Median running time:    33 us
     """
     max_heap: List[Tuple[float, Star]] = []
     for star in stars:
-        heapq.heappush(max_heap, (-star.distance, star))
-        if len(max_heap) == k + 1:
-            heapq.heappop(max_heap)
+        if len(max_heap) == k:
+            heapq.heappushpop_max(max_heap, (star.distance, star))
+        else:  # if len(max_heap) < k:
+            heapq.heappush_max(max_heap, (star.distance, star))
     result = []
     while max_heap:
         result.append(heapq.heappop(max_heap)[1])

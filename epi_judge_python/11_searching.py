@@ -1,8 +1,10 @@
 import bisect
-import collections
-from typing import Tuple, List
+from typing import List, NamedTuple, Tuple
 
-Student = collections.namedtuple('Student', ('name', 'grade_point_average'))
+
+class Student(NamedTuple):
+    name: str
+    grade_point_average: float
 
 
 def comp_gpa(student: Student) -> Tuple[float, str]:
