@@ -25,7 +25,7 @@ def is_letter_constructible_from_magazine(letter_text: str,
         return False
 
     # Compute the frequencies for all chars in letter_text.
-    char_frequency_for_letter = Counter(letter_text)
+    char_frequency_for_letter: Counter[str] = Counter(letter_text)
 
     # Checks if characters in magazine_text can cover characters in
     # char_frequency_for_letter.

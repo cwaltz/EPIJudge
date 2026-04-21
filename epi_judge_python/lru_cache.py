@@ -1,4 +1,4 @@
-import collections
+from collections import OrderedDict
 
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
@@ -13,14 +13,13 @@ class LruCache:
     The time complexity for each lookup is O(1) for the hash table lookup & O(1)
     for updating the queue, i.e., O(1) overall.
 
-    Test PASSED (101/101) [   6 ms]
-    Average running time:   88 us
-    Median running time:    25 us
+    Test PASSED (101/101) [   4 ms]
+    Average running time:   62 us
+    Median running time:    16 us
     """
     def __init__(self, capacity: int) -> None:
 
-        self._isbn_price_table: collections.OrderedDict[
-            int, int] = collections.OrderedDict()
+        self._isbn_price_table: OrderedDict[int, int] = OrderedDict()
         self._capacity = capacity
 
     def lookup(self, isbn: int) -> int:

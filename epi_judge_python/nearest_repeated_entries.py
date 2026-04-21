@@ -1,28 +1,29 @@
-import typing
-from typing import Dict, List
+from typing import cast
 
 from test_framework import generic_test
 
 
-def find_nearest_repetition(paragraph: List[str]) -> int:
+def find_nearest_repetition(paragraph: list[str]) -> int:
     """
     #12.5
 
     Time complexity = O(n), where n is the array length.
-    Space complexity = O(d), where d is the number of distinct entries in the array.
+    Space complexity = O(d), where d is the number of distinct entries in the
+        array.
 
     Test PASSED (505/505) [   5 us]
-    Average running time:   18 us
-    Median running time:    10 us
+    Average running time:   17 us
+    Median running time:     9 us
     """
-    last_index_of_word: Dict[str, int] = {}
+    last_index_of_word: dict[str, int] = {}
     minimum_distance = float('inf')
     for index, word in enumerate(paragraph):
         if word in last_index_of_word:
             if index - last_index_of_word[word] < minimum_distance:
                 minimum_distance = index - last_index_of_word[word]
         last_index_of_word[word] = index
-    return typing.cast(int, minimum_distance) if minimum_distance != float('inf') else -1
+    return cast(int, minimum_distance) if minimum_distance != float('inf') \
+        else -1
 
 
 if __name__ == '__main__':
