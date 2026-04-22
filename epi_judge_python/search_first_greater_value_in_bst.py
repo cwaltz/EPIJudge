@@ -1,10 +1,8 @@
-from typing import Optional
-
 from bst_node import BstNode
 from test_framework import generic_test
 
 
-def find_first_greater_than_k(tree: BstNode, k: int) -> Optional[BstNode]:
+def find_first_greater_than_k(tree: BstNode, key: int) -> None | BstNode:
     """
     #14.2
 
@@ -12,20 +10,20 @@ def find_first_greater_than_k(tree: BstNode, k: int) -> Optional[BstNode]:
     Space complexity = O(1)
 
     Test PASSED (949/949) [  <1 us]
-    Average running time:    1 us
-    Median running time:     1 us
+    Average running time:   <1 us
+    Median running time:    <1 us
     """
     subtree, first_so_far = tree, None
     while subtree:
-        if k < subtree.data:
+        if key < subtree.data:
             first_so_far, subtree = subtree, subtree.left
-        else:  # Root and all keys in left subtree are <= k, so skip them.
+        else:  # Root and all keys in left subtree are <= key, so skip them.
             subtree = subtree.right
     return first_so_far
 
 
-def find_first_greater_than_k_wrapper(tree, k):
-    result = find_first_greater_than_k(tree, k)
+def find_first_greater_than_k_wrapper(tree: BstNode, key: int):
+    result = find_first_greater_than_k(tree, key)
     return result.data if result else -1
 
 

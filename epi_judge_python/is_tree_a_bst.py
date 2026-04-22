@@ -1,4 +1,5 @@
-import collections
+from collections import deque
+from typing import NamedTuple
 
 from binary_tree_node import BinaryTreeNode
 from test_framework import generic_test
@@ -17,17 +18,22 @@ def is_binary_tree_bst(tree: BinaryTreeNode) -> bool:
     Average running time:    1 us
     Median running time:     1 us
     """
-    def are_keys_in_range(tree,
-                          low_range=float('-inf'),
+    def are_keys_in_range(node, low_range=float('-inf'),
                           high_range=float('inf')):
-        if not tree:
+        if not node:
             return True
-        elif not low_range <= tree.data <= high_range:
+        elif not low_range <= node.data <= high_range:
             return False
-        return (are_keys_in_range(tree.left, low_range, tree.data)
-                and are_keys_in_range(tree.right, tree.data, high_range))
+        return (are_keys_in_range(node.left, low_range, node.data)
+                and are_keys_in_range(node.right, node.data, high_range))
 
     return are_keys_in_range(tree)
+
+
+class QueueEntry(NamedTuple):
+    node: BinaryTreeNode
+    lower: float
+    upper: float
 
 
 def is_binary_tree_bst_iterative(tree: BinaryTreeNode) -> bool:
@@ -38,15 +44,12 @@ def is_binary_tree_bst_iterative(tree: BinaryTreeNode) -> bool:
     BFS approach
 
     Test PASSED (3139/3139) [  <1 us]
-    Average running time:   48 us
-    Median running time:    42 us
+    Average running time:    3 us
+    Median running time:     3 us
     """
     if not tree:
         return True
-    QueueEntry = collections.namedtuple('QueueEntry', ('node', 'lower', 'upper')
-                                        )
-    bfs_queue = collections.deque([QueueEntry(tree, float('-inf'), float('inf'))
-                                   ])
+    bfs_queue = deque([QueueEntry(tree, float('-inf'), float('inf'))])
 
     while bfs_queue:
         front = bfs_queue.popleft()
@@ -70,14 +73,12 @@ def is_binary_tree_bst_iterative_without_namedtuple(tree: BinaryTreeNode)\
     BFS approach
 
     Test PASSED (3139/3139) [  <1 us]
-    Average running time:    2 us
-    Median running time:     2 us
+    Average running time:    1 us
+    Median running time:     1 us
     """
     if not tree:
         return True
-    # QueueEntry = collections.namedtuple('QueueEntry', ('node', 'lower',
-    # 'upper'))
-    bfs_queue = collections.deque([(tree, float('-inf'), float('inf'))])
+    bfs_queue = deque([(tree, float('-inf'), float('inf'))])
 
     while bfs_queue:
         front = bfs_queue.popleft()

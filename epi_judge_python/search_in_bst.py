@@ -1,10 +1,8 @@
-from typing import Optional
-
 from bst_node import BstNode
 from test_framework import generic_test
 
 
-def search_bst(tree: BstNode, key: int) -> Optional[BstNode]:
+def search_bst(tree: BstNode, key: int) -> BstNode | None:
     """
     #14.0
 
@@ -14,17 +12,17 @@ def search_bst(tree: BstNode, key: int) -> Optional[BstNode]:
     Space complexity = O(1)
 
     Test PASSED (955/955) [  <1 us]
-    Average running time:    1 us
-    Median running time:     1 us
+    Average running time:   <1 us
+    Median running time:    <1 us
     """
     while tree:
         if tree.data == key:
-            return tree
+            break
         tree = tree.left if key < tree.data else tree.right
-    return None
+    return tree
 
 
-def search_bst_recursive(tree: BstNode, key: int) -> Optional[BstNode]:
+def search_bst_recursive(tree: BstNode, key: int) -> BstNode | None:
     """
     Recursive version
 
@@ -33,7 +31,7 @@ def search_bst_recursive(tree: BstNode, key: int) -> Optional[BstNode]:
 
     Test PASSED (955/955) [  <1 us]
     Average running time:    1 us
-    Median running time:     1 us
+    Median running time:    <1 us
     """
     return (tree if not tree or tree.data == key else search_bst(
         tree.left, key) if key < tree.data else search_bst(tree.right, key))
