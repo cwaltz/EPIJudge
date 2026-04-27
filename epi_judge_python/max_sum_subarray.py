@@ -1,10 +1,9 @@
-import itertools
-from typing import List
+from itertools import accumulate
 
 from test_framework import generic_test
 
 
-def find_maximum_subarray(nums: List[int]) -> int:
+def find_maximum_subarray(nums: list[int]) -> int:
     """
     #16.0
 
@@ -13,35 +12,28 @@ def find_maximum_subarray(nums: List[int]) -> int:
 
     Using Kadane's algorithm
 
-    Test PASSED (1001/1001) [ 902 us]
-    Average running time:    8 us
-    Median running time:     3 us
+    Test PASSED (1001/1001) [ 703 us]
+    Average running time:    6 us
+    Median running time:     2 us
     """
-    if not nums:
-        return 0
-    # Empty sub-arrays are acceptable. Hence, initialize curr_sum & max_sum with
-    # nums[0] only if nums[0] is positive.
-    curr_sum = max_sum = nums[0] if 0 < nums[0] else 0
-    # nums[0] has been processed. Start with nums[1].
-    for i in range(1, len(nums)):
-        # Add curr_sum to nums[i] only if curr_sum is positive.
-        curr_sum = nums[i] + (curr_sum if 0 < curr_sum else 0)
-        if max_sum < curr_sum:
-            max_sum = curr_sum
+    min_sum = max_sum = running_sum = 0
+    for num in nums:
+        running_sum += num
+        if running_sum < min_sum:
+            min_sum = running_sum
+        if max_sum < running_sum - min_sum:
+            max_sum = running_sum - min_sum
     return max_sum
 
 
-def find_maximum_subarray_with_itertools_accumulate(nums: List[int]) -> int:
+def find_maximum_subarray_with_itertools_accumulate(nums: list[int]) -> int:
     """
-    Time complexity = O(n)
-    Space complexity = O(1)
-
-    Test PASSED (1001/1001) [ 843 us]
-    Average running time:    8 us
-    Median running time:     3 us
+    Test PASSED (1001/1001) [ 695 us]
+    Average running time:    6 us
+    Median running time:     2 us
     """
     min_sum = max_sum = 0
-    for running_sum in itertools.accumulate(nums):
+    for running_sum in accumulate(nums):
         if running_sum < min_sum:
             min_sum = running_sum
         if max_sum < running_sum - min_sum:
