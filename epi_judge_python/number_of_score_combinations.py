@@ -1,38 +1,41 @@
-from typing import List
-
 from test_framework import generic_test
 
 
 def num_combinations_for_final_score(final_score: int,
-                                     individual_play_scores: List[int]) -> int:
+                                     individual_play_scores: list[int]) -> int:
     """
     #16.1
 
     Time complexity = O(s * n), where s is final score and n is the number of
-    individual play scores.
+        individual play scores.
     Space complexity = O(s)
 
-    Test PASSED (1003/1003) [   3 us]
-    Average running time:  355 us
-    Median running time:   208 us
+    Test PASSED (1003/1003) [   2 us]
+    Average running time:  233 us
+    Median running time:   133 us
     """
-    combinations = [1] + [0] * final_score
-    for i in range(len(individual_play_scores)):
-        for j in range(individual_play_scores[i], final_score + 1):
-            combinations[j] += combinations[j - individual_play_scores[i]]
+    # combinations: list[int] = [1] + [0] * final_score  # This line runs
+    # slower than the following 2 lines together
+    combinations = [0] * (final_score + 1)
+    combinations[0] = 1
+
+    for play in individual_play_scores:
+        for score in range(play, final_score + 1):
+            combinations[score] += combinations[score - play]
+
     return combinations[final_score]
 
 
-def num_combinations_for_final_score_(final_score: int,
-                                      individual_play_scores: List[int]) -> int:
+def num_combinations_for_final_score_with_more_space(
+        final_score: int, individual_play_scores: list[int]) -> int:
     """
     Time complexity = O(s * n), where s is final score (= cols) & n is the
     number of individual play scores (= rows).
     Space complexity = O(s * n)
 
-    Test PASSED (1003/1003) [  27 us]
-    Average running time:  942 us
-    Median running time:   646 us
+    Test PASSED (1003/1003) [  21 us]
+    Average running time:  740 us
+    Median running time:   499 us
     """
     # One way to reach 0.
     num_combinations_for_score = [[1] + [0] * final_score
