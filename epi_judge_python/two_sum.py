@@ -1,26 +1,25 @@
-from typing import List
-
 from test_framework import generic_test
 
 
-def has_two_sum(nums: List[int], target: int) -> bool:
+def has_two_sum(nums: list[int], target: int) -> bool:
     """
     #17.0
 
     Time complexity = O(n), where n is the length of the array.
     Space complexity = O(1)
 
-    Test PASSED (1005/1005) [   4 ms]
-    Average running time:   75 us
-    Median running time:    11 us
+    Test PASSED (1005/1005) [   1 ms]
+    Average running time:   36 us
+    Median running time:     5 us
     """
     left, right = 0, len(nums) - 1
     while left <= right:
-        if nums[left] + nums[right] == target:
+        curr_sum = nums[left] + nums[right]
+        if curr_sum == target:
             return True
-        if nums[left] + nums[right] < target:
+        if curr_sum < target:
             left += 1
-        else:  # target < nums[left] + nums[right]
+        else:  # target < curr_sum
             right -= 1
     return False
 
