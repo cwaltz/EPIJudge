@@ -1,53 +1,108 @@
-from typing import List
-
 from test_framework import generic_test
-from two_sum import has_two_sum
+
+"""
+In Production: The Outer Function wins decisively. The lack of isolated 
+testability and the minor performance hit of redefining the function object on 
+every call make inner functions highly undesirable for non-trivial logic in 
+enterprise environments.
+
+In a real codebase, the ideal structure would look like this:
+"""
 
 
-def has_three_sum(nums: List[int], target: int) -> bool:
+def _has_two_sum(nums: list[int], left: int, right: int, target: int) -> bool:
+    """
+    Private helper to find if two numbers in a sorted array sum to a target.
+    """
+    while left <= right:
+        total = nums[left] + nums[right]
+        if total == target:
+            return True
+        if total < target:
+            left += 1
+        else:
+            right -= 1
+    return False
+
+
+def has_three_sum_production(nums: list[int], target: int) -> bool:
     """
     #17.4
 
     Time complexity = O(n ** 2), where n is the length of the array.
     Space complexity = O(1)
 
-    Test PASSED (1008/1008) [   3  s]
-    Average running time:    3 ms
-    Median running time:    10 us
+    Test PASSED (1008/1008) [   1  s]
+    Average running time:    1 ms
+    Median running time:     6 us
     """
-    def has_two_sum(left: int, right: int, target: int) -> bool:
-        while left <= right:
-            if nums[left] + nums[right] == target:
-                return True
-            if nums[left] + nums[right] < target:
-                left += 1
-            else:  # target < nums[left] + nums[right]
-                right -= 1
-        return False
-
     nums.sort()
-    n = len(nums)
-    for i in range(n):
-        if has_two_sum(i, n - 1, target - nums[i]):
+    length = len(nums)
+
+    for idx, num in enumerate(nums):
+        if _has_two_sum(nums, idx, length - 1, target - num):
             return True
+
     return False
 
 
-def has_three_sum_shorter(A: List[int], t: int) -> bool:
-    """
-    Time complexity = O(n ** 2), where n is the length of the array.
-    Space complexity = O(1)
+"""
+Production level solution ends.
 
-    Test PASSED (1008/1008) [   3  s]
-    Average running time:    4 ms
-    Median running time:    11 us
+In an Interview:
+Using an inner function is perfectly acceptable and sometimes even preferred. 
+It shows the interviewer you understand variable scope and closures in Python, 
+and it saves you precious time by keeping your function signatures short on a 
+whiteboard or in a shared coder pad.
+"""
+
+
+def has_three_sum_interview(nums: list[int], target: int) -> bool:
     """
-    A.sort()
-    # Finds if the sum of two numbers in A equals to t - a.
-    return any(has_two_sum(A, t - a) for a in A)
+    Test PASSED (1008/1008) [   1  s]
+    Average running time:    2 ms
+    Median running time:     7 us
+    """
+    nums.sort()
+    length = len(nums)
+
+    def has_two_sum_inner(left: int, right: int, sub_target: int) -> bool:
+        while left <= right:
+            total = nums[left] + nums[right]
+            if total == sub_target:
+                return True
+            if total < sub_target:
+                left += 1
+            else:  # if sub_target < total:
+                right -= 1
+
+        return False
+
+    for idx, num in enumerate(nums):
+        if has_two_sum_inner(idx, length - 1, target - num):
+            return True
+
+    return False
+
+
+"""
+Interview level solution ends.
+"""
+
+
+def has_three_sum_shorter(nums: list[int], target: int) -> bool:
+    """
+    Test PASSED (1008/1008) [   1  s]
+    Average running time:    1 ms
+    Median running time:     7 us
+    """
+    nums.sort()
+    length = len(nums)
+    return any(_has_two_sum(nums, idx, length - 1, target - num)
+               for idx, num in enumerate(nums))
 
 
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('three_sum.py', 'three_sum.tsv',
-                                       has_three_sum))
+                                       has_three_sum_shorter))
