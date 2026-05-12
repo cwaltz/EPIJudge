@@ -1,6 +1,6 @@
-import collections
 import functools
-from typing import List
+
+from typing import NamedTuple
 
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
@@ -11,7 +11,7 @@ MPG = 20
 
 # gallons[i] is the amount of gas in city i, and distances[i] is the
 # distance city i to the next city.
-def find_ample_city(gallons: List[int], distances: List[int]) -> int:
+def find_ample_city(gallons: list[int], distances: list[int]) -> int:
     """
     #17.6
 
@@ -19,8 +19,8 @@ def find_ample_city(gallons: List[int], distances: List[int]) -> int:
     Space complexity = O(1)
 
     Test PASSED (202/202) [   1 ms]
-    Average running time:   18 us
-    Median running time:     4 us
+    Average running time:   15 us
+    Median running time:     3 us
     """
     remaining_gallons, minimum_gallons, idx = 0, 0, 0
     for i in range(len(gallons)):
@@ -30,15 +30,18 @@ def find_ample_city(gallons: List[int], distances: List[int]) -> int:
     return idx
 
 
-def find_ample_city_alternate(gallons: List[int], distances: List[int]) -> int:
+class CityAndRemainingGas(NamedTuple):
+    city: int
+    remaining_gallons: int
+
+
+def find_ample_city_alternate(gallons: list[int], distances: list[int]) -> int:
     """
     Test PASSED (202/202) [   1 ms]
-    Average running time:   70 us
-    Median running time:    45 us
+    Average running time:   24 us
+    Median running time:     7 us
     """
     remaining_gallons = 0
-    CityAndRemainingGas = collections.namedtuple('CityAndRemainingGas',
-                                                 ('city', 'remaining_gallons'))
     city_remaining_gallons_pair = CityAndRemainingGas(0, 0)
     num_cities = len(gallons)
     for i in range(1, num_cities):
