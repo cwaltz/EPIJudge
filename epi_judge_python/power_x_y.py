@@ -1,4 +1,4 @@
-import math
+from math import pow
 
 from test_framework import generic_test
 
@@ -13,9 +13,9 @@ def power(x: float, y: int) -> float:
     The number of multiplications is at most twice the index of y's MSB,
     implying an O(n) time complexity.
 
-    Test PASSED (10002/10002) [   2 us]
+    Test PASSED (10002/10002) [   1 us]
     Average running time:    1 us
-    Median running time:     2 us
+    Median running time:     1 us
     """
     result, num = 1.0, y
     if y < 0:
@@ -45,7 +45,7 @@ def power_using_math_pow(x: float, y: int) -> float:
     Average running time:   <1 us
     Median running time:    <1 us
     """
-    return math.pow(x, y)
+    return pow(x, y)
 
 
 if __name__ == '__main__':
