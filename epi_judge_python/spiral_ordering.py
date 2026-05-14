@@ -1,9 +1,7 @@
-from typing import List
-
 from test_framework import generic_test
 
 
-def matrix_in_spiral_order(matrix: List[List[int]]) -> List[int]:
+def matrix_in_spiral_order(matrix: list[list[int]]) -> list[int]:
     """
     #5.18
 
@@ -20,12 +18,13 @@ def matrix_in_spiral_order(matrix: List[List[int]]) -> List[int]:
     Source: Neetcode :)
     https://github.com/neetcode-gh/leetcode/blob/main/python/54-Spiral-Matrix.py
 
-    Test PASSED (51/51) [ 214 us]
-    Average running time:   78 us
-    Median running time:    62 us
+    Test PASSED (51/51) [ 143 us]
+    Average running time:   55 us
+    Median running time:    45 us
     """
     if not matrix:
         return []
+
     result = []
     top, bottom = 0, len(matrix)
     left, right = 0, len(matrix[0])
@@ -56,19 +55,17 @@ def matrix_in_spiral_order(matrix: List[List[int]]) -> List[int]:
     return result
 
 
-def matrix_in_spiral_order_longer(matrix: List[List[int]]) -> List[int]:
+def matrix_in_spiral_order_longer(matrix: list[list[int]]) -> list[int]:
     """
-    #5.18
-
     Time complexity = O(r * c) where r and c are number of rows and columns.
     Space complexity = O(1)
 
     This solution works for non-square as well as square matrices. Easy to
     understand and implement.
 
-    Test PASSED (51/51) [ 237 us]
-    Average running time:   87 us
-    Median running time:    67 us
+    Test PASSED (51/51) [ 132 us]
+    Average running time:   51 us
+    Median running time:    41 us
     """
     last_row = len(matrix) - 1
     if last_row == -1:
@@ -110,7 +107,7 @@ def matrix_in_spiral_order_longer(matrix: List[List[int]]) -> List[int]:
     return result
 
 
-def matrix_in_spiral_order_pythonic(matrix: List[List[int]]) -> List[int]:
+def matrix_in_spiral_order_pythonic(matrix: list[list[int]]) -> list[int]:
     """
     https://leetcode.com/problems/spiral-matrix/discuss/20571/1-liner-in-Python-%2B-Ruby
 
@@ -122,11 +119,8 @@ def matrix_in_spiral_order_pythonic(matrix: List[List[int]]) -> List[int]:
             matrix_in_spiral_order_pythonic([*zip(*matrix)][::-1]))
 
 
-def square_matrix_in_spiral_order(square_matrix: List[List[int]]) -> List[int]:
+def square_matrix_in_spiral_order(square_matrix: list[list[int]]) -> list[int]:
     """
-    Time complexity = O(n ^ 2) for an n x n square matrix.
-    Space complexity = O(1)
-
     Test PASSED (51/51) [ 273 us]
     Average running time:  103 us
     Median running time:    75 us
@@ -150,13 +144,12 @@ def square_matrix_in_spiral_order(square_matrix: List[List[int]]) -> List[int]:
     return result
 
 
-def matrix_in_spiral_order_solution(square_matrix: List[List[int]]) -> List[int]:
+def matrix_in_spiral_order_solution(
+        square_matrix: list[list[int]]) -> list[int]:
     """
-    Time complexity = O(n ** 2) where the size of the square matrix is n x n.
-
-    Test PASSED (51/51) [ 964 us]
-    Average running time:  266 us
-    Median running time:   143 us
+    Test PASSED (51/51) [ 907 us]
+    Average running time:  257 us
+    Median running time:   167 us
     """
     def matrix_layer_in_clockwise(offset: int):
         # handle odd length case
@@ -172,7 +165,7 @@ def matrix_in_spiral_order_solution(square_matrix: List[List[int]]) -> List[int]
         result.extend(square_matrix[-1 - offset][-1 - offset:offset:-1])
         result.extend(list(zip(*square_matrix))[offset][-1 - offset:offset:-1])
 
-    result: List[int] = []
+    result: list[int] = []
     for offset in range((len(square_matrix) + 1) // 2):
         # 1, 2 -> [0] -> range(1)
         # 3, 4 -> [0, 1] -> range(2)
