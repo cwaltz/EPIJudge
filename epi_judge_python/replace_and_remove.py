@@ -1,20 +1,19 @@
 import functools
-from typing import List
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
 
-def replace_and_remove(size: int, s: List[str]) -> int:
+def replace_and_remove(size: int, s: list[str]) -> int:
     """
     #6.4
 
     Time complexity = O(n), where n is the length of the string.
     Space complexity = O(1)
 
-    Test PASSED (501/501) [  13 ms]
-    Average running time:   35 us
-    Median running time:     4 us
+    Test PASSED (501/501) [  11 ms]
+    Average running time:   30 us
+    Median running time:     3 us
     """
     # Forward iteration: remove 'b's and count the number of 'a's.
     a_count, write_index = 0, 0
@@ -30,7 +29,7 @@ def replace_and_remove(size: int, s: List[str]) -> int:
     read_index = write_index - 1
     write_index = new_size - 1
 
-    while read_index >= 0:
+    while read_index < write_index:  # while read_index >= 0:
         if s[read_index] == 'a':
             s[write_index - 1:write_index + 1] = 'dd'
             write_index -= 2
