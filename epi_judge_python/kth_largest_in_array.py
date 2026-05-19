@@ -1,7 +1,6 @@
-import heapq
-import operator
-import random
-from typing import List
+from heapq import nlargest, nsmallest
+from operator import gt, lt
+from random import randint
 
 from test_framework import generic_test
 
@@ -9,7 +8,7 @@ from test_framework import generic_test
 # The numbering starts from one, i.e., if A = [3, 1, -1, 2]
 # find_kth_largest(1, A) returns 3, find_kth_largest(2, A) returns 2,
 # find_kth_largest(3, A) returns 1, and find_kth_largest(4, A) returns -1.
-def find_kth_largest(k: int, A: List[int]) -> int:
+def find_kth_largest(k: int, nums: list[int]) -> int:
     """
     #11.8
 
@@ -44,25 +43,26 @@ def find_kth_largest(k: int, A: List[int]) -> int:
         #
         # Returns the new index of the pivot element after partition.
 
-        def partition_around_pivot(left: int, right: int, pivot_idx: int) -> int:
+        def partition_around_pivot(
+                left: int, right: int, pivot_idx: int) -> int:
 
-            pivot_value = A[pivot_idx]
+            pivot_value = nums[pivot_idx]
             new_pivot_idx = left
-            A[right], A[pivot_idx] = A[pivot_idx], A[right]
+            nums[right], nums[pivot_idx] = nums[pivot_idx], nums[right]
             for i in range(left, right):
-                if comp(A[i], pivot_value):
-                    A[i], A[new_pivot_idx] = A[new_pivot_idx], A[i]
+                if comp(nums[i], pivot_value):
+                    nums[i], nums[new_pivot_idx] = nums[new_pivot_idx], nums[i]
                     new_pivot_idx += 1
-            A[right], A[new_pivot_idx] = A[new_pivot_idx], A[right]
+            nums[right], nums[new_pivot_idx] = nums[new_pivot_idx], nums[right]
             return new_pivot_idx
 
-        left, right = 0, len(A) - 1
+        left, right = 0, len(nums) - 1
         while left <= right:
             # Generates a random integer in [left, right].
-            pivot_idx = random.randint(left, right)
+            pivot_idx = randint(left, right)
             new_pivot_idx = partition_around_pivot(left, right, pivot_idx)
             if new_pivot_idx == k - 1:
-                return A[new_pivot_idx]
+                return nums[new_pivot_idx]
             elif new_pivot_idx < k - 1:
                 left = new_pivot_idx + 1
             else:  # k - 1 < new_pivot_idx
@@ -70,13 +70,13 @@ def find_kth_largest(k: int, A: List[int]) -> int:
 
         raise IndexError('no k-th node in array A')
 
-    return find_kth(operator.gt)
+    return find_kth(gt)
 
 
 # The numbering starts from one, i.e., if A = [3, 1, -1, 2] then
 # find_kth_smallest(1, A) returns -1, find_kth_smallest(2, A) returns 1,
 # find_kth_smallest(3, A) returns 2, and find_kth_smallest(4, A) returns 3.
-def find_kth_smallest(k, A):
+def find_kth_smallest(k, nums):
     def find_kth(comp):
         # Partition A[left:right + 1] around pivot_idx, returns the new index of
         # the pivot, new_pivot_idx, after partition. After partitioning,
@@ -88,33 +88,33 @@ def find_kth_smallest(k, A):
         #
         # Returns the new index of the pivot element after partition.
         def partition_around_pivot(left, right, pivot_idx):
-            pivot_value = A[pivot_idx]
+            pivot_value = nums[pivot_idx]
             new_pivot_idx = left
-            A[pivot_idx], A[right] = A[right], A[pivot_idx]
+            nums[pivot_idx], nums[right] = nums[right], nums[pivot_idx]
             for i in range(left, right):
-                if comp(A[i], pivot_value):
-                    A[i], A[new_pivot_idx] = A[new_pivot_idx], A[i]
+                if comp(nums[i], pivot_value):
+                    nums[i], nums[new_pivot_idx] = nums[new_pivot_idx], nums[i]
                     new_pivot_idx += 1
-            A[right], A[new_pivot_idx] = A[new_pivot_idx], A[right]
+            nums[right], nums[new_pivot_idx] = nums[new_pivot_idx], nums[right]
             return new_pivot_idx
 
-        left, right = 0, len(A) - 1
+        left, right = 0, len(nums) - 1
         while left <= right:
             # Generates a random integer in [left, right].
-            pivot_idx = random.randint(left, right)
+            pivot_idx = randint(left, right)
             new_pivot_idx = partition_around_pivot(left, right, pivot_idx)
             if new_pivot_idx == k - 1:
-                return A[new_pivot_idx]
+                return nums[new_pivot_idx]
             elif new_pivot_idx > k - 1:
                 right = new_pivot_idx - 1
             else:  # new_pivot_idx < k - 1.
                 left = new_pivot_idx + 1
         raise IndexError('no k-th node in array A')
 
-    return find_kth(operator.lt)
+    return find_kth(lt)
 
 
-def find_kth_largest_pythonic(k: int, A: List[int]) -> int:
+def find_kth_largest_pythonic(k: int, nums: list[int]) -> int:
     """
     Time complexity = O(n log n)
     Space complexity = O(n)
@@ -123,41 +123,41 @@ def find_kth_largest_pythonic(k: int, A: List[int]) -> int:
     Average running time:  102 us
     Median running time:    10 us
     """
-    return heapq.nlargest(k, A)[k - 1]
+    return nlargest(k, nums)[k - 1]
 
 
-def find_kth_smallest_pythonic(k: int, A: List[int]) -> int:
+def find_kth_smallest_pythonic(k: int, nums: list[int]) -> int:
     """
     Time complexity = O(n log n)
     Space complexity = O(n)
     """
-    return heapq.nsmallest(k, A)[k - 1]
+    return nsmallest(k, nums)[k - 1]
 
 
-def find_kth_largest_using_sort(k: int, A: List[int]) -> int:
+def find_kth_largest_using_sort(k: int, nums: list[int]) -> int:
     """
     Time complexity = O(n log n)
     Space complexity = O(n)
 
-    Test PASSED (503/503) [ 213 us]
+    Test PASSED (503/503) [ 207 us]
     Average running time:   23 us
     Median running time:     2 us
     """
-    A.sort()
-    return A[-k]
+    nums.sort()
+    return nums[-k]
 
 
-def find_kth_smallest_using_sort(k: int, A: List[int]) -> int:
+def find_kth_smallest_using_sort(k: int, nums: list[int]) -> int:
     """
     Time complexity = O(n log n)
     Space complexity = O(n)
     """
-    A.sort()
-    return A[k - 1]
+    nums.sort()
+    return nums[k - 1]
 
 
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('kth_largest_in_array.py',
                                        'kth_largest_in_array.tsv',
-                                       find_kth_largest))
+                                       find_kth_largest_using_sort))

@@ -1,5 +1,4 @@
 import functools
-from typing import Optional
 
 from list_node import ListNode
 from test_framework import generic_test
@@ -7,7 +6,7 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def has_cycle(head: Optional[ListNode]) -> Optional[ListNode]:
+def has_cycle(head: ListNode | None) -> ListNode | None:
     """
     #7.3
 
@@ -19,9 +18,9 @@ def has_cycle(head: Optional[ListNode]) -> Optional[ListNode]:
     complexity is O(F) + O(C) = O(n): O(F) for both pointers to reach the cycle,
     and O(C) for them to overlap once the slower one enters the cycle.
 
-    Test PASSED (102/102) [   7 ms]
-    Average running time:  117 us
-    Median running time:     6 us
+    Test PASSED (102/102) [   3 ms]
+    Average running time:   56 us
+    Median running time:     3 us
     """
     if not head:
         return head
@@ -38,12 +37,15 @@ def has_cycle(head: Optional[ListNode]) -> Optional[ListNode]:
     return None  # No cycle.
 
 
-def has_cycle_faster(head: ListNode) -> Optional[ListNode]:
+def has_cycle_faster(head: ListNode | None) -> ListNode | None:
     """
-    Test PASSED (102/102) [   7 ms]
-    Average running time:  104 us
-    Median running time:     5 us
+    Test PASSED (102/102) [   4 ms]
+    Average running time:   66 us
+    Median running time:     3 us
     """
+    if not head:
+        return head
+
     def cycle_len(end):
         start, step = end, 0
         while True:
@@ -91,7 +93,7 @@ def has_cycle_wrapper(executor, head, cycle_idx):
         cursor.next = cycle_start
         cycle_length += 1
 
-    result = executor.run(functools.partial(has_cycle, head))
+    result = executor.run(functools.partial(has_cycle_faster, head))
 
     if cycle_idx == -1:
         if result is not None:
