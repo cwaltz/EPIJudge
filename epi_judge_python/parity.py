@@ -2,15 +2,19 @@ from test_framework import generic_test
 
 
 """
-The actual runtimes depend on the input data, e.g., the refinement (parity3) of the brute-force algorithm (parity4) is
-very fast on sparse inputs. However, for random inputs, the refinement of the brute-force is roughly 20% faster than the
-brute-force algorithm. The table-based approach (parity1) is four times faster still, and using associativity (parity)
-reduces run time by another factor of two.
+The actual runtimes depend on the input data, e.g., the refinement (parity3) of 
+the brute-force algorithm (parity4) is very fast on sparse inputs. However, for 
+random inputs, the refinement of the brute-force is roughly 20% faster than the 
+brute-force algorithm. The table-based approach (parity1) is four times faster 
+still, and using associativity (parity) reduces run time by another factor of 
+two.
 """
 
 
 def parity(x: int) -> int:
     """
+    #4.1
+
     The time complexity is O(log n), where n is the word size.
 
     Test PASSED (10000/10000) [   1 us]
@@ -28,10 +32,12 @@ def parity(x: int) -> int:
 
 def parity1(x: int) -> int:
     """
-    The time complexity is a function of the size of the keys used to index the lookup table. Let L (= 16 here) be the
-    width of the words for which we cache the results, and n (= 64 here) the word size. Since there are n / L (= 4 here)
-    terms, the time complexity is O(n / L), assuming word-level operations, such as shifting, take O(1) time. (This does
-    not include the time for initialization of the lookup table.)
+    The time complexity is a function of the size of the keys used to index
+    the lookup table. Let L (= 16 here) be the width of the words for which
+    we cache the results, and n (= 64 here) the word size. Since there are n
+    / L (= 4 here) terms, the time complexity is O(n / L), assuming
+    word-level operations, such as shifting, take O(1) time. (This does not
+    include the time for initialization of the lookup table.)
     """
     MASK_SIZE = 16
     BIT_MASK = 0xFFFF
@@ -44,7 +50,8 @@ def parity1(x: int) -> int:
 
 def parity2(x: int) -> int:
     """
-    The time complexity is O(k), where k is the number of bits set to 1 in the word.
+    The time complexity is O(k), where k is the number of bits set to 1 in
+    the word.
 
     Test PASSED (10000/10000) [   3 us]
     Average running time:    4 us
@@ -73,4 +80,5 @@ def parity3(x: int) -> int:
 
 
 if __name__ == '__main__':
-    exit(generic_test.generic_test_main('parity.py', 'parity.tsv', parity))
+    exit(generic_test.generic_test_main('parity.py',
+                                        'parity.tsv', parity))

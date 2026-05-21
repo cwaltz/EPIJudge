@@ -1,14 +1,20 @@
-print("'Euclid,Axiom 5,Parallel Lines'.split(',') =", 'Euclid,Axiom 5,Parallel Lines'.split(','))
+"""
+#6.0
+"""
+
+print(f"'Euclid,Axiom 5,Parallel Lines'.split(',') = "
+      f"{'Euclid,Axiom 5,Parallel Lines'.split(',')}")
 # ['Euclid', 'Axiom 5', 'Parallel Lines']
 
-print("'Euclid,Axiom 5,Parallel Lines'.split(' ') =", 'Euclid,Axiom 5,Parallel Lines'.split(' '))
+print(f"'Euclid,Axiom 5,Parallel Lines'.split(' ') = "
+      f"{'Euclid,Axiom 5,Parallel Lines'.split(' ')}")
 # ['Euclid,Axiom', '5,Parallel', 'Lines']
 
-print("3 * '01' =", 3 * '01')
+print(f"3 * '01' = {3 * '01'}")
 # '010101'
 
-print("','.join(('Gauss', 'Prince of Mathematicians', '1777-1855')) =",
-      ','.join(('Gauss', 'Prince of Mathematicians', '1777-1855')))
+print(f"','.join(('Gauss', 'Prince of Mathematicians', '1777-1855')) = "
+      f"{','.join(('Gauss', 'Prince of Mathematicians', '1777-1855'))}")
 # 'Gauss,Prince of Mathematicians,1777-1855'
 
 print("'Name {name}, Rank {rank}'.format(name='Archimedes', rank=3) =",
