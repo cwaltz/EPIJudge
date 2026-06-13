@@ -21,12 +21,14 @@ def power(x: float, y: int) -> float:
     if y < 0:
         num = -num
         x = 1 / x
+
     while num:
         # if num & 1:
         if num % 2:  # Might be faster than: num & 1
             result *= x
         num >>= 1
         x = x * x
+
     return result
 
 
