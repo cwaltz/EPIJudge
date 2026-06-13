@@ -2,6 +2,28 @@ from list_node import ListNode
 from test_framework import generic_test
 
 
+def reverse_sublist_1(head: ListNode, start: int, finish: int) -> None:
+    """
+    Test PASSED (210/210) [   1 ms]
+    Average running time:    9 us
+    Median running time:     1 us
+    """
+    sublist_dummy_head = dummy_head = ListNode(0, head)
+
+    for _ in range(start - 1):
+        sublist_dummy_head = sublist_dummy_head.next
+
+    sublist_old_head = sublist_dummy_head.next
+
+    for _ in range(finish - start):
+        curr = sublist_old_head.next
+        sublist_old_head.next = curr.next
+        curr.next = sublist_dummy_head.next
+        sublist_dummy_head.next = curr
+
+    return dummy_head.next
+
+
 def reverse_sublist(node: ListNode, start: int,
                     finish: int) -> ListNode | None:
     """
