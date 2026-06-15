@@ -10,10 +10,12 @@ def is_symmetric(tree: BinaryTreeNode) -> bool:
     Space complexity = O(h), where h is the height of the tree.
 
     Test PASSED (3852/3852) [  <1 us]
-    Average running time:    1 us
+    Average running time:   <1 us
     Median running time:    <1 us
     """
-    def are_subtrees_symmetric(subtree_0: BinaryTreeNode, subtree_1: BinaryTreeNode) -> bool:
+
+    def are_subtrees_symmetric(subtree_0: BinaryTreeNode,
+                               subtree_1: BinaryTreeNode) -> bool:
 
         if not subtree_0 and not subtree_1:
             return True
@@ -30,4 +32,5 @@ def is_symmetric(tree: BinaryTreeNode) -> bool:
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('is_tree_symmetric.py',
-                                       'is_tree_symmetric.tsv', is_symmetric))
+                                       'is_tree_symmetric.tsv',
+                                       is_symmetric))
