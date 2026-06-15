@@ -1,5 +1,3 @@
-from typing import List
-
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
@@ -8,23 +6,26 @@ class Queue:
     """
     #8.7
 
-    The time complexity of dequeue is O(1), and the amortized time complexity of enqueue is O(1).
+    The time complexity of dequeue is O(1), and the amortized time complexity
+        of enqueue is O(1).
     Space complexity = O(1) except the storage required to store the elements.
 
-    Test PASSED (65/65) [   7 ms]
-    Average running time:  171 us
-    Median running time:    27 us
+    Test PASSED (65/65) [   4 ms]
+    Average running time:   98 us
+    Median running time:    20 us
     """
     def __init__(self, capacity: int) -> None:
         self._capacity = capacity
-        self._queue: List[int] = [0] * self._capacity  # [0 for _ in range(self._capacity)]
+        self._queue: list[int] = [0] * self._capacity
+        # [0 for _ in range(self._capacity)]
         self._size = 0
         self._head = 0
         self._tail = 0
 
     def enqueue(self, x: int) -> None:
         if self._size == self._capacity:  # queue is full. resize.
-            self._queue = self._queue[self._head:] + self._queue[:self._head]  # rotate
+            # rotate
+            self._queue = self._queue[self._head:] + self._queue[:self._head]
             self._head = 0
             self._tail = self._size
             self._queue += [0] * self._capacity
@@ -45,15 +46,15 @@ class Queue:
 
 class Queue1:
     """
-    Test PASSED (65/65) [   8 ms]
-    Average running time:  190 us
-    Median running time:    30 us
+    Test PASSED (65/65) [   4 ms]
+    Average running time:  113 us
+    Median running time:    17 us
     """
     SCALE_FACTOR = 2
 
     def __init__(self, capacity: int) -> None:
 
-        self._data = [None] * capacity
+        self._data = [0] * capacity
         self._head = self._tail = self._num_of_entries = 0
 
     def enqueue(self, x: int) -> None:
@@ -84,11 +85,11 @@ class Queue1:
 
 
 def queue_tester(ops):
-    q = Queue(1)
+    q = Queue1(1)
 
     for (op, arg) in ops:
         if op == 'Queue':
-            q = Queue(arg)
+            q = Queue1(arg)
         elif op == 'enqueue':
             q.enqueue(arg)
         elif op == 'dequeue':
