@@ -1,13 +1,11 @@
-from typing import List, Optional
-
 from binary_tree_node import BinaryTreeNode
 from test_framework import generic_test
 
 
-def binary_tree_from_preorder_inorder(preorder: List[int],
-                                      inorder: List[int]) -> BinaryTreeNode:
+def binary_tree_from_preorder_inorder(
+        preorder: list[int], inorder: list[int]) -> BinaryTreeNode | None:
     """
-    #9.11
+    #9.12
 
     Time complexity = O(n)
     Building the hash table takes O(n) time and the recursive reconstruction
@@ -16,8 +14,8 @@ def binary_tree_from_preorder_inorder(preorder: List[int],
     depth of the function call stack O(h)
 
     Test PASSED (3852/3852) [   1 us]
-    Average running time:   53 us
-    Median running time:     6 us
+    Average running time:   31 us
+    Median running time:     3 us
     """
     node_to_inorder_idx = {data: i for i, data in enumerate(inorder)}
 
@@ -25,7 +23,7 @@ def binary_tree_from_preorder_inorder(preorder: List[int],
     # inorder[inorder_start:inorder_end].
     def binary_tree_from_preorder_inorder_helper(
             preorder_start: int, preorder_end: int, inorder_start: int,
-            inorder_end: int) -> Optional[BinaryTreeNode]:
+            inorder_end: int) -> BinaryTreeNode | None:
         if preorder_end <= preorder_start or inorder_end <= inorder_start:
             return None
 
@@ -49,39 +47,40 @@ def binary_tree_from_preorder_inorder(preorder: List[int],
 
 
 def binary_tree_from_preorder_inorder_shortest(
-        preorder: List[int], inorder: List[int]) -> Optional[BinaryTreeNode]:
+        preorder: list[int], inorder: list[int]) -> BinaryTreeNode | None:
     """
     Source: Neetcode :)
     https://github.com/neetcode-gh/leetcode/blob/main/python/105-Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal.py
     # TODO: Watch Neetcode's video & calculate time & space complexities.
 
     Test PASSED (3852/3852) [  <1 us]
-    Average running time:   65 us
-    Median running time:     6 us
+    Average running time:   42 us
+    Median running time:     4 us
     """
     if not preorder or not inorder:
         return None
 
     root = BinaryTreeNode(preorder[0])
     mid = inorder.index(preorder[0])
-    root.left = binary_tree_from_preorder_inorder(
+    root.left = binary_tree_from_preorder_inorder_shortest(
         preorder[1: mid + 1], inorder[:mid])
-    root.right = binary_tree_from_preorder_inorder(
+    root.right = binary_tree_from_preorder_inorder_shortest(
         preorder[mid + 1:], inorder[mid + 1:])
     return root
 
 
 def binary_tree_from_preorder_inorder_short(
-        preorder: List[int], inorder: List[int]) -> BinaryTreeNode:
+        preorder: list[int], inorder: list[int]) -> BinaryTreeNode | None:
     """
     Source:
     https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solutions/34543/simple-o-n-without-map/
     # TODO: To be understood yet!
 
     Test PASSED (3852/3852) [  <1 us]
-    Average running time:   49 us
-    Median running time:     5 us
+    Average running time:   27 us
+    Median running time:     3 us
     """
+
     def build(stop):
         if inorder and inorder[-1] != stop:
             root = BinaryTreeNode(preorder.pop())
@@ -99,4 +98,4 @@ if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('tree_from_preorder_inorder.py',
                                        'tree_from_preorder_inorder.tsv',
-                                       binary_tree_from_preorder_inorder))
+                                       binary_tree_from_preorder_inorder_shortest))
