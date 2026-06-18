@@ -1,12 +1,12 @@
 import heapq
 import itertools
-from typing import Iterator, List
+from collections.abc import Iterator
 
 from test_framework import generic_test
 
 
 def sort_approximately_sorted_array(sequence: Iterator[int],
-                                    k: int) -> List[int]:
+                                    k: int) -> list[int]:
     """
     #10.3
 
@@ -15,10 +15,11 @@ def sort_approximately_sorted_array(sequence: Iterator[int],
 
     Test PASSED (101/101) [   6 ms]
     Average running time:   75 us
-    Median running time:     5 us
+    Median running time:     4 us
     """
-    min_heap: List[int] = []
-    # Adds the first k elements into min_heap. Stop if there are fewer than k elements.
+    min_heap: list[int] = []
+    # Adds the first k elements into min_heap.
+    # Stop if there are fewer than k elements.
     for x in itertools.islice(sequence, k):
         heapq.heappush(min_heap, x)
 
@@ -34,11 +35,11 @@ def sort_approximately_sorted_array(sequence: Iterator[int],
 
 
 def sort_approximately_sorted_array_1(sequence: Iterator[int],
-                                      k: int) -> List[int]:
+                                      k: int) -> list[int]:
     """
-    Test PASSED (101/101) [   9 ms]
-    Average running time:  102 us
-    Median running time:     7 us
+    Test PASSED (101/101) [   8 ms]
+    Average running time:   91 us
+    Median running time:     5 us
     """
     min_heap = []
     result = []
