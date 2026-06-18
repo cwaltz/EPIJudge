@@ -1,9 +1,7 @@
-from typing import List
-
 from test_framework import generic_test
 
 
-def search_smallest(A: List[int]) -> int:
+def search_smallest(nums: list[int]) -> int:
     """
     #11.3
 
@@ -16,16 +14,16 @@ def search_smallest(A: List[int]) -> int:
     detected in the worst-case without inspecting every element.
 
     Test PASSED (307/307) [   5 us]
-    Average running time:    1 us
-    Median running time:     1 us
+    Average running time:   <1 us
+    Median running time:    <1 us
     """
     # All elements are distinct.
-    if A[0] <= A[-1]:  # Not rotated
+    if nums[0] <= nums[-1]:  # Not rotated
         return 0
-    left, right, result = 0, len(A) - 1, len(A) - 1
+    left, right, result = 0, len(nums) - 1, len(nums) - 1
     while left <= right:
         mid = left + ((right - left) >> 1)
-        if A[mid] < A[result]:
+        if nums[mid] < nums[result]:
             result = mid
             right = mid - 1
         else:  # A[result] <= A[mid]
@@ -33,18 +31,18 @@ def search_smallest(A: List[int]) -> int:
     return result
 
 
-def search_smallest_faster(A: List[int]) -> int:
+def search_smallest_faster(nums: list[int]) -> int:
     """
     # TODO: Yet to be fully understood!
 
     Test PASSED (307/307) [   3 us]
-    Average running time:    1 us
-    Median running time:     1 us
+    Average running time:   <1 us
+    Median running time:    <1 us
     """
-    left, right = 0, len(A) - 1
+    left, right = 0, len(nums) - 1
     while left < right:
         mid = (left + right) // 2
-        if A[mid] > A[right]:
+        if nums[mid] > nums[right]:
             # Minimum must be in A[mid + 1:right + 1].
             left = mid + 1
         else:  # A[mid] <= A[right].
@@ -59,4 +57,4 @@ if __name__ == '__main__':
     exit(
         generic_test.generic_test_main('search_shifted_sorted_array.py',
                                        'search_shifted_sorted_array.tsv',
-                                       search_smallest))
+                                       search_smallest_faster))
