@@ -1,5 +1,4 @@
 import functools
-from typing import Optional
 
 from bst_node import BstNode
 from test_framework import generic_test
@@ -9,7 +8,7 @@ from test_framework.test_utils import enable_executor_hook
 
 
 # Input nodes are nonempty and s.data <= b.data.
-def find_lca(tree: BstNode, s: BstNode, b: BstNode) -> Optional[BstNode]:
+def find_lca(tree: BstNode, s: BstNode, b: BstNode) -> BstNode | None:
     """
     #14.4
 
@@ -20,7 +19,8 @@ def find_lca(tree: BstNode, s: BstNode, b: BstNode) -> Optional[BstNode]:
     Average running time:   <1 us
     Median running time:    <1 us
     """
-    # while not (s.data <= tree.data <= b.data):  # Current line also works in place of next line.
+    # while not (s.data <= tree.data <= b.data):
+    # Current line also works in place of next line.
     while tree.data < s.data or b.data < tree.data:
         # Keep searching since tree is outside [s, b].
         while tree.data < s.data:
