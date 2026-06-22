@@ -12,19 +12,21 @@ def number_of_ways(n: int, m: int) -> int:
     Time complexity = O(n * m)
     Space complexity = O(min(n, m))
 
-    Test PASSED (1775/1775) [  67 us]
-    Average running time:   22 us
-    Median running time:    21 us
+    Test PASSED (1775/1775) [  51 us]
+    Average running time:   16 us
+    Median running time:    14 us
     """
     if m == 1 or n == 1:
         return 1
-    if n < m:
+
+    if n < m:  # Let m be the smaller of the two dimensions
         n, m = m, n
 
     table = [1] * m
     for _ in range(1, n):
         for j in range(1, m):
             table[j] += table[j - 1]
+
     return table[-1]
 
 
@@ -34,9 +36,9 @@ def number_of_ways_pythonic(n: int, m: int) -> int:
     Time complexity = O(n * m)
     Space complexity = O(min(n, m))
 
-    Test PASSED (1775/1775) [  41 us]
-    Average running time:   18 us
-    Median running time:    16 us
+    Test PASSED (1775/1775) [  37 us]
+    Average running time:   15 us
+    Median running time:    14 us
     """
     if n < m:
         n, m = m, n
@@ -47,14 +49,14 @@ def number_of_ways_pythonic(n: int, m: int) -> int:
     return table[-1]
 
 
-def number_of_ways_1(n: int, m: int) -> int:
+def number_of_ways_using_2d_array(n: int, m: int) -> int:
     """
     Time complexity = O(n * m)
     Space complexity = O(n * m)
 
-    Test PASSED (1775/1775) [  85 us]
-    Average running time:   32 us
-    Median running time:    29 us
+    Test PASSED (1775/1775) [  63 us]
+    Average running time:   22 us
+    Median running time:    20 us
     """
     if 1 in (m, n):
         return 1
