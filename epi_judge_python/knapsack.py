@@ -1,23 +1,25 @@
-import collections
 import functools
-from typing import List
+from typing import NamedTuple
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
-Item = collections.namedtuple('Item', ('weight', 'value'))
+
+class Item(NamedTuple):
+    weight: int
+    value: int
 
 
-def optimum_subject_to_capacity(items: List[Item], capacity: int) -> int:
+def optimum_subject_to_capacity(items: list[Item], capacity: int) -> int:
     """
     #16.6
 
     Time complexity = O(n * w), where n is the number of items & w is capacity.
     Space complexity = O(w)
 
-    Test PASSED (100/100) [ 366 ms]
-    Average running time:   76 ms
-    Median running time:    46 ms
+    Test PASSED (100/100) [ 322 ms]
+    Average running time:   67 ms
+    Median running time:    41 ms
     """
     results = [0] * (capacity + 1)
     for _, item in enumerate(items):
@@ -27,12 +29,14 @@ def optimum_subject_to_capacity(items: List[Item], capacity: int) -> int:
     return results[-1]
 
 
-def optimum_subject_to_capacity_with_cache(items: List[Item], capacity: int) -> int:
+def optimum_subject_to_capacity_with_cache(items: list[Item],
+                                           capacity: int) -> int:
     """
-    Test PASSED (100/100) [ 666 ms]
-    Average running time:  211 ms
-    Median running time:   144 ms
+    Test PASSED (100/100) [ 653 ms]
+    Average running time:  182 ms
+    Median running time:   129 ms
     """
+
     # Returns the optimum value when we choose from items[:k + 1] and have a
     # capacity of available_capacity.
     @functools.lru_cache(None)
