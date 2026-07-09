@@ -1,11 +1,11 @@
 """
 #19.3 IMPLEMENT SYNCHRONIZATION FOR TWO INTERLEAVING THREADS
 
-Thread t1 prints odd numbers from 1 to 100;
-Thread t2 prints even numbers from 1 to 100.
+Thread t1 prints odd numbers from 1 to 10;
+Thread t2 prints even numbers from 1 to 10.
 
 Write code in which the two threads, running concurrently,
-print the numbers from 1 to 100 in order.
+print the numbers from 1 to 10 in order.
 
 Hint: The two threads need to notify each other when they are done.
 
@@ -22,52 +22,55 @@ locking by using <what?>
 import threading
 
 
-class OddEvenMonitor(threading.Condition):
-    ODD_TURN = True
-    EVEN_TURN = False
+class TurnMonitor:
+    """A monitor to coordinate thread turns using composition."""
 
     def __init__(self):
-        super().__init__()
-        self._turn = self.ODD_TURN
+        self._condition = threading.Condition()
+        self._is_odd_turn = True  # True for Odd, False for Even
 
     def wait_turn(self, desired_turn: bool) -> None:
-        with self:
-            while self._turn != desired_turn:
-                self.wait()
+        with self._condition:
+            while self._is_odd_turn != desired_turn:
+                self._condition.wait()
 
     def toggle_turn(self) -> None:
-        with self:
-            self._turn ^= True
-            self.notify()
+        with self._condition:
+            self._is_odd_turn = not self._is_odd_turn
+            self._condition.notify()
 
 
-class OddThread(threading.Thread):
-    def __init__(self, monitor: OddEvenMonitor):
+class NumberPrinterThread(threading.Thread):
+    def __init__(self, turn_monitor: TurnMonitor, is_odd: bool, max_val: int):
         super().__init__()
-        self._monitor = monitor
+        self._monitor = turn_monitor
+        self._is_odd = is_odd
+        self._max_val = max_val
+        # Determine start value based on thread type
+        self._start = 1 if is_odd else 2
 
     def run(self) -> None:
-        for i in range(1, 11, 2):
-            self._monitor.wait_turn(OddEvenMonitor.ODD_TURN)
-            print(i)
-            self._monitor.toggle_turn()
+        for i in range(self._start, self._max_val + 1, 2):
+            self._monitor.wait_turn(self._is_odd)
 
-
-class EvenThread(threading.Thread):
-    def __init__(self, monitor: OddEvenMonitor):
-        super().__init__()
-        self._monitor = monitor
-
-    def run(self) -> None:
-        for i in range(2, 11, 2):
-            self._monitor.wait_turn(OddEvenMonitor.EVEN_TURN)
-            print(i)
-            self._monitor.toggle_turn()
+            try:
+                # Production code would use logging here
+                print(i)
+            finally:
+                # Ensures the other thread isn't deadlocked if print() fails
+                self._monitor.toggle_turn()
 
 
 if __name__ == '__main__':
-    odd_even_monitor = OddEvenMonitor()
-    odd_thread = OddThread(odd_even_monitor)
-    even_thread = EvenThread(odd_even_monitor)
+    MAX_LIMIT = 10
+    monitor = TurnMonitor()
+
+    # By passing parameters, we reuse the same thread class
+    odd_thread = NumberPrinterThread(monitor, is_odd=True, max_val=MAX_LIMIT)
+    even_thread = NumberPrinterThread(monitor, is_odd=False, max_val=MAX_LIMIT)
+
     odd_thread.start()
     even_thread.start()
+
+    odd_thread.join()
+    even_thread.join()

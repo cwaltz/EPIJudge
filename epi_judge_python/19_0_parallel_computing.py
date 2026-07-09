@@ -11,34 +11,45 @@ that semaphore, potentially releasing a blocking acquirer.
 """
 
 import threading
+from types import TracebackType
+from typing import Type
 
 
 class Semaphore:
+    """A modernized, robust Semaphore implementation."""
+
     def __init__(self, max_available: int):
-        self._condition_variable = threading.Condition()
-        self._MAX_AVAILABLE = max_available
+        if max_available < 0:
+            raise ValueError(
+                "Semaphore cannot be initialized with a negative value.")
+
+        self._condition = threading.Condition()
+        self._max_available = max_available
         self._taken = 0
 
     def acquire(self) -> None:
-        self._condition_variable.acquire()
-        while self._taken == self._MAX_AVAILABLE:
-            self._condition_variable.wait()
-        self._taken += 1
-        self._condition_variable.release()
-
-        # Alternate implementation using 'with' statement
-        # with self._condition_variable:
-        #     while self._taken == self._MAX_AVAILABLE:
-        #         self._condition_variable.wait()
-        #     self._taken += 1
+        # Industry standard: ALWAYS use context managers for locks
+        with self._condition:
+            while self._taken == self._max_available:
+                self._condition.wait()
+            self._taken += 1
 
     def release(self) -> None:
-        self._condition_variable.acquire()
-        self._taken -= 1
-        self._condition_variable.notify()
-        self._condition_variable.release()
+        with self._condition:
+            if self._taken == 0:
+                raise ValueError("Semaphore released too many times.")
+            self._taken -= 1
+            self._condition.notify()
 
-        # Alternate implementation using 'with' statement
-        # with self._condition_variable:
-        #     self._taken -= 1
-        #     self._condition_variable.notify()
+    # Dunder methods to allow: `with Semaphore(2):`
+    def __enter__(self) -> 'Semaphore':
+        self.acquire()
+        return self
+
+    def __exit__(
+            self,
+            exc_type: Type[BaseException] | None,
+            exc_val: BaseException | None,
+            exc_tb: TracebackType | None
+    ) -> None:
+        self.release()
