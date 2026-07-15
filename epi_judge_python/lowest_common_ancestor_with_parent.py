@@ -1,5 +1,4 @@
 import functools
-from typing import Optional
 
 from binary_tree_with_parent_prototype import BinaryTreeNode
 from test_framework import generic_test
@@ -8,40 +7,52 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def lca(node0: BinaryTreeNode,
-        node1: BinaryTreeNode) -> Optional[BinaryTreeNode]:
+def get_depth(node: BinaryTreeNode) -> int:
+    """Helper to calculate the depth of a node in O(h) time."""
+    depth = 0
+    while node.parent:
+        depth += 1
+        node = node.parent
+    return depth
+
+
+def lca(node0: BinaryTreeNode | None,
+        node1: BinaryTreeNode | None) -> BinaryTreeNode | None:
     """
     #9.4
 
     Time complexity  = O(h), where h is the height of the tree.
     Space complexity = O(1)
 
-    Test PASSED (948/948) [   2 us]
+    Test PASSED (948/948) [   1 us]
     Average running time:    1 us
     Median running time:     1 us
     """
+    if not node0 or not node1:
+        return None
 
-    def get_depth(node):
-        depth = 0
-        while node.parent:
-            depth += 1
-            node = node.parent
-        return depth
+    depth0 = get_depth(node0)
+    depth1 = get_depth(node1)
 
-    depth0, depth1 = get_depth(node0), get_depth(node1)
-    # Makes node0 as the deeper node in order to simplify the code.
+    # Ensure node0 is the deeper node to simplify the logic
     if depth1 > depth0:
         node0, node1 = node1, node0
 
-    # Ascends from the deeper node.
+    # Ascend from the deeper node until both nodes are at the same depth
     depth_diff = abs(depth0 - depth1)
-    while depth_diff:
+    while depth_diff > 0:
         node0 = node0.parent
         depth_diff -= 1
 
-    # Now ascends both nodes until we reach the LCA.
-    while node0 is not node1:
-        node0, node1 = node0.parent, node1.parent
+    # Now ascend both nodes in tandem until they meet
+    while node0 and node1 and node0 is not node1:
+        node0 = node0.parent
+        node1 = node1.parent
+
+    # If they are both None, they were in disjoint trees
+    if not node0:
+        raise ValueError('node0 and node1 are not in the same tree')
+
     return node0
 
 
