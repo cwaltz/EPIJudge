@@ -1,16 +1,19 @@
 import functools
-from typing import NamedTuple
+import itertools
+from dataclasses import dataclass
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
 
-class Endpoint(NamedTuple):
+@dataclass(frozen=True, slots=True)
+class Endpoint:
     is_closed: bool
     val: int
 
 
-class Interval(NamedTuple):
+@dataclass(frozen=True, slots=True)
+class Interval:
     left: Endpoint
     right: Endpoint
 
@@ -19,12 +22,9 @@ def union_of_intervals_production(intervals: list[Interval]) -> list[Interval]:
     """
     #13.7
 
-    Time Complexity: O(n log n), n = len(intervals)
-    Space Complexity: O(n)
-
-    Test PASSED (191/191) [  15 ms]
-    Average running time:   96 us
-    Median running time:     9 us
+    Test PASSED (191/191) [  10 ms]
+    Average running time:   68 us
+    Median running time:     6 us
     """
     if not intervals:
         return []
@@ -37,7 +37,7 @@ def union_of_intervals_production(intervals: list[Interval]) -> list[Interval]:
     result = [sorted_intervals[0]]
 
     # 2. Skip the first element to avoid redundant self-comparison
-    for curr in sorted_intervals[1:]:
+    for curr in itertools.islice(sorted_intervals, 1, None):
         prev = result[-1]
 
         # Extract boolean states for readability
@@ -54,38 +54,15 @@ def union_of_intervals_production(intervals: list[Interval]) -> list[Interval]:
                                   curr.right.is_closed)
 
             if extends_strictly or extends_by_closure:
-                # Replace the last interval with the newly merged interval
+                # Replace the last interval with the newly merged interval.
+                # Because the dataclass is frozen, we must instantiate a new
+                # Interval, which safely prevents side effects elsewhere in
+                # the application.
                 result[-1] = Interval(prev.left, curr.right)
         else:
             # No overlap, add as a distinct interval
             result.append(curr)
 
-    return result
-
-
-def union_of_intervals_epi(intervals: list[Interval]) -> list[Interval]:
-    """
-    Test PASSED (191/191) [  13 ms]
-    Average running time:   89 us
-    Median running time:     9 us
-    """
-    # Empty input.
-    if not intervals:
-        return []
-
-    # Sort intervals according to left endpoints of intervals.
-    intervals.sort(key=lambda j: (j.left.val, not j.left.is_closed))
-    result = [intervals[0]]
-    for i in intervals:
-        if intervals and (i.left.val < result[-1].right.val or
-                          (i.left.val == result[-1].right.val and
-                           (i.left.is_closed or result[-1].right.is_closed))):
-            if (i.right.val > result[-1].right.val or
-                    (i.right.val == result[
-                        -1].right.val and i.right.is_closed)):
-                result[-1] = Interval(result[-1].left, i.right)
-        else:
-            result.append(i)
     return result
 
 
