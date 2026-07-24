@@ -28,7 +28,7 @@ def generate_power_set_interview(input_set: list[int]) -> list[list[int]]:
     by maintaining a single state vector and yielding deep copies.
 
     Test PASSED (15/15) [   5 ms]
-    Average running time:  792 us
+    Average running time:  777 us
     Median running time:    43 us
     """
 
@@ -124,6 +124,8 @@ def generate_power_set_lazy(input_set: list[int]) -> Iterator[list[int]]:
     from. This maintains the O(1) auxiliary memory footprint (aside from the
     call stack) because subsets are yielded one by one and garbage collected
     after the caller consumes them.
+
+    TODO: To be understood yet
     """
 
     def backtrack(
@@ -152,6 +154,8 @@ def generate_power_set_iterative_dfs(input_set: list[int]) -> list[list[int]]:
     Test PASSED (15/15) [   8 ms]
     Average running time:    1 ms
     Median running time:    72 us
+
+    TODO: To be understood yet
     """
     result: list[list[int]] = []
 
@@ -185,6 +189,8 @@ def generate_power_set_enterprise(input_set: list[int]) -> list[list[int]]:
     Test PASSED (15/15) [   2 ms]
     Average running time:  472 us
     Median running time:    24 us
+
+    TODO: To be understood yet
     """
     power_set: list[list[int]] = []
 
@@ -205,6 +211,8 @@ def generate_power_set_bitwise(input_set: list[int]) -> list[list[int]]:
     Test PASSED (15/15) [  18 ms]
     Average running time:    2 ms
     Median running time:    69 us
+
+    TODO: To be understood yet
     """
     power_set: list[list[int]] = []
     length = len(input_set)
@@ -235,6 +243,8 @@ def generate_power_set_bitwise_1(input_set: list[int]) -> list[list[int]]:
     Test PASSED (15/15) [  22 ms]
     Average running time:    2 ms
     Median running time:    88 us
+
+    TODO: To be understood yet
     """
     n = len(input_set)
     power_set = []
@@ -287,11 +297,13 @@ def generate_power_set_interview_old(input_set: list[int]) -> list[list[int]]:
     Test PASSED (15/15) [   5 ms]
     Average running time:  847 us
     Median running time:    46 us
+
+    TODO: To be understood yet
     """
 
     # Generate all subsets whose intersection with input_set[0], ...,
     # input_set[to_be_selected - 1] is exactly selected_so_far.
-    def directed_power_set(to_be_selected, selected_so_far):
+    def directed_power_set(to_be_selected: int, selected_so_far: list[int]):
         if to_be_selected == len(input_set):
             power_set.append(selected_so_far)
             return
@@ -320,6 +332,8 @@ def generate_power_set_bitwise_old(input_set: list[int]) -> list[list[int]]:
     Test PASSED (15/15) [  23 ms]
     Average running time:    3 ms
     Median running time:    83 us
+
+    TODO: To be understood yet
     """
     power_set: list[list[int]] = []
     for int_for_subset in range(1 << len(input_set)):
@@ -337,4 +351,4 @@ if __name__ == '__main__':
     exit(
         generic_test.generic_test_main(
             'power_set.py', 'power_set.tsv',
-            generate_power_set_iterative_dfs, test_utils.unordered_compare))
+            generate_power_set_interview, test_utils.unordered_compare))
