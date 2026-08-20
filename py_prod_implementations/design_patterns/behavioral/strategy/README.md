@@ -15,12 +15,12 @@ classDiagram
 
     %% The Interfaces (Protocols in Python)
     class FlyBehavior {
-        <<interface>>
+        <<Protocol>>
         +fly() str
     }
     
     class QuackBehavior {
-        <<interface>>
+        <<Protocol>>
         +quack() str
     }
 
@@ -49,12 +49,12 @@ classDiagram
     Duck o-- QuackBehavior : has a
     
     %% Concrete classes implement (realize) the interfaces / protocols
-    FlyBehavior <|.. FlyWithWings : realizes
-    FlyBehavior <|.. FlyNoWay : realizes
-    FlyBehavior <|.. RocketPoweredFly : realizes
+    FlyBehavior <|.. FlyWithWings : conforms to
+    FlyBehavior <|.. FlyNoWay : conforms to
+    FlyBehavior <|.. RocketPoweredFly : conforms to
     
-    QuackBehavior <|.. NormalQuack : realizes
-    QuackBehavior <|.. Squeak : realizes
+    QuackBehavior <|.. NormalQuack : conforms to
+    QuackBehavior <|.. Squeak : conforms to
 ```
 
 Sequence Diagram
