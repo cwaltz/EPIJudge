@@ -48,9 +48,9 @@ classDiagram
 
     %% 6. Draw Relationships
     %% Realization (Implementation)
-    EventDispatcher ..|> Subject : implements
-    CurrentConditionsDisplay ..|> Observer : implements
-    AlertSystem ..|> Observer : implements
+    EventDispatcher ..|> Subject : conforms to
+    CurrentConditionsDisplay ..|> Observer : conforms to
+    AlertSystem ..|> Observer : conforms to
 
     %% Dependencies and Aggregation
     WeatherStation --> Subject : uses via Dependency Injection

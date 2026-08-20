@@ -4,14 +4,16 @@ from typing import Protocol
 
 
 # ============================================================================
-# 1. EVENT PAYLOAD
+# EVENT PAYLOAD
 # ============================================================================
 @dataclass(frozen=True, slots=True)
 class WeatherEvent:
     """
-    Immutable data envelope carrying state changes.
-    Using slots=True prevents dynamic attribute creation, saving memory.
-    frozen=True guarantees Observers cannot accidentally mutate the state.
+    [SOLID: OCP - Open/Closed Principle]
+    By passing an event object rather than individual parameters
+    (temp, humidity), we can add new fields (e.g., wind_speed) to this
+    payload in the future without breaking the method signatures of existing
+    Observers.
     """
     temp: float
     humidity: float
@@ -19,21 +21,25 @@ class WeatherEvent:
 
 
 # ============================================================================
-# 2. PROTOCOLS (INTERFACES)
+# PROTOCOLS (INTERFACES)
 # ============================================================================
 class Observer(Protocol):
-    """Protocol defining the receiver in the Observer pattern."""
+    """
+    [SOLID: ISP - Interface Segregation Principle]
+    This interface is perfectly segregated. It forces only a single, highly
+    cohesive method (`update`). Observers are not forced to implement methods
+    they do not need.
+    """
 
     def update(self, event: WeatherEvent) -> None:
-        """Process the incoming event payload."""
         ...
 
 
 class Subject(Protocol):
     """
-    Protocol defining the publisher/dispatcher in the Observer pattern.
-    Domain classes will depend on this abstraction, not a concrete
-    implementation.
+    [SOLID: ISP]
+    The Subject interface is segregated strictly for subscription management
+    and event broadcasting.
     """
 
     def attach(self, observer: Observer) -> None: ...
@@ -44,120 +50,103 @@ class Subject(Protocol):
 
 
 # ============================================================================
-# 3. INFRASTRUCTURE LAYER (Message Routing)
+# INFRASTRUCTURE LAYER
 # ============================================================================
 class EventDispatcher:
     """
-    Concrete implementation of the Subject Protocol.
-    Responsibility: Safely routing events from publishers to subscribers.
+    [SOLID: SRP - Single Responsibility Principle]
+    This class has ONE reason to change: if the infrastructure for message
+    routing changes (e.g., swapping this local dictionary for a Redis queue).
+    It knows absolutely nothing about weather domain logic.
     """
 
     def __init__(self) -> None:
-        # Weak references prevent the Lapsed Listener memory leak.
-        # Observers garbage-collected by the system are automatically removed.
         self._observers: weakref.WeakKeyDictionary[
             Observer, None] = weakref.WeakKeyDictionary()
 
     def attach(self, observer: Observer) -> None:
-        """Registers an observer for future events."""
         self._observers[observer] = None
 
     def detach(self, observer: Observer) -> None:
-        """Removes an observer safely if it exists."""
         self._observers.pop(observer, None)
 
     def notify(self, event: WeatherEvent) -> None:
         """
-        Pushes the event to all active observers.
+        [SOLID: LSP - Liskov Substitution Principle]
+        The dispatcher trusts that any object in `_observers` adheres to the
+        Observer protocol. We can substitute ANY concrete observer here, and
+        the dispatcher will not break or behave unexpectedly.
         """
-        # CRITICAL: Snapshot keys to a list to avoid RuntimeError if the GC
-        # alters the WeakKeyDictionary size mid-iteration on another thread.
         active_observers = list(self._observers.keys())
 
         for observer in active_observers:
             try:
                 observer.update(event)
             except Exception as e:
-                # FAULT ISOLATION:
-                # A crashed observer cannot halt the dispatch loop
-                print(
-                    f"[{observer.__class__.__name__} Error]: "
-                    f"Failed to process event - {e}")
+                print(f"[{observer.__class__.__name__} Error]: {e}")
 
 
 # ============================================================================
-# 4. DOMAIN LAYER (Business Logic)
+# DOMAIN LAYER
 # ============================================================================
 class WeatherStation:
     """
-    Domain entity responsible for hardware validation and state.
-    Responsibility: Enforcing weather business rules and generating events.
+    [SOLID: SRP]
+    This class has ONE reason to change: if the business rules for weather
+    validation or hardware interactions change.
     """
 
     def __init__(self, dispatcher: Subject) -> None:
-        # Dependency Injection:
-        # The domain relies purely on the Subject Protocol.
+        """
+        [SOLID: DIP - Dependency Inversion Principle]
+        High-level domain modules (WeatherStation) do NOT depend on low-level
+        infrastructure modules (EventDispatcher). Instead, they both depend on
+        the abstract `Subject` Protocol.
+        """
         self._dispatcher = dispatcher
 
     def set_measurements(self, temp: float, humidity: float,
                          pressure: float) -> None:
-        """Simulates reading from hardware, validates data, and publishes."""
-
-        # Domain validation logic
         if temp < -50.0 or temp > 60.0:
-            raise ValueError(
-                f"Temperature {temp}°C is out of bounds for Earth sensors.")
+            raise ValueError(f"Hardware error: {temp}°C is out of bounds.")
 
-        # Create immutable event envelope
         event = WeatherEvent(temp, humidity, pressure)
-
-        # Delegate routing to the injected infrastructure
         self._dispatcher.notify(event)
 
 
 # ============================================================================
-# 5. CONCRETE OBSERVERS (Subscribers)
+# CONCRETE OBSERVERS
 # ============================================================================
 class CurrentConditionsDisplay:
-    """Pure UI component decoupled from the domain."""
-
     def update(self, event: WeatherEvent) -> None:
-        print(f"[Current Display] {event.temp}°C, Humidity: {event.humidity}%")
+        print(f"[UI Display] Temp: {event.temp}°C, Humidity: {event.humidity}%")
 
 
 class AlertSystem:
-    """Pure alert component decoupled from the domain."""
-
     def update(self, event: WeatherEvent) -> None:
         if event.temp > 35.0:
-            print(f"[ALERT SYSTEM] Heat warning! Reached {event.temp}°C")
+            print(f"[ALARM] Extreme Heat Detected: {event.temp}°C!")
 
 
 # ============================================================================
-# 6. SYSTEM WIRING (Dependency Injection / Main)
+# SYSTEM WIRING (MAIN)
 # ============================================================================
 if __name__ == "__main__":
-    print("--- Bootstrapping System ---")
-    # 1. Initialize infrastructure
+    # Dependency Injection in action
     event_dispatcher = EventDispatcher()
-
-    # 2. Initialize domain, injecting the infrastructure
     station = WeatherStation(event_dispatcher)
 
-    # 3. Initialize observers (Must be assigned to strong reference variables!)
+    # [SOLID: OCP]
+    # We can add 100 new observer types here tomorrow. We will NEVER have to
+    # modify the code inside EventDispatcher or WeatherStation to support them.
     display = CurrentConditionsDisplay()
     alert = AlertSystem()
 
-    # 4. Wire observers to the dispatcher (Decoupled from WeatherStation)
     event_dispatcher.attach(display)
     event_dispatcher.attach(alert)
 
-    print("\n--- Event 1: Normal Weather ---")
+    print("--- Reading 1 ---")
     station.set_measurements(25.0, 65.0, 1013.0)
 
-    print("\n--- Event 2: Extreme Heat ---")
+    print("\n--- Reading 2 ---")
     station.set_measurements(38.0, 40.0, 1010.0)
-
-    print("\n--- Event 3: Alert System goes out of scope (GC triggers) ---")
-    del alert  # Simulates object destruction. WeakKeyDict auto-removes it.
-    station.set_measurements(39.0, 42.0, 1008.0)
