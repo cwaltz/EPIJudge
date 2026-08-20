@@ -1,9 +1,7 @@
-from typing import List
-
 from test_framework import generic_test
 
 
-def next_permutation(perm: List[int]) -> List[int]:
+def next_permutation(perm: list[int]) -> list[int]:
     # TODO - you fill in here.
     return []
 

@@ -19,24 +19,29 @@ check. Both DFS and BFS are reasonable approaches - the program below uses DFS.
 The time complexity and space complexity are both O(E), where E is the number
 of outcomes.
 """
-import collections
-
-MatchResult = collections.namedtuple('MatchResult', ('winning_team',
-                                                     'losing_team'))
+from collections import defaultdict
+from typing import NamedTuple
 
 
-def can_team_a_beat_team_b(matches, team_a, team_b):
+class MatchResult(NamedTuple):
+    winning_team: str
+    losing_team: str
+
+
+def can_team_a_beat_team_b(
+        matches: list[MatchResult], team_a: str, team_b: str):
     """
     Time complexity = O(E), where E is the number of outcomes (= matches).
     Space complexity = O(E)
     """
     def build_graph():
-        graph = collections.defaultdict(set)
+        graph = defaultdict(set)
         for match in matches:
             graph[match.winning_team].add(match.losing_team)
         return graph
 
-    def is_reachable_dfs(graph, curr, dest, visited=set()):
+    def is_reachable_dfs(graph: defaultdict, curr: str, dest: str,
+                         visited=set()):
         if curr == dest:
             return True
         elif curr in visited or curr not in graph:

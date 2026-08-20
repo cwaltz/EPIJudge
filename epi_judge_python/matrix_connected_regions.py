@@ -1,37 +1,12 @@
-import collections
-from typing import List
+from collections import deque
 
 from test_framework import generic_test
 
+DIRECTIONS = [[0, 1], [0, -1], [1, 0], [-1, 0]]
 
-def flip_color(x: int, y: int, image: List[List[bool]]) -> None:
+
+def flip_color_iterative_bfs(x: int, y: int, image: list[list[bool]]) -> None:
     """
-    #18.2
-
-    DFS (recursive)
-
-    Time complexity = O(m * n), m = # of rows, n = # of cols.
-    Space complexity = O(m * n) on the function call stack.
-
-    The time complexity is the same as that of DFS, i.e., O(mn).
-
-    Test PASSED (50/50) [   3 us]
-    Average running time:   27 us
-    Median running time:    12 us
-    """
-    color = image[x][y]
-    image[x][y] = 1 - image[x][y]  # Flips.
-    for d in (0, 1), (0, -1), (1, 0), (-1, 0):
-        next_x, next_y = x + d[0], y + d[1]
-        if (0 <= next_x < len(image) and 0 <= next_y < len(image[next_x])
-                and image[next_x][next_y] == color):
-            flip_color(next_x, next_y, image)
-
-
-def flip_color_bfs(x: int, y: int, image: List[List[bool]]) -> None:
-    """
-    BFS (iterative)
-
     Time complexity = O(m * n), m = # of rows, n = # of cols.
     Space complexity = O(m + n)
 
@@ -39,25 +14,90 @@ def flip_color_bfs(x: int, y: int, image: List[List[bool]]) -> None:
     complexity is a little better than the worst-case for BFS, since there are
     at most O(m + n) vertices that are at the same distance from a given entry.
 
-    Test PASSED (50/50) [   3 us]
-    Average running time:   25 us
-    Median running time:    11 us
+    Test PASSED (50/50) [   2 us]
+    Average running time:   16 us
+    Median running time:     7 us
     """
+    if not image or not image[0]:
+        return
+
+    rows, cols = len(image), len(image[0])
+    if not (0 <= x < rows and 0 <= y < cols):
+        return
+
     color = image[x][y]
-    q = collections.deque([(x, y)])
-    image[x][y] = not image[x][y]  # Flips.
-    while q:
-        x, y = q.popleft()
-        for next_x, next_y in ((x, y + 1), (x, y - 1), (x + 1, y), (x - 1, y)):
-            if (0 <= next_x < len(image) and 0 <= next_y < len(image[next_x])
-                    and image[next_x][next_y] == color):
-                # Flips the color.
-                image[next_x][next_y] = not image[next_x][next_y]
-                q.append((next_x, next_y))
+    image[x][y] = not color
+    queue = deque([(x, y)])
+
+    while queue:
+        old_x, old_y = queue.popleft()
+        for dx, dy in DIRECTIONS:
+            next_x, next_y = old_x + dx, old_y + dy
+            if (0 <= next_x < rows and 0 <= next_y < cols and
+                    image[next_x][next_y] == color):
+                image[next_x][next_y] = not color
+                queue.append((next_x, next_y))
+
+
+def flip_color_iterative_dfs(x: int, y: int, image: list[list[bool]]) -> None:
+    """
+    #18.2
+
+    Test PASSED (50/50) [   2 us]
+    Average running time:   16 us
+    Median running time:     7 us
+    """
+    if not image or not image[0]:
+        return
+
+    rows, cols = len(image), len(image[0])
+    if not (0 <= x < rows and 0 <= y < cols):
+        return
+
+    # Iterative DFS
+    color = image[x][y]
+    image[x][y] = not color
+    stack = [(x, y)]
+
+    while stack:
+        old_x, old_y = stack.pop()
+        for dx, dy in DIRECTIONS:
+            next_x, next_y = old_x + dx, old_y + dy
+            if (0 <= next_x < rows and 0 <= next_y < cols and
+                    image[next_x][next_y] == color):
+                image[next_x][next_y] = not color
+                stack.append((next_x, next_y))
+
+
+def flip_color_recursive_dfs(x: int, y: int, image: list[list[bool]]) -> None:
+    """
+    Test PASSED (50/50) [   2 us]
+    Average running time:   16 us
+    Median running time:     7 us
+    """
+    if not image or not image[0]:
+        return
+
+    rows, cols = len(image), len(image[0])
+    if not (0 <= x < rows and 0 <= y < cols):
+        return
+
+    color = image[x][y]
+
+    def flip_color_helper(i: int, j: int) -> None:
+        for di, dj in DIRECTIONS:
+            next_i, next_j = i + di, j + dj
+            if (0 <= next_i < rows and 0 <= next_j < cols and
+                    image[next_i][next_j] == color):
+                image[next_i][next_j] = not color
+                flip_color_helper(next_i, next_j)
+
+    image[x][y] = not color
+    flip_color_helper(x, y)
 
 
 def flip_color_wrapper(x, y, image):
-    flip_color(x, y, image)
+    flip_color_iterative_bfs(x, y, image)
     return image
 
 

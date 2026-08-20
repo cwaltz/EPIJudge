@@ -66,12 +66,18 @@ class Reader(threading.Thread):
             with self._reader_writer.read_lock:
                 self._reader_writer.read_count += 1
 
-            print(f'Reader {self._id} is reading data = '
-                  f'{self._reader_writer.data}')
-            with self._reader_writer.read_lock:
-                self._reader_writer.read_count -= 1
-                self._reader_writer.read_lock.notify()
-            # do_something_else()
+            try:
+                print(f'Reader {self._id} is reading data = '
+                      f'{self._reader_writer.data}')
+                # do_something_else()
+            finally:
+                with self._reader_writer.read_lock:
+                    self._reader_writer.read_count -= 1
+
+                    # You only need to notify() when read_count hits 0,
+                    # as writers only care when the last reader leaves
+                    if self._reader_writer.read_count == 0:
+                        self._reader_writer.read_lock.notify()
 
 
 class Writer(threading.Thread):
@@ -100,6 +106,7 @@ class Writer(threading.Thread):
 
 def do_something_else():
     raise NotImplementedError
+
 
 #
 # class Reader(threading.Thread):

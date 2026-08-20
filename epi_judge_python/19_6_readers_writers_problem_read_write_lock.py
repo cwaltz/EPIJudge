@@ -1,3 +1,16 @@
+"""
+Show me how to refactor the textbook code into a reusable, production-ready
+ReadWriteLock context manager in Python.
+
+To transform the textbook example into an enterprise-grade, production-ready utility, we must design it with three core principles in mind:
+
+Idiomatic Context Manager Interface: Developers should be able to use standard with lock.reader: and with lock.writer: syntax.
+
+Strict Exception Safety: Locks must reliably release even if the business logic inside the context manager crashes, raises an exception, or gets interrupted.
+
+Prevention of Writer Starvation: Unlike the book's reader-preference pattern, a production lock typically implements Writer Preference. If a writer is waiting, newly arriving readers are queued so the writer isn't starved infinitely.
+"""
+
 import threading
 import time
 import random

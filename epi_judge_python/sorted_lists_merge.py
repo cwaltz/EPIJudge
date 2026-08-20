@@ -1,11 +1,9 @@
-from typing import Optional
-
 from list_node import ListNode
 from test_framework import generic_test
 
 
-def merge_two_sorted_lists(first: Optional[ListNode],
-                           second: Optional[ListNode]) -> Optional[ListNode]:
+def merge_two_sorted_lists(
+        first: ListNode | None, second: ListNode | None) -> ListNode | None:
     """
     #7.1
 
@@ -13,9 +11,9 @@ def merge_two_sorted_lists(first: Optional[ListNode],
         input lists.
     Space complexity = O(1)
 
-    Test PASSED (501/501) [   3 ms]
-    Average running time:   13 us
-    Median running time:     5 us
+    Test PASSED (501/501) [   1 ms]
+    Average running time:    7 us
+    Median running time:     2 us
     """
     # Creates a placeholder for the result.
     dummy_head = tail = ListNode()
