@@ -8,8 +8,8 @@ def rebuild_bst_from_preorder(preorder_sequence: List[int]
                               ) -> Optional[BstNode]:
     """
     Test PASSED (950/950) [  <1 us]
-    Average running time:  483 us
-    Median running time:    64 us
+    Average running time:  354 us
+    Median running time:    52 us
     """
 
     if not preorder_sequence:

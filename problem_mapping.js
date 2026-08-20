@@ -52,7 +52,7 @@ problem_mapping = {
                 "total": 10000
             },
             "Python: reverse_bits.py": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             }
         },
@@ -164,7 +164,7 @@ problem_mapping = {
                 "total": 10000
             },
             "Python: rectangle_intersection.py": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             }
         }
@@ -250,7 +250,7 @@ problem_mapping = {
                 "total": 2003
             },
             "Python: sorted_array_remove_dups.py": {
-                "passed": 0,
+                "passed": 2003,
                 "total": 2003
             }
         },
@@ -306,7 +306,7 @@ problem_mapping = {
                 "total": 24
             },
             "Python: prime_sieve.py": {
-                "passed": 0,
+                "passed": 24,
                 "total": 24
             }
         },
@@ -574,7 +574,7 @@ problem_mapping = {
                 "total": 40
             },
             "Python: look_and_say.py": {
-                "passed": 0,
+                "passed": 40,
                 "total": 40
             }
         },
@@ -824,7 +824,7 @@ problem_mapping = {
                 "total": 1015
             },
             "Python: even_odd_list_merge.py": {
-                "passed": 0,
+                "passed": 1015,
                 "total": 1015
             }
         },
@@ -980,7 +980,7 @@ problem_mapping = {
                 "total": 65
             },
             "Python: queue_from_stacks.py": {
-                "passed": 0,
+                "passed": 65,
                 "total": 65
             }
         },
@@ -1136,7 +1136,7 @@ problem_mapping = {
                 "total": 3852
             },
             "Python: tree_with_parent_inorder.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },
@@ -1364,7 +1364,7 @@ problem_mapping = {
                 "total": 11003
             },
             "Python: real_square_root.py": {
-                "passed": 0,
+                "passed": 11003,
                 "total": 11003
             }
         },
@@ -1420,7 +1420,7 @@ problem_mapping = {
                 "total": 100
             },
             "Python: absent_value_array.py": {
-                "passed": 100,
+                "passed": 0,
                 "total": 100
             }
         },
@@ -1434,7 +1434,7 @@ problem_mapping = {
                 "total": 50
             },
             "Python: search_for_missing_element.py": {
-                "passed": 0,
+                "passed": 50,
                 "total": 50
             }
         }
@@ -1506,7 +1506,7 @@ problem_mapping = {
                 "total": 948
             },
             "Python: lowest_common_ancestor_close_ancestor.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1534,7 +1534,7 @@ problem_mapping = {
                 "total": 904
             },
             "Python: smallest_subarray_covering_set.py": {
-                "passed": 0,
+                "passed": 904,
                 "total": 904
             }
         },
@@ -1718,7 +1718,7 @@ problem_mapping = {
                 "total": 191
             },
             "Python: intervals_union.py": {
-                "passed": 0,
+                "passed": 191,
                 "total": 191
             }
         },
@@ -1760,7 +1760,7 @@ problem_mapping = {
                 "total": 209
             },
             "Python: sort_list.py": {
-                "passed": 0,
+                "passed": 209,
                 "total": 209
             }
         },
@@ -1988,7 +1988,7 @@ problem_mapping = {
                 "total": 102
             },
             "Python: phone_number_mnemonic.py": {
-                "passed": 0,
+                "passed": 102,
                 "total": 102
             }
         },
@@ -2212,7 +2212,7 @@ problem_mapping = {
                 "total": 186
             },
             "Python: is_string_in_matrix.py": {
-                "passed": 0,
+                "passed": 186,
                 "total": 186
             }
         },
@@ -2436,7 +2436,7 @@ problem_mapping = {
                 "total": 204
             },
             "Python: max_trapped_water.py": {
-                "passed": 0,
+                "passed": 204,
                 "total": 204
             }
         },
@@ -2494,7 +2494,7 @@ problem_mapping = {
                 "total": 51
             },
             "Python: matrix_enclosed_regions.py": {
-                "passed": 0,
+                "passed": 51,
                 "total": 51
             }
         },

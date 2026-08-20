@@ -6,9 +6,9 @@ from test_framework import generic_test
 
 def online_median(sequence: Iterator[int]) -> List[float]:
     """
-    Test PASSED (55/55) [  50 ms]
-    Average running time:  955 us
-    Median running time:    10 us
+    Test PASSED (55/55) [  46 ms]
+    Average running time:  872 us
+    Median running time:     7 us
     """
     # min_heap stores the larger half seen so far.
     min_heap: List[int] = []
