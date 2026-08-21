@@ -43,11 +43,9 @@ classDiagram
     Base64EncodingDecorator --|> BaseStoreDecorator : subclasses
     GZipCompressionDecorator --|> BaseStoreDecorator : subclasses
     
-    %% The critical aggregation that makes Decorators work
+    %% Both the Decorator and the Client aggregate the Protocol
     BaseStoreDecorator o--> DataStore : has a (wraps)
-    
-    %% The Client only depends on the Protocol
-    StoreClient --> DataStore : depends on
+    StoreClient o--> DataStore : has a (aggregation)
 ```
 
 Sequence Diagram
