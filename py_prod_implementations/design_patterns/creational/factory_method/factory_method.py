@@ -1,3 +1,8 @@
+"""
+
+https://gemini.google.com/app/a6679062c25d8ece
+"""
+
 import logging
 import os
 import uuid
@@ -89,9 +94,6 @@ class AzureBackupJob(BackupService):
         # Can include Azure-specific client setup here.
         return AzureBlobStorage()
 
-
-# Assume StorageBackend, BackupService, AWSBackupJob, AzureBackupJob
-# are already defined exactly as in the previous example.
 
 # =====================================================================
 # THE DOMAIN LOGIC (The True "Client" of our Creator)
