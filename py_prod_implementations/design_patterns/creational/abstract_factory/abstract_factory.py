@@ -1,4 +1,7 @@
 """
+Google Gemini chat:
+https://gemini.google.com/app/62f33b9f4217dd29
+
 Abstract Factory Pattern in Modern Python (SOLID-Compliant)
 
 Use Case:
@@ -133,12 +136,24 @@ class InvoiceProcessingService:
 # 7. RUNTIME EXECUTION (Composition Root)
 # =====================================================================
 def get_factory(environment: str) -> CloudInfrastructureFactory:
-    """Simple bootstrap selector to resolve the factory at startup."""
+    """Resolves the infrastructure factory, failing fast on invalid
+    configurations."""
     factories: dict[str, type[CloudInfrastructureFactory]] = {
         "production": AWSFactory,
         "development": LocalDevFactory,
     }
-    factory_cls = factories.get(environment.lower(), LocalDevFactory)
+
+    # 1. Look up the factory without a default fallback
+    factory_cls = factories.get(environment.lower())
+
+    # 2. Fail fast if the environment is unknown
+    if not factory_cls:
+        valid_envs = ", ".join(factories.keys())
+        raise ValueError(
+            f"CRITICAL: Unknown environment '{environment}'. "
+            f"Must be one of: [{valid_envs}]"
+        )
+
     return factory_cls()
 
 
